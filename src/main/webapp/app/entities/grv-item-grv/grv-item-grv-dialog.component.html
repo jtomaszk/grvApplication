@@ -1,0 +1,134 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myGrvItemLabel">Create or edit a Grv Item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!grvItem.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="grvItem.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                [(ngModel)]="grvItem.firstName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                [(ngModel)]="grvItem.lastName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_anotherLastName">Another Last Name</label>
+            <input type="text" class="form-control" name="anotherLastName" id="field_anotherLastName"
+                [(ngModel)]="grvItem.anotherLastName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_startDateString">Start Date String</label>
+            <input type="text" class="form-control" name="startDateString" id="field_startDateString"
+                [(ngModel)]="grvItem.startDateString" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_startDate">Start Date</label>
+            <div class="d-flex">
+                <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" [(ngModel)]="grvItem.startDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_endDateString">End Date String</label>
+            <input type="text" class="form-control" name="endDateString" id="field_endDateString"
+                [(ngModel)]="grvItem.endDateString" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_endDate">End Date</label>
+            <div class="d-flex">
+                <input id="field_endDate" type="datetime-local" class="form-control" name="endDate" [(ngModel)]="grvItem.endDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_validToDateString">Valid To Date String</label>
+            <input type="text" class="form-control" name="validToDateString" id="field_validToDateString"
+                [(ngModel)]="grvItem.validToDateString" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_validToDate">Valid To Date</label>
+            <div class="d-flex">
+                <input id="field_validToDate" type="datetime-local" class="form-control" name="validToDate" [(ngModel)]="grvItem.validToDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_externalid">Externalid</label>
+            <input type="text" class="form-control" name="externalid" id="field_externalid"
+                [(ngModel)]="grvItem.externalid" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_info">Info</label>
+            <input type="text" class="form-control" name="info" id="field_info"
+                [(ngModel)]="grvItem.info" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_docnr">Docnr</label>
+            <input type="text" class="form-control" name="docnr" id="field_docnr"
+                [(ngModel)]="grvItem.docnr" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="grvItem.createdDate"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdDate?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.createdDate?.errors?.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_source">Source</label>
+            <select class="form-control" id="field_source" name="source" [(ngModel)]="grvItem.sourceId"  required>
+                <option *ngIf="!editForm.value.source" [ngValue]="null" selected></option>
+                <option [ngValue]="sourceOption.id" *ngFor="let sourceOption of sources; trackBy: trackSourceById">{{sourceOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.source?.dirty && editForm.controls.source?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.source?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_location">Location</label>
+            <select class="form-control" id="field_location" name="location" [(ngModel)]="grvItem.locationId"  required>
+                <option *ngIf="!editForm.value.location" [ngValue]="null" selected></option>
+                <option [ngValue]="locationOption.id" *ngFor="let locationOption of locations; trackBy: trackLocationById">{{locationOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.location?.dirty && editForm.controls.location?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.location?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span>Sources</span>
+        <button class="btn btn-primary float-right jh-create-entity create-source-grv" [routerLink]="['/', { outlets: { popup: ['source-grv-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Source
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="sources">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="title"><span>Title</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="url"><span>Url</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span>Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastRunDate"><span>Last Run Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="info"><span>Info</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="areaId"><span>Area</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let source of sources ;trackBy: trackId">
+                <td><a [routerLink]="['../source-grv', source.id ]">{{source.id}}</a></td>
+                <td>{{source.title}}</td>
+                <td>{{source.url}}</td>
+                <td>{{source.status}}</td>
+                <td>{{source.lastRunDate | date:'medium'}}</td>
+                <td>{{source.info}}</td>
+                <td>
+                    <div *ngIf="source.areaId">
+                        <a [routerLink]="['../area-grv', source.areaId  ]" >{{source.areaId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../source-grv', source.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'source-grv/'+ source.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'source-grv/'+ source.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

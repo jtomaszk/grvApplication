@@ -1,0 +1,66 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySourceArchiveLabel">Create or edit a Source Archive</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!sourceArchive.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="sourceArchive.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="sourceArchive.createdDate"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdDate?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.createdDate?.errors?.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_json">Json</label>
+            <textarea class="form-control" name="json" id="field_json"
+                [(ngModel)]="sourceArchive.json" required></textarea>
+            <div [hidden]="!(editForm.controls.json?.dirty && editForm.controls.json?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.json?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_source">Source</label>
+            <select class="form-control" id="field_source" name="source" [(ngModel)]="sourceArchive.sourceId"  required>
+                <option *ngIf="!editForm.value.source" [ngValue]="null" selected></option>
+                <option [ngValue]="sourceOption.id" *ngFor="let sourceOption of sources; trackBy: trackSourceById">{{sourceOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.source?.dirty && editForm.controls.source?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.source?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
