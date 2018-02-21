@@ -1,0 +1,73 @@
+entity Area {
+	areaName String required
+}
+
+enum SourceStatus {
+	OK,
+    ERROR,
+    NEW
+}
+
+entity Source {
+	title String required,
+	url String required,
+    status SourceStatus,
+    lastRunDate Instant,
+    info String,
+}
+
+entity SourceArchive {
+	createdDate Instant required
+	json TextBlob required
+}
+
+entity GrvItem {
+	firstName String,
+	lastName String,
+    anotherLastName String,
+	startDateString String,
+    startDate Instant,
+    endDateString String,
+    endDate Instant,
+    validToDateString String,
+    validToDate Instant,
+    external_id String,
+	info String,
+	doc_nr String,
+    createdDate Instant required
+}
+
+entity Location {
+    external_id String,
+    createdDate Instant required
+    coords String,
+}
+
+entity Error {
+	title String required,
+    msg TextBlob,
+    createdDate Instant required
+}
+
+relationship ManyToOne {
+	GrvItem{source required} to Source,
+    GrvItem{location required} to Location,
+    Error{source} to Source,
+    Error{item} to GrvItem,
+	Source{area required} to Area{sources},
+    SourceArchive{source required} to Source{archives},
+    Location{source required} to Source{locations}
+}
+// Set pagination options
+paginate GrvItem, Area, Source, Error with infinite-scroll
+paginate SourceArchive with pagination
+
+dto * with mapstruct
+
+service all with serviceClass
+
+search GrvItem with elasticsearch 
+filter GrvItem, Error, Source, Area, SourceArchive
+
+// Set an angular suffix
+angularSuffix * with grv
