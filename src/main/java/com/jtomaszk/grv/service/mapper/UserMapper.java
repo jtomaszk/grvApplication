@@ -3,10 +3,11 @@ package com.jtomaszk.grv.service.mapper;
 import com.jtomaszk.grv.domain.Authority;
 import com.jtomaszk.grv.domain.User;
 import com.jtomaszk.grv.service.dto.UserDTO;
-
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

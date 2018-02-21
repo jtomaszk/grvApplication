@@ -1,7 +1,7 @@
 package com.jtomaszk.grv.web.rest;
 
-import com.jtomaszk.grv.config.Constants;
 import com.codahale.metrics.annotation.Timed;
+import com.jtomaszk.grv.config.Constants;
 import com.jtomaszk.grv.domain.User;
 import com.jtomaszk.grv.repository.UserRepository;
 import com.jtomaszk.grv.security.AuthoritiesConstants;
@@ -14,7 +14,6 @@ import com.jtomaszk.grv.web.rest.errors.LoginAlreadyUsedException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -28,7 +27,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for managing users.

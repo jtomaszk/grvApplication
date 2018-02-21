@@ -1,13 +1,13 @@
 package com.jtomaszk.grv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.jtomaszk.grv.service.GrvItemQueryService;
 import com.jtomaszk.grv.service.GrvItemService;
+import com.jtomaszk.grv.service.dto.GrvItemCriteria;
+import com.jtomaszk.grv.service.dto.GrvItemDTO;
 import com.jtomaszk.grv.web.rest.errors.BadRequestAlertException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
-import com.jtomaszk.grv.service.dto.GrvItemDTO;
-import com.jtomaszk.grv.service.dto.GrvItemCriteria;
-import com.jtomaszk.grv.service.GrvItemQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 

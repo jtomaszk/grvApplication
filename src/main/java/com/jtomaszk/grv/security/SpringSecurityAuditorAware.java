@@ -1,7 +1,6 @@
 package com.jtomaszk.grv.security;
 
 import com.jtomaszk.grv.config.Constants;
-
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 

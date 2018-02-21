@@ -1,8 +1,8 @@
 package com.jtomaszk.grv.config;
 
-import com.jtomaszk.grv.security.*;
-import com.jtomaszk.grv.security.jwt.*;
-
+import com.jtomaszk.grv.security.AuthoritiesConstants;
+import com.jtomaszk.grv.security.jwt.JWTConfigurer;
+import com.jtomaszk.grv.security.jwt.TokenProvider;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,6 @@
 package com.jtomaszk.grv.repository;
 
 import com.jtomaszk.grv.domain.Authority;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

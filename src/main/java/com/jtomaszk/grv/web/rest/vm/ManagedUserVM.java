@@ -1,6 +1,7 @@
 package com.jtomaszk.grv.web.rest.vm;
 
 import com.jtomaszk.grv.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 /**

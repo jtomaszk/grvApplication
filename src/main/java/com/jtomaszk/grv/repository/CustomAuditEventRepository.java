@@ -3,7 +3,6 @@ package com.jtomaszk.grv.repository;
 import com.jtomaszk.grv.config.Constants;
 import com.jtomaszk.grv.config.audit.AuditEventConverter;
 import com.jtomaszk.grv.domain.PersistentAuditEvent;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.actuate.audit.AuditEvent;

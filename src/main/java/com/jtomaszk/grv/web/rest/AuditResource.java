@@ -2,7 +2,6 @@ package com.jtomaszk.grv.web.rest;
 
 import com.jtomaszk.grv.service.AuditEventService;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
-
 import io.github.jhipster.web.util.ResponseUtil;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,6 @@
 package com.jtomaszk.grv.web.rest.errors;
 
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
-
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
