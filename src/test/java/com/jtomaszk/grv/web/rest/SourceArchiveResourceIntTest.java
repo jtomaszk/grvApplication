@@ -6,6 +6,7 @@ import com.jtomaszk.grv.domain.SourceArchive;
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.repository.SourceArchiveRepository;
 import com.jtomaszk.grv.service.SourceArchiveService;
+import com.jtomaszk.grv.repository.search.SourceArchiveSearchRepository;
 import com.jtomaszk.grv.service.dto.SourceArchiveDTO;
 import com.jtomaszk.grv.service.mapper.SourceArchiveMapper;
 import com.jtomaszk.grv.web.rest.errors.ExceptionTranslator;
@@ -63,6 +64,9 @@ public class SourceArchiveResourceIntTest {
     private SourceArchiveService sourceArchiveService;
 
     @Autowired
+    private SourceArchiveSearchRepository sourceArchiveSearchRepository;
+
+    @Autowired
     private SourceArchiveQueryService sourceArchiveQueryService;
 
     @Autowired
@@ -112,6 +116,7 @@ public class SourceArchiveResourceIntTest {
 
     @Before
     public void initTest() {
+        sourceArchiveSearchRepository.deleteAll();
         sourceArchive = createEntity(em);
     }
 
@@ -133,6 +138,10 @@ public class SourceArchiveResourceIntTest {
         SourceArchive testSourceArchive = sourceArchiveList.get(sourceArchiveList.size() - 1);
         assertThat(testSourceArchive.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testSourceArchive.getJson()).isEqualTo(DEFAULT_JSON);
+
+        // Validate the SourceArchive in Elasticsearch
+        SourceArchive sourceArchiveEs = sourceArchiveSearchRepository.findOne(testSourceArchive.getId());
+        assertThat(sourceArchiveEs).isEqualToIgnoringGivenFields(testSourceArchive);
     }
 
     @Test
@@ -317,6 +326,7 @@ public class SourceArchiveResourceIntTest {
     public void updateSourceArchive() throws Exception {
         // Initialize the database
         sourceArchiveRepository.saveAndFlush(sourceArchive);
+        sourceArchiveSearchRepository.save(sourceArchive);
         int databaseSizeBeforeUpdate = sourceArchiveRepository.findAll().size();
 
         // Update the sourceArchive
@@ -339,6 +349,10 @@ public class SourceArchiveResourceIntTest {
         SourceArchive testSourceArchive = sourceArchiveList.get(sourceArchiveList.size() - 1);
         assertThat(testSourceArchive.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testSourceArchive.getJson()).isEqualTo(UPDATED_JSON);
+
+        // Validate the SourceArchive in Elasticsearch
+        SourceArchive sourceArchiveEs = sourceArchiveSearchRepository.findOne(testSourceArchive.getId());
+        assertThat(sourceArchiveEs).isEqualToIgnoringGivenFields(testSourceArchive);
     }
 
     @Test
@@ -365,6 +379,7 @@ public class SourceArchiveResourceIntTest {
     public void deleteSourceArchive() throws Exception {
         // Initialize the database
         sourceArchiveRepository.saveAndFlush(sourceArchive);
+        sourceArchiveSearchRepository.save(sourceArchive);
         int databaseSizeBeforeDelete = sourceArchiveRepository.findAll().size();
 
         // Get the sourceArchive
@@ -372,9 +387,29 @@ public class SourceArchiveResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean sourceArchiveExistsInEs = sourceArchiveSearchRepository.exists(sourceArchive.getId());
+        assertThat(sourceArchiveExistsInEs).isFalse();
+
         // Validate the database is empty
         List<SourceArchive> sourceArchiveList = sourceArchiveRepository.findAll();
         assertThat(sourceArchiveList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void searchSourceArchive() throws Exception {
+        // Initialize the database
+        sourceArchiveRepository.saveAndFlush(sourceArchive);
+        sourceArchiveSearchRepository.save(sourceArchive);
+
+        // Search the sourceArchive
+        restSourceArchiveMockMvc.perform(get("/api/_search/source-archives?query=id:" + sourceArchive.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(sourceArchive.getId().intValue())))
+            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].json").value(hasItem(DEFAULT_JSON.toString())));
     }
 
     @Test
