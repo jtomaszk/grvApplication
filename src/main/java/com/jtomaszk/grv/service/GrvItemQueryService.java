@@ -1,16 +1,8 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.GrvItem;
-import com.jtomaszk.grv.domain.GrvItem_;
-import com.jtomaszk.grv.domain.Location_;
-import com.jtomaszk.grv.domain.Source_;
-import com.jtomaszk.grv.repository.GrvItemRepository;
-import com.jtomaszk.grv.repository.search.GrvItemSearchRepository;
-import com.jtomaszk.grv.service.dto.GrvItemCriteria;
-import com.jtomaszk.grv.service.dto.GrvItemDTO;
-import com.jtomaszk.grv.service.mapper.GrvItemMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,7 +11,16 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import com.jtomaszk.grv.domain.GrvItem;
+import com.jtomaszk.grv.domain.*; // for static metamodels
+import com.jtomaszk.grv.repository.GrvItemRepository;
+import com.jtomaszk.grv.repository.search.GrvItemSearchRepository;
+import com.jtomaszk.grv.service.dto.GrvItemCriteria;
+
+import com.jtomaszk.grv.service.dto.GrvItemDTO;
+import com.jtomaszk.grv.service.mapper.GrvItemMapper;
 
 /**
  * Service for executing complex queries for GrvItem entities in the database.
@@ -81,23 +82,8 @@ public class GrvItemQueryService extends QueryService<GrvItem> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildSpecification(criteria.getId(), GrvItem_.id));
             }
-            if (criteria.getFirstName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getFirstName(), GrvItem_.firstName));
-            }
-            if (criteria.getLastName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getLastName(), GrvItem_.lastName));
-            }
-            if (criteria.getAnotherLastName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getAnotherLastName(), GrvItem_.anotherLastName));
-            }
-            if (criteria.getStartDateString() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getStartDateString(), GrvItem_.startDateString));
-            }
             if (criteria.getStartDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getStartDate(), GrvItem_.startDate));
-            }
-            if (criteria.getEndDateString() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getEndDateString(), GrvItem_.endDateString));
             }
             if (criteria.getEndDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getEndDate(), GrvItem_.endDate));
@@ -125,6 +111,15 @@ public class GrvItemQueryService extends QueryService<GrvItem> {
             }
             if (criteria.getLocationId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getLocationId(), GrvItem_.location, Location_.id));
+            }
+            if (criteria.getSourceArchiveId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getSourceArchiveId(), GrvItem_.sourceArchive, SourceArchive_.id));
+            }
+            if (criteria.getPersonId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getPersonId(), GrvItem_.person, GrvItemPerson_.id));
+            }
+            if (criteria.getErrorsId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getErrorsId(), GrvItem_.errors, Error_.id));
             }
         }
         return specification;

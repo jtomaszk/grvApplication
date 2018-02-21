@@ -1,0 +1,74 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPatternColumnLabel">Create or edit a Pattern Column</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!patternColumn.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="patternColumn.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_column">Column</label>
+            <select class="form-control" name="column" [(ngModel)]="patternColumn.column" id="field_column"  required>
+                <option value="FIRST_NAME">FIRST_NAME</option>
+                <option value="LAST_NAME">LAST_NAME</option>
+                <option value="ANOTHER_LAST_NAME">ANOTHER_LAST_NAME</option>
+                <option value="START_DATE">START_DATE</option>
+                <option value="END_DATE">END_DATE</option>
+                <option value="VALID_TO">VALID_TO</option>
+                <option value="EXTERNAL_ID">EXTERNAL_ID</option>
+                <option value="BOX_EXTERNAL_ID">BOX_EXTERNAL_ID</option>
+                <option value="INFO">INFO</option>
+                <option value="DOC_NR">DOC_NR</option>
+            </select>
+            <div [hidden]="!(editForm.controls.column?.dirty && editForm.controls.column?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.column?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_value">Value</label>
+            <input type="text" class="form-control" name="value" id="field_value"
+                [(ngModel)]="patternColumn.value" required pattern="[\w ${}]+"/>
+            <div [hidden]="!(editForm.controls.value?.dirty && editForm.controls.value?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.value?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.value?.errors?.pattern">
+                    This field should follow pattern for "Value".
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_pattern">Pattern</label>
+            <select class="form-control" id="field_pattern" name="pattern" [(ngModel)]="patternColumn.patternId"  required>
+                <option *ngIf="!editForm.value.pattern" [ngValue]="null" selected></option>
+                <option [ngValue]="patternOption.id" *ngFor="let patternOption of patterns; trackBy: trackPatternById">{{patternOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.pattern?.dirty && editForm.controls.pattern?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.pattern?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

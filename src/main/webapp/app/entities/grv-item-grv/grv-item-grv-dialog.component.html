@@ -13,36 +13,11 @@
                    [(ngModel)]="grvItem.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_firstName">First Name</label>
-            <input type="text" class="form-control" name="firstName" id="field_firstName"
-                [(ngModel)]="grvItem.firstName" />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" for="field_lastName">Last Name</label>
-            <input type="text" class="form-control" name="lastName" id="field_lastName"
-                [(ngModel)]="grvItem.lastName" />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" for="field_anotherLastName">Another Last Name</label>
-            <input type="text" class="form-control" name="anotherLastName" id="field_anotherLastName"
-                [(ngModel)]="grvItem.anotherLastName" />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" for="field_startDateString">Start Date String</label>
-            <input type="text" class="form-control" name="startDateString" id="field_startDateString"
-                [(ngModel)]="grvItem.startDateString" />
-        </div>
-        <div class="form-group">
             <label class="form-control-label" for="field_startDate">Start Date</label>
             <div class="d-flex">
                 <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" [(ngModel)]="grvItem.startDate"
                 />
             </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" for="field_endDateString">End Date String</label>
-            <input type="text" class="form-control" name="endDateString" id="field_endDateString"
-                [(ngModel)]="grvItem.endDateString" />
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_endDate">End Date</label>
@@ -121,6 +96,13 @@
                 [hidden]="!editForm.controls.location?.errors?.required">
                 This field is required.
             </small>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sourceArchive">Source Archive</label>
+            <select class="form-control" id="field_sourceArchive" name="sourceArchive" [(ngModel)]="grvItem.sourceArchiveId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="sourceArchiveOption.id" *ngFor="let sourceArchiveOption of sourcearchives; trackBy: trackSourceArchiveById">{{sourceArchiveOption.id}}</option>
+            </select>
         </div>
     </div>
     <div class="modal-footer">

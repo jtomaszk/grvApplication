@@ -9,6 +9,19 @@
             "otherEntityField": "id"
         },
         {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "pattern",
+            "otherEntityName": "pattern",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "errors",
+            "otherEntityName": "error",
+            "otherEntityRelationshipName": "source"
+        },
+        {
             "relationshipType": "one-to-many",
             "relationshipName": "archives",
             "otherEntityName": "sourceArchive",

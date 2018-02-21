@@ -1,13 +1,17 @@
 package com.jtomaszk.grv.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -25,23 +29,8 @@ public class GrvItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "another_last_name")
-    private String anotherLastName;
-
-    @Column(name = "start_date_string")
-    private String startDateString;
-
     @Column(name = "start_date")
     private Instant startDate;
-
-    @Column(name = "end_date_string")
-    private String endDateString;
 
     @Column(name = "end_date")
     private Instant endDate;
@@ -73,6 +62,18 @@ public class GrvItem implements Serializable {
     @NotNull
     private Location location;
 
+    @ManyToOne
+    private SourceArchive sourceArchive;
+
+    @OneToOne(mappedBy = "item")
+    @JsonIgnore
+    private GrvItemPerson person;
+
+    @OneToMany(mappedBy = "item")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Error> errors = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -80,58 +81,6 @@ public class GrvItem implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public GrvItem firstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public GrvItem lastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAnotherLastName() {
-        return anotherLastName;
-    }
-
-    public GrvItem anotherLastName(String anotherLastName) {
-        this.anotherLastName = anotherLastName;
-        return this;
-    }
-
-    public void setAnotherLastName(String anotherLastName) {
-        this.anotherLastName = anotherLastName;
-    }
-
-    public String getStartDateString() {
-        return startDateString;
-    }
-
-    public GrvItem startDateString(String startDateString) {
-        this.startDateString = startDateString;
-        return this;
-    }
-
-    public void setStartDateString(String startDateString) {
-        this.startDateString = startDateString;
     }
 
     public Instant getStartDate() {
@@ -145,19 +94,6 @@ public class GrvItem implements Serializable {
 
     public void setStartDate(Instant startDate) {
         this.startDate = startDate;
-    }
-
-    public String getEndDateString() {
-        return endDateString;
-    }
-
-    public GrvItem endDateString(String endDateString) {
-        this.endDateString = endDateString;
-        return this;
-    }
-
-    public void setEndDateString(String endDateString) {
-        this.endDateString = endDateString;
     }
 
     public Instant getEndDate() {
@@ -276,6 +212,57 @@ public class GrvItem implements Serializable {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public SourceArchive getSourceArchive() {
+        return sourceArchive;
+    }
+
+    public GrvItem sourceArchive(SourceArchive sourceArchive) {
+        this.sourceArchive = sourceArchive;
+        return this;
+    }
+
+    public void setSourceArchive(SourceArchive sourceArchive) {
+        this.sourceArchive = sourceArchive;
+    }
+
+    public GrvItemPerson getPerson() {
+        return person;
+    }
+
+    public GrvItem person(GrvItemPerson grvItemPerson) {
+        this.person = grvItemPerson;
+        return this;
+    }
+
+    public void setPerson(GrvItemPerson grvItemPerson) {
+        this.person = grvItemPerson;
+    }
+
+    public Set<Error> getErrors() {
+        return errors;
+    }
+
+    public GrvItem errors(Set<Error> errors) {
+        this.errors = errors;
+        return this;
+    }
+
+    public GrvItem addErrors(Error error) {
+        this.errors.add(error);
+        error.setItem(this);
+        return this;
+    }
+
+    public GrvItem removeErrors(Error error) {
+        this.errors.remove(error);
+        error.setItem(null);
+        return this;
+    }
+
+    public void setErrors(Set<Error> errors) {
+        this.errors = errors;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -302,12 +289,7 @@ public class GrvItem implements Serializable {
     public String toString() {
         return "GrvItem{" +
             "id=" + getId() +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", anotherLastName='" + getAnotherLastName() + "'" +
-            ", startDateString='" + getStartDateString() + "'" +
             ", startDate='" + getStartDate() + "'" +
-            ", endDateString='" + getEndDateString() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", validToDateString='" + getValidToDateString() + "'" +
             ", validToDate='" + getValidToDate() + "'" +
