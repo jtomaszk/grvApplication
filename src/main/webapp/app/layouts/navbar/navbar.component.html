@@ -29,6 +29,24 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li>
+                        <a class="dropdown-item" routerLink="area-grv" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span>Area Grv</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="source-grv" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span>Source Grv</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="grv-item-grv" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <span>Grv Item Grv</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
