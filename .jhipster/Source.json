@@ -1,0 +1,60 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "area",
+            "otherEntityName": "area",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "archives",
+            "otherEntityName": "sourceArchive",
+            "otherEntityRelationshipName": "source"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "locations",
+            "otherEntityName": "location",
+            "otherEntityRelationshipName": "source"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "url",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "SourceStatus",
+            "fieldValues": "OK,ERROR,NEW"
+        },
+        {
+            "fieldName": "lastRunDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "info",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180221132348",
+    "entityTableName": "source",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "angularJSSuffix": "grv"
+}

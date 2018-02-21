@@ -1,0 +1,86 @@
+
+<div *ngIf="grvItem">
+    <h2><span>Grv Item</span> {{grvItem.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>First Name</span></dt>
+        <dd>
+            <span>{{grvItem.firstName}}</span>
+        </dd>
+        <dt><span>Last Name</span></dt>
+        <dd>
+            <span>{{grvItem.lastName}}</span>
+        </dd>
+        <dt><span>Another Last Name</span></dt>
+        <dd>
+            <span>{{grvItem.anotherLastName}}</span>
+        </dd>
+        <dt><span>Start Date String</span></dt>
+        <dd>
+            <span>{{grvItem.startDateString}}</span>
+        </dd>
+        <dt><span>Start Date</span></dt>
+        <dd>
+            <span>{{grvItem.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>End Date String</span></dt>
+        <dd>
+            <span>{{grvItem.endDateString}}</span>
+        </dd>
+        <dt><span>End Date</span></dt>
+        <dd>
+            <span>{{grvItem.endDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Valid To Date String</span></dt>
+        <dd>
+            <span>{{grvItem.validToDateString}}</span>
+        </dd>
+        <dt><span>Valid To Date</span></dt>
+        <dd>
+            <span>{{grvItem.validToDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Externalid</span></dt>
+        <dd>
+            <span>{{grvItem.externalid}}</span>
+        </dd>
+        <dt><span>Info</span></dt>
+        <dd>
+            <span>{{grvItem.info}}</span>
+        </dd>
+        <dt><span>Docnr</span></dt>
+        <dd>
+            <span>{{grvItem.docnr}}</span>
+        </dd>
+        <dt><span>Created Date</span></dt>
+        <dd>
+            <span>{{grvItem.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Source</span></dt>
+        <dd>
+            <div *ngIf="grvItem.sourceId">
+                <a [routerLink]="['/source-grv', grvItem.sourceId]">{{grvItem.sourceId}}</a>
+            </div>
+        </dd>
+        <dt><span>Location</span></dt>
+        <dd>
+            <div *ngIf="grvItem.locationId">
+                <a [routerLink]="['/location-grv', grvItem.locationId]">{{grvItem.locationId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'grv-item-grv/'+ grvItem.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,40 @@
+
+<div *ngIf="location">
+    <h2><span>Location</span> {{location.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Externalid</span></dt>
+        <dd>
+            <span>{{location.externalid}}</span>
+        </dd>
+        <dt><span>Created Date</span></dt>
+        <dd>
+            <span>{{location.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Coords</span></dt>
+        <dd>
+            <span>{{location.coords}}</span>
+        </dd>
+        <dt><span>Source</span></dt>
+        <dd>
+            <div *ngIf="location.sourceId">
+                <a [routerLink]="['/source-grv', location.sourceId]">{{location.sourceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'location-grv/'+ location.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

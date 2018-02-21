@@ -1,0 +1,48 @@
+
+<div *ngIf="source">
+    <h2><span>Source</span> {{source.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{source.title}}</span>
+        </dd>
+        <dt><span>Url</span></dt>
+        <dd>
+            <span>{{source.url}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{source.status}}</span>
+        </dd>
+        <dt><span>Last Run Date</span></dt>
+        <dd>
+            <span>{{source.lastRunDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Info</span></dt>
+        <dd>
+            <span>{{source.info}}</span>
+        </dd>
+        <dt><span>Area</span></dt>
+        <dd>
+            <div *ngIf="source.areaId">
+                <a [routerLink]="['/area-grv', source.areaId]">{{source.areaId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'source-grv/'+ source.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

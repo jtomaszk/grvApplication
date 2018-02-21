@@ -1,0 +1,36 @@
+
+<div *ngIf="sourceArchive">
+    <h2><span>Source Archive</span> {{sourceArchive.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Created Date</span></dt>
+        <dd>
+            <span>{{sourceArchive.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Json</span></dt>
+        <dd>
+            <span>{{sourceArchive.json}}</span>
+        </dd>
+        <dt><span>Source</span></dt>
+        <dd>
+            <div *ngIf="sourceArchive.sourceId">
+                <a [routerLink]="['/source-grv', sourceArchive.sourceId]">{{sourceArchive.sourceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'source-archive-grv/'+ sourceArchive.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
