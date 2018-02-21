@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<ErrorGrv>;
 export class ErrorGrvService {
 
     private resourceUrl =  SERVER_API_URL + 'api/errors';
+    private resourceSearchUrl = SERVER_API_URL + 'api/_search/errors';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -42,6 +43,12 @@ export class ErrorGrvService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+    }
+
+    search(req?: any): Observable<HttpResponse<ErrorGrv[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<ErrorGrv[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<ErrorGrv[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {

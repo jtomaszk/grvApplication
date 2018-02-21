@@ -14,32 +14,31 @@
             "relationshipName": "location",
             "otherEntityName": "location",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "sourceArchive",
+            "otherEntityName": "sourceArchive",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "person",
+            "otherEntityName": "grvItemPerson",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "item"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "errors",
+            "otherEntityName": "error",
+            "otherEntityRelationshipName": "item"
         }
     ],
     "fields": [
         {
-            "fieldName": "firstName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "lastName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "anotherLastName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "startDateString",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "startDate",
             "fieldType": "Instant"
-        },
-        {
-            "fieldName": "endDateString",
-            "fieldType": "String"
         },
         {
             "fieldName": "endDate",
@@ -79,6 +78,5 @@
     "pagination": "infinite-scroll",
     "service": "serviceClass",
     "jpaMetamodelFiltering": true,
-    "searchEngine": "elasticsearch",
     "angularJSSuffix": "grv"
 }

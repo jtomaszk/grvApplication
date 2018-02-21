@@ -4,10 +4,13 @@ import com.jtomaszk.grv.GrvApplicationApp;
 
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.domain.Area;
+import com.jtomaszk.grv.domain.Pattern;
+import com.jtomaszk.grv.domain.Error;
 import com.jtomaszk.grv.domain.SourceArchive;
 import com.jtomaszk.grv.domain.Location;
 import com.jtomaszk.grv.repository.SourceRepository;
 import com.jtomaszk.grv.service.SourceService;
+import com.jtomaszk.grv.repository.search.SourceSearchRepository;
 import com.jtomaszk.grv.service.dto.SourceDTO;
 import com.jtomaszk.grv.service.mapper.SourceMapper;
 import com.jtomaszk.grv.web.rest.errors.ExceptionTranslator;
@@ -74,6 +77,9 @@ public class SourceResourceIntTest {
     private SourceService sourceService;
 
     @Autowired
+    private SourceSearchRepository sourceSearchRepository;
+
+    @Autowired
     private SourceQueryService sourceQueryService;
 
     @Autowired
@@ -121,11 +127,17 @@ public class SourceResourceIntTest {
         em.persist(area);
         em.flush();
         source.setArea(area);
+        // Add required entity
+        Pattern pattern = PatternResourceIntTest.createEntity(em);
+        em.persist(pattern);
+        em.flush();
+        source.setPattern(pattern);
         return source;
     }
 
     @Before
     public void initTest() {
+        sourceSearchRepository.deleteAll();
         source = createEntity(em);
     }
 
@@ -150,6 +162,10 @@ public class SourceResourceIntTest {
         assertThat(testSource.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testSource.getLastRunDate()).isEqualTo(DEFAULT_LAST_RUN_DATE);
         assertThat(testSource.getInfo()).isEqualTo(DEFAULT_INFO);
+
+        // Validate the Source in Elasticsearch
+        Source sourceEs = sourceSearchRepository.findOne(testSource.getId());
+        assertThat(sourceEs).isEqualToIgnoringGivenFields(testSource);
     }
 
     @Test
@@ -462,6 +478,44 @@ public class SourceResourceIntTest {
 
     @Test
     @Transactional
+    public void getAllSourcesByPatternIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Pattern pattern = PatternResourceIntTest.createEntity(em);
+        em.persist(pattern);
+        em.flush();
+        source.setPattern(pattern);
+        sourceRepository.saveAndFlush(source);
+        Long patternId = pattern.getId();
+
+        // Get all the sourceList where pattern equals to patternId
+        defaultSourceShouldBeFound("patternId.equals=" + patternId);
+
+        // Get all the sourceList where pattern equals to patternId + 1
+        defaultSourceShouldNotBeFound("patternId.equals=" + (patternId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllSourcesByErrorsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Error errors = ErrorResourceIntTest.createEntity(em);
+        em.persist(errors);
+        em.flush();
+        source.addErrors(errors);
+        sourceRepository.saveAndFlush(source);
+        Long errorsId = errors.getId();
+
+        // Get all the sourceList where errors equals to errorsId
+        defaultSourceShouldBeFound("errorsId.equals=" + errorsId);
+
+        // Get all the sourceList where errors equals to errorsId + 1
+        defaultSourceShouldNotBeFound("errorsId.equals=" + (errorsId + 1));
+    }
+
+
+    @Test
+    @Transactional
     public void getAllSourcesByArchivesIsEqualToSomething() throws Exception {
         // Initialize the database
         SourceArchive archives = SourceArchiveResourceIntTest.createEntity(em);
@@ -537,6 +591,7 @@ public class SourceResourceIntTest {
     public void updateSource() throws Exception {
         // Initialize the database
         sourceRepository.saveAndFlush(source);
+        sourceSearchRepository.save(source);
         int databaseSizeBeforeUpdate = sourceRepository.findAll().size();
 
         // Update the source
@@ -565,6 +620,10 @@ public class SourceResourceIntTest {
         assertThat(testSource.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testSource.getLastRunDate()).isEqualTo(UPDATED_LAST_RUN_DATE);
         assertThat(testSource.getInfo()).isEqualTo(UPDATED_INFO);
+
+        // Validate the Source in Elasticsearch
+        Source sourceEs = sourceSearchRepository.findOne(testSource.getId());
+        assertThat(sourceEs).isEqualToIgnoringGivenFields(testSource);
     }
 
     @Test
@@ -591,6 +650,7 @@ public class SourceResourceIntTest {
     public void deleteSource() throws Exception {
         // Initialize the database
         sourceRepository.saveAndFlush(source);
+        sourceSearchRepository.save(source);
         int databaseSizeBeforeDelete = sourceRepository.findAll().size();
 
         // Get the source
@@ -598,9 +658,32 @@ public class SourceResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean sourceExistsInEs = sourceSearchRepository.exists(source.getId());
+        assertThat(sourceExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Source> sourceList = sourceRepository.findAll();
         assertThat(sourceList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void searchSource() throws Exception {
+        // Initialize the database
+        sourceRepository.saveAndFlush(source);
+        sourceSearchRepository.save(source);
+
+        // Search the source
+        restSourceMockMvc.perform(get("/api/_search/sources?query=id:" + source.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(source.getId().intValue())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
+            .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].lastRunDate").value(hasItem(DEFAULT_LAST_RUN_DATE.toString())))
+            .andExpect(jsonPath("$.[*].info").value(hasItem(DEFAULT_INFO.toString())));
     }
 
     @Test

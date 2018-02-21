@@ -1,9 +1,9 @@
 package com.jtomaszk.grv.service.mapper;
 
-import com.jtomaszk.grv.domain.SourceArchive;
+import com.jtomaszk.grv.domain.*;
 import com.jtomaszk.grv.service.dto.SourceArchiveDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity SourceArchive and its DTO SourceArchiveDTO.

@@ -1,11 +1,15 @@
 package com.jtomaszk.grv.service.dto;
 
+import java.io.Serializable;
+import io.github.jhipster.service.filter.BooleanFilter;
+import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.InstantFilter;
+import io.github.jhipster.service.filter.FloatFilter;
+import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-import java.io.Serializable;
+import io.github.jhipster.service.filter.InstantFilter;
 
 
 
@@ -24,17 +28,7 @@ public class GrvItemCriteria implements Serializable {
 
     private LongFilter id;
 
-    private StringFilter firstName;
-
-    private StringFilter lastName;
-
-    private StringFilter anotherLastName;
-
-    private StringFilter startDateString;
-
     private InstantFilter startDate;
-
-    private StringFilter endDateString;
 
     private InstantFilter endDate;
 
@@ -54,6 +48,12 @@ public class GrvItemCriteria implements Serializable {
 
     private LongFilter locationId;
 
+    private LongFilter sourceArchiveId;
+
+    private LongFilter personId;
+
+    private LongFilter errorsId;
+
     public GrvItemCriteria() {
     }
 
@@ -65,52 +65,12 @@ public class GrvItemCriteria implements Serializable {
         this.id = id;
     }
 
-    public StringFilter getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(StringFilter firstName) {
-        this.firstName = firstName;
-    }
-
-    public StringFilter getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(StringFilter lastName) {
-        this.lastName = lastName;
-    }
-
-    public StringFilter getAnotherLastName() {
-        return anotherLastName;
-    }
-
-    public void setAnotherLastName(StringFilter anotherLastName) {
-        this.anotherLastName = anotherLastName;
-    }
-
-    public StringFilter getStartDateString() {
-        return startDateString;
-    }
-
-    public void setStartDateString(StringFilter startDateString) {
-        this.startDateString = startDateString;
-    }
-
     public InstantFilter getStartDate() {
         return startDate;
     }
 
     public void setStartDate(InstantFilter startDate) {
         this.startDate = startDate;
-    }
-
-    public StringFilter getEndDateString() {
-        return endDateString;
-    }
-
-    public void setEndDateString(StringFilter endDateString) {
-        this.endDateString = endDateString;
     }
 
     public InstantFilter getEndDate() {
@@ -185,16 +145,35 @@ public class GrvItemCriteria implements Serializable {
         this.locationId = locationId;
     }
 
+    public LongFilter getSourceArchiveId() {
+        return sourceArchiveId;
+    }
+
+    public void setSourceArchiveId(LongFilter sourceArchiveId) {
+        this.sourceArchiveId = sourceArchiveId;
+    }
+
+    public LongFilter getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(LongFilter personId) {
+        this.personId = personId;
+    }
+
+    public LongFilter getErrorsId() {
+        return errorsId;
+    }
+
+    public void setErrorsId(LongFilter errorsId) {
+        this.errorsId = errorsId;
+    }
+
     @Override
     public String toString() {
         return "GrvItemCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
-                (firstName != null ? "firstName=" + firstName + ", " : "") +
-                (lastName != null ? "lastName=" + lastName + ", " : "") +
-                (anotherLastName != null ? "anotherLastName=" + anotherLastName + ", " : "") +
-                (startDateString != null ? "startDateString=" + startDateString + ", " : "") +
                 (startDate != null ? "startDate=" + startDate + ", " : "") +
-                (endDateString != null ? "endDateString=" + endDateString + ", " : "") +
                 (endDate != null ? "endDate=" + endDate + ", " : "") +
                 (validToDateString != null ? "validToDateString=" + validToDateString + ", " : "") +
                 (validToDate != null ? "validToDate=" + validToDate + ", " : "") +
@@ -204,6 +183,9 @@ public class GrvItemCriteria implements Serializable {
                 (createdDate != null ? "createdDate=" + createdDate + ", " : "") +
                 (sourceId != null ? "sourceId=" + sourceId + ", " : "") +
                 (locationId != null ? "locationId=" + locationId + ", " : "") +
+                (sourceArchiveId != null ? "sourceArchiveId=" + sourceArchiveId + ", " : "") +
+                (personId != null ? "personId=" + personId + ", " : "") +
+                (errorsId != null ? "errorsId=" + errorsId + ", " : "") +
             "}";
     }
 

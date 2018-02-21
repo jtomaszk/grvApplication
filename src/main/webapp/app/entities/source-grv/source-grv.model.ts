@@ -15,6 +15,8 @@ export class SourceGrv implements BaseEntity {
         public lastRunDate?: any,
         public info?: string,
         public areaId?: number,
+        public patternId?: number,
+        public errors?: BaseEntity[],
         public archives?: BaseEntity[],
         public locations?: BaseEntity[],
     ) {

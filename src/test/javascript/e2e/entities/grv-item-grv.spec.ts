@@ -33,18 +33,8 @@ describe('GrvItem e2e test', () => {
 
    /* it('should create and save GrvItems', () => {
         grvItemComponentsPage.clickOnCreateButton();
-        grvItemDialogPage.setFirstNameInput('firstName');
-        expect(grvItemDialogPage.getFirstNameInput()).toMatch('firstName');
-        grvItemDialogPage.setLastNameInput('lastName');
-        expect(grvItemDialogPage.getLastNameInput()).toMatch('lastName');
-        grvItemDialogPage.setAnotherLastNameInput('anotherLastName');
-        expect(grvItemDialogPage.getAnotherLastNameInput()).toMatch('anotherLastName');
-        grvItemDialogPage.setStartDateStringInput('startDateString');
-        expect(grvItemDialogPage.getStartDateStringInput()).toMatch('startDateString');
         grvItemDialogPage.setStartDateInput(12310020012301);
         expect(grvItemDialogPage.getStartDateInput()).toMatch('2001-12-31T02:30');
-        grvItemDialogPage.setEndDateStringInput('endDateString');
-        expect(grvItemDialogPage.getEndDateStringInput()).toMatch('endDateString');
         grvItemDialogPage.setEndDateInput(12310020012301);
         expect(grvItemDialogPage.getEndDateInput()).toMatch('2001-12-31T02:30');
         grvItemDialogPage.setValidToDateStringInput('validToDateString');
@@ -61,6 +51,7 @@ describe('GrvItem e2e test', () => {
         expect(grvItemDialogPage.getCreatedDateInput()).toMatch('2001-12-31T02:30');
         grvItemDialogPage.sourceSelectLastOption();
         grvItemDialogPage.locationSelectLastOption();
+        grvItemDialogPage.sourceArchiveSelectLastOption();
         grvItemDialogPage.save();
         expect(grvItemDialogPage.getSaveButton().isPresent()).toBeFalsy();
     });*/
@@ -87,12 +78,7 @@ export class GrvItemDialogPage {
     modalTitle = element(by.css('h4#myGrvItemLabel'));
     saveButton = element(by.css('.modal-footer .btn.btn-primary'));
     closeButton = element(by.css('button.close'));
-    firstNameInput = element(by.css('input#field_firstName'));
-    lastNameInput = element(by.css('input#field_lastName'));
-    anotherLastNameInput = element(by.css('input#field_anotherLastName'));
-    startDateStringInput = element(by.css('input#field_startDateString'));
     startDateInput = element(by.css('input#field_startDate'));
-    endDateStringInput = element(by.css('input#field_endDateString'));
     endDateInput = element(by.css('input#field_endDate'));
     validToDateStringInput = element(by.css('input#field_validToDateString'));
     validToDateInput = element(by.css('input#field_validToDate'));
@@ -102,42 +88,11 @@ export class GrvItemDialogPage {
     createdDateInput = element(by.css('input#field_createdDate'));
     sourceSelect = element(by.css('select#field_source'));
     locationSelect = element(by.css('select#field_location'));
+    sourceArchiveSelect = element(by.css('select#field_sourceArchive'));
 
     getModalTitle() {
         return this.modalTitle.getText();
     }
-
-    setFirstNameInput = function(firstName) {
-        this.firstNameInput.sendKeys(firstName);
-    };
-
-    getFirstNameInput = function() {
-        return this.firstNameInput.getAttribute('value');
-    };
-
-    setLastNameInput = function(lastName) {
-        this.lastNameInput.sendKeys(lastName);
-    };
-
-    getLastNameInput = function() {
-        return this.lastNameInput.getAttribute('value');
-    };
-
-    setAnotherLastNameInput = function(anotherLastName) {
-        this.anotherLastNameInput.sendKeys(anotherLastName);
-    };
-
-    getAnotherLastNameInput = function() {
-        return this.anotherLastNameInput.getAttribute('value');
-    };
-
-    setStartDateStringInput = function(startDateString) {
-        this.startDateStringInput.sendKeys(startDateString);
-    };
-
-    getStartDateStringInput = function() {
-        return this.startDateStringInput.getAttribute('value');
-    };
 
     setStartDateInput = function(startDate) {
         this.startDateInput.sendKeys(startDate);
@@ -145,14 +100,6 @@ export class GrvItemDialogPage {
 
     getStartDateInput = function() {
         return this.startDateInput.getAttribute('value');
-    };
-
-    setEndDateStringInput = function(endDateString) {
-        this.endDateStringInput.sendKeys(endDateString);
-    };
-
-    getEndDateStringInput = function() {
-        return this.endDateStringInput.getAttribute('value');
     };
 
     setEndDateInput = function(endDate) {
@@ -241,6 +188,22 @@ export class GrvItemDialogPage {
 
     getLocationSelectedOption = function() {
         return this.locationSelect.element(by.css('option:checked')).getText();
+    };
+
+    sourceArchiveSelectLastOption = function() {
+        this.sourceArchiveSelect.all(by.tagName('option')).last().click();
+    };
+
+    sourceArchiveSelectOption = function(option) {
+        this.sourceArchiveSelect.sendKeys(option);
+    };
+
+    getSourceArchiveSelect = function() {
+        return this.sourceArchiveSelect;
+    };
+
+    getSourceArchiveSelectedOption = function() {
+        return this.sourceArchiveSelect.element(by.css('option:checked')).getText();
     };
 
     save() {
