@@ -8,6 +8,11 @@ enum SourceStatus {
     NEW
 }
 
+entity Pattern {
+	columns String required pattern(/^\w+(,\w+)*$/),
+    values String required
+}
+
 entity Source {
 	title String required,
 	url String required,
@@ -49,12 +54,13 @@ entity Error {
     createdDate Instant required
 }
 
-relationship ManyToOne {
+relationship ManyToOne {	
 	GrvItem{source required} to Source,
     GrvItem{location required} to Location,
     Error{source} to Source,
     Error{item} to GrvItem,
 	Source{area required} to Area{sources},
+    Source{pattern required} to Pattern,
     SourceArchive{source required} to Source{archives},
     Location{source required} to Source{locations}
 }
