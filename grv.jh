@@ -8,6 +8,28 @@ enum SourceStatus {
     NEW
 }
 
+entity Pattern {
+	title String required,	
+}
+
+entity PatternColumn {
+	column Column required,
+    value String required pattern(/[\w ${}]+/)
+}
+
+enum Column {
+	FIRST_NAME,
+    LAST_NAME,
+    ANOTHER_LAST_NAME,
+	START_DATE,
+    END_DATE,
+    VALID_TO,
+    EXTERNAL_ID,
+    BOX_EXTERNAL_ID,
+    INFO,
+    DOC_NR
+}
+
 entity Source {
 	title String required,
 	url String required,
@@ -21,13 +43,16 @@ entity SourceArchive {
 	json TextBlob required
 }
 
-entity GrvItem {
+entity GrvItemPerson {
 	firstName String,
 	lastName String,
     anotherLastName String,
-	startDateString String,
-    startDate Instant,
+    startDateString String,
     endDateString String,
+}
+
+entity GrvItem {	
+    startDate Instant,
     endDate Instant,
     validToDateString String,
     validToDate Instant,
@@ -49,25 +74,33 @@ entity Error {
     createdDate Instant required
 }
 
-relationship ManyToOne {
+relationship ManyToOne {	
 	GrvItem{source required} to Source,
     GrvItem{location required} to Location,
-    Error{source} to Source,
-    Error{item} to GrvItem,
+    GrvItem{sourceArchive} to SourceArchive,
+    Error{source} to Source{errors},
+    Error{item} to GrvItem{errors},
 	Source{area required} to Area{sources},
+    Source{pattern required} to Pattern{sources},
     SourceArchive{source required} to Source{archives},
-    Location{source required} to Source{locations}
+    Location{source required} to Source{locations},
+    PatternColumn{pattern required} to Pattern{columns}
 }
+
+relationship OneToOne {
+	GrvItemPerson{item} to GrvItem{person}
+}
+
 // Set pagination options
-paginate GrvItem, Area, Source, Error with infinite-scroll
-paginate SourceArchive with pagination
+paginate GrvItem, GrvItemPerson, Area, Source, Error with infinite-scroll
+paginate SourceArchive, Pattern, PatternColumn with pagination
 
 dto * with mapstruct
 
 service all with serviceClass
 
-search GrvItem with elasticsearch 
-filter GrvItem, Error, Source, Area, SourceArchive
+search GrvItemPerson with elasticsearch 
+filter GrvItemPerson, GrvItem, Error, Source, Area, SourceArchive, PatternColumn
 
 // Set an angular suffix
 angularSuffix * with grv
