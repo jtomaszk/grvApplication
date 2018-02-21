@@ -1,0 +1,77 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "source",
+            "otherEntityName": "source",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "anotherLastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "startDateString",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "startDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "endDateString",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "validToDateString",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "validToDate",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "coords",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "externalid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "externalboxid",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "info",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "docnr",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180221090933",
+    "entityTableName": "grv_item",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch",
+    "angularJSSuffix": "grv"
+}

@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "sources",
+            "otherEntityName": "source",
+            "otherEntityRelationshipName": "area"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "areaName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180221090931",
+    "entityTableName": "area",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "grv"
+}
