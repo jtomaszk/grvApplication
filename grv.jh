@@ -1,0 +1,46 @@
+entity Area {
+	areaName String required
+}
+
+entity Source {
+	title String required,
+	url String required,
+    json TextBlob
+}
+
+entity GrvItem {
+	firstName String,
+	lastName String,
+    anotherLastName String,
+	startDateString String,
+    startDate Instant,
+    endDateString String,
+    endDate Instant,
+    validToDateString String,
+    validToDate Instant,
+    coords String,
+    external_id String,
+    external_box_id String,
+	info String,
+	doc_nr String,	
+}
+
+relationship ManyToOne {
+	GrvItem{source} to Source
+}
+
+relationship ManyToOne {
+	Source{area} to Area{sources}
+}
+// Set pagination options
+paginate GrvItem, Area, Source with infinite-scroll
+
+dto * with mapstruct
+
+service all with serviceImpl 
+
+search GrvItem with elasticsearch 
+filter GrvItem
+
+// Set an angular suffix
+angularSuffix * with grv
