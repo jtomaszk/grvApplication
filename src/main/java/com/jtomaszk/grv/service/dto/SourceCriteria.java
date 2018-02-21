@@ -1,12 +1,16 @@
 package com.jtomaszk.grv.service.dto;
 
+import java.io.Serializable;
 import com.jtomaszk.grv.domain.enumeration.SourceStatus;
+import io.github.jhipster.service.filter.BooleanFilter;
+import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.InstantFilter;
+import io.github.jhipster.service.filter.FloatFilter;
+import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-import java.io.Serializable;
+import io.github.jhipster.service.filter.InstantFilter;
 
 
 
@@ -42,6 +46,8 @@ public class SourceCriteria implements Serializable {
     private StringFilter info;
 
     private LongFilter areaId;
+
+    private LongFilter patternId;
 
     private LongFilter archivesId;
 
@@ -106,6 +112,14 @@ public class SourceCriteria implements Serializable {
         this.areaId = areaId;
     }
 
+    public LongFilter getPatternId() {
+        return patternId;
+    }
+
+    public void setPatternId(LongFilter patternId) {
+        this.patternId = patternId;
+    }
+
     public LongFilter getArchivesId() {
         return archivesId;
     }
@@ -132,6 +146,7 @@ public class SourceCriteria implements Serializable {
                 (lastRunDate != null ? "lastRunDate=" + lastRunDate + ", " : "") +
                 (info != null ? "info=" + info + ", " : "") +
                 (areaId != null ? "areaId=" + areaId + ", " : "") +
+                (patternId != null ? "patternId=" + patternId + ", " : "") +
                 (archivesId != null ? "archivesId=" + archivesId + ", " : "") +
                 (locationsId != null ? "locationsId=" + locationsId + ", " : "") +
             "}";

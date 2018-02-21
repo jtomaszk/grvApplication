@@ -2,6 +2,7 @@ package com.jtomaszk.grv.service;
 
 import com.jtomaszk.grv.domain.Location;
 import com.jtomaszk.grv.repository.LocationRepository;
+import com.jtomaszk.grv.repository.search.LocationSearchRepository;
 import com.jtomaszk.grv.service.dto.LocationDTO;
 import com.jtomaszk.grv.service.mapper.LocationMapper;
 import org.slf4j.Logger;
@@ -12,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Location.
@@ -26,9 +30,12 @@ public class LocationService {
 
     private final LocationMapper locationMapper;
 
-    public LocationService(LocationRepository locationRepository, LocationMapper locationMapper) {
+    private final LocationSearchRepository locationSearchRepository;
+
+    public LocationService(LocationRepository locationRepository, LocationMapper locationMapper, LocationSearchRepository locationSearchRepository) {
         this.locationRepository = locationRepository;
         this.locationMapper = locationMapper;
+        this.locationSearchRepository = locationSearchRepository;
     }
 
     /**
@@ -41,7 +48,9 @@ public class LocationService {
         log.debug("Request to save Location : {}", locationDTO);
         Location location = locationMapper.toEntity(locationDTO);
         location = locationRepository.save(location);
-        return locationMapper.toDto(location);
+        LocationDTO result = locationMapper.toDto(location);
+        locationSearchRepository.save(location);
+        return result;
     }
 
     /**
@@ -78,5 +87,21 @@ public class LocationService {
     public void delete(Long id) {
         log.debug("Request to delete Location : {}", id);
         locationRepository.delete(id);
+        locationSearchRepository.delete(id);
+    }
+
+    /**
+     * Search for the location corresponding to the query.
+     *
+     * @param query the query of the search
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<LocationDTO> search(String query) {
+        log.debug("Request to search Locations for query {}", query);
+        return StreamSupport
+            .stream(locationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .map(locationMapper::toDto)
+            .collect(Collectors.toList());
     }
 }

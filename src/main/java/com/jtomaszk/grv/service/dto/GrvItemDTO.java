@@ -1,9 +1,11 @@
 package com.jtomaszk.grv.service.dto;
 
 
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**

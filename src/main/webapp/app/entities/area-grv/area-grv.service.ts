@@ -12,6 +12,7 @@ export type EntityResponseType = HttpResponse<AreaGrv>;
 export class AreaGrvService {
 
     private resourceUrl =  SERVER_API_URL + 'api/areas';
+    private resourceSearchUrl = SERVER_API_URL + 'api/_search/areas';
 
     constructor(private http: HttpClient) { }
 
@@ -40,6 +41,12 @@ export class AreaGrvService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+    }
+
+    search(req?: any): Observable<HttpResponse<AreaGrv[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<AreaGrv[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<AreaGrv[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {

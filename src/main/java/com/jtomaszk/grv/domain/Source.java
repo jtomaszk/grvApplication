@@ -1,17 +1,20 @@
 package com.jtomaszk.grv.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jtomaszk.grv.domain.enumeration.SourceStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
+
+import com.jtomaszk.grv.domain.enumeration.SourceStatus;
 
 /**
  * A Source.
@@ -19,6 +22,7 @@ import java.util.Set;
 @Entity
 @Table(name = "source")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Document(indexName = "source")
 public class Source implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,6 +52,10 @@ public class Source implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     private Area area;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private Pattern pattern;
 
     @OneToMany(mappedBy = "source")
     @JsonIgnore
@@ -144,6 +152,19 @@ public class Source implements Serializable {
 
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+    public Source pattern(Pattern pattern) {
+        this.pattern = pattern;
+        return this;
+    }
+
+    public void setPattern(Pattern pattern) {
+        this.pattern = pattern;
     }
 
     public Set<SourceArchive> getArchives() {

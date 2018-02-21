@@ -1,15 +1,8 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.Error;
-import com.jtomaszk.grv.domain.Error_;
-import com.jtomaszk.grv.domain.GrvItem_;
-import com.jtomaszk.grv.domain.Source_;
-import com.jtomaszk.grv.repository.ErrorRepository;
-import com.jtomaszk.grv.service.dto.ErrorCriteria;
-import com.jtomaszk.grv.service.dto.ErrorDTO;
-import com.jtomaszk.grv.service.mapper.ErrorMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,7 +11,16 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import com.jtomaszk.grv.domain.Error;
+import com.jtomaszk.grv.domain.*; // for static metamodels
+import com.jtomaszk.grv.repository.ErrorRepository;
+import com.jtomaszk.grv.repository.search.ErrorSearchRepository;
+import com.jtomaszk.grv.service.dto.ErrorCriteria;
+
+import com.jtomaszk.grv.service.dto.ErrorDTO;
+import com.jtomaszk.grv.service.mapper.ErrorMapper;
 
 /**
  * Service for executing complex queries for Error entities in the database.
@@ -37,9 +39,12 @@ public class ErrorQueryService extends QueryService<Error> {
 
     private final ErrorMapper errorMapper;
 
-    public ErrorQueryService(ErrorRepository errorRepository, ErrorMapper errorMapper) {
+    private final ErrorSearchRepository errorSearchRepository;
+
+    public ErrorQueryService(ErrorRepository errorRepository, ErrorMapper errorMapper, ErrorSearchRepository errorSearchRepository) {
         this.errorRepository = errorRepository;
         this.errorMapper = errorMapper;
+        this.errorSearchRepository = errorSearchRepository;
     }
 
     /**
