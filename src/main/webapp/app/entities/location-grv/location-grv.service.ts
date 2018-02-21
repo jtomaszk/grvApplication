@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<LocationGrv>;
 export class LocationGrvService {
 
     private resourceUrl =  SERVER_API_URL + 'api/locations';
+    private resourceSearchUrl = SERVER_API_URL + 'api/_search/locations';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -42,6 +43,12 @@ export class LocationGrvService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+    }
+
+    search(req?: any): Observable<HttpResponse<LocationGrv[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<LocationGrv[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<LocationGrv[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {

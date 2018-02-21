@@ -2,6 +2,7 @@ package com.jtomaszk.grv.service;
 
 import com.jtomaszk.grv.domain.Error;
 import com.jtomaszk.grv.repository.ErrorRepository;
+import com.jtomaszk.grv.repository.search.ErrorSearchRepository;
 import com.jtomaszk.grv.service.dto.ErrorDTO;
 import com.jtomaszk.grv.service.mapper.ErrorMapper;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Error.
@@ -25,9 +28,12 @@ public class ErrorService {
 
     private final ErrorMapper errorMapper;
 
-    public ErrorService(ErrorRepository errorRepository, ErrorMapper errorMapper) {
+    private final ErrorSearchRepository errorSearchRepository;
+
+    public ErrorService(ErrorRepository errorRepository, ErrorMapper errorMapper, ErrorSearchRepository errorSearchRepository) {
         this.errorRepository = errorRepository;
         this.errorMapper = errorMapper;
+        this.errorSearchRepository = errorSearchRepository;
     }
 
     /**
@@ -40,7 +46,9 @@ public class ErrorService {
         log.debug("Request to save Error : {}", errorDTO);
         Error error = errorMapper.toEntity(errorDTO);
         error = errorRepository.save(error);
-        return errorMapper.toDto(error);
+        ErrorDTO result = errorMapper.toDto(error);
+        errorSearchRepository.save(error);
+        return result;
     }
 
     /**
@@ -77,5 +85,20 @@ public class ErrorService {
     public void delete(Long id) {
         log.debug("Request to delete Error : {}", id);
         errorRepository.delete(id);
+        errorSearchRepository.delete(id);
+    }
+
+    /**
+     * Search for the error corresponding to the query.
+     *
+     * @param query the query of the search
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<ErrorDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Errors for query {}", query);
+        Page<Error> result = errorSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(errorMapper::toDto);
     }
 }

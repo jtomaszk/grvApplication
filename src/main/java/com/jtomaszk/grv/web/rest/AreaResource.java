@@ -1,13 +1,13 @@
 package com.jtomaszk.grv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.jtomaszk.grv.service.AreaQueryService;
 import com.jtomaszk.grv.service.AreaService;
-import com.jtomaszk.grv.service.dto.AreaCriteria;
-import com.jtomaszk.grv.service.dto.AreaDTO;
 import com.jtomaszk.grv.web.rest.errors.BadRequestAlertException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
+import com.jtomaszk.grv.service.dto.AreaDTO;
+import com.jtomaszk.grv.service.dto.AreaCriteria;
+import com.jtomaszk.grv.service.AreaQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Area.
@@ -129,4 +133,22 @@ public class AreaResource {
         areaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/areas?query=:query : search for the area corresponding
+     * to the query.
+     *
+     * @param query the query of the area search
+     * @param pageable the pagination information
+     * @return the result of the search
+     */
+    @GetMapping("/_search/areas")
+    @Timed
+    public ResponseEntity<List<AreaDTO>> searchAreas(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Areas for query {}", query);
+        Page<AreaDTO> page = areaService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/areas");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 }
