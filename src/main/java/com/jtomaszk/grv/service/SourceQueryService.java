@@ -1,12 +1,8 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.*;
-import com.jtomaszk.grv.repository.SourceRepository;
-import com.jtomaszk.grv.service.dto.SourceCriteria;
-import com.jtomaszk.grv.service.dto.SourceDTO;
-import com.jtomaszk.grv.service.mapper.SourceMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,7 +11,17 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import com.jtomaszk.grv.domain.Source;
+import com.jtomaszk.grv.domain.*; // for static metamodels
+import com.jtomaszk.grv.repository.SourceRepository;
+import com.jtomaszk.grv.repository.search.SourceSearchRepository;
+import com.jtomaszk.grv.service.dto.SourceCriteria;
+
+import com.jtomaszk.grv.service.dto.SourceDTO;
+import com.jtomaszk.grv.service.mapper.SourceMapper;
+import com.jtomaszk.grv.domain.enumeration.SourceStatus;
 
 /**
  * Service for executing complex queries for Source entities in the database.
@@ -34,9 +40,12 @@ public class SourceQueryService extends QueryService<Source> {
 
     private final SourceMapper sourceMapper;
 
-    public SourceQueryService(SourceRepository sourceRepository, SourceMapper sourceMapper) {
+    private final SourceSearchRepository sourceSearchRepository;
+
+    public SourceQueryService(SourceRepository sourceRepository, SourceMapper sourceMapper, SourceSearchRepository sourceSearchRepository) {
         this.sourceRepository = sourceRepository;
         this.sourceMapper = sourceMapper;
+        this.sourceSearchRepository = sourceSearchRepository;
     }
 
     /**
@@ -91,6 +100,9 @@ public class SourceQueryService extends QueryService<Source> {
             }
             if (criteria.getAreaId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getAreaId(), Source_.area, Area_.id));
+            }
+            if (criteria.getPatternId() != null) {
+                specification = specification.and(buildReferringEntitySpecification(criteria.getPatternId(), Source_.pattern, Pattern_.id));
             }
             if (criteria.getArchivesId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getArchivesId(), Source_.archives, SourceArchive_.id));

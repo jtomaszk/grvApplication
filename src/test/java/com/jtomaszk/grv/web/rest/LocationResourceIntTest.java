@@ -6,6 +6,7 @@ import com.jtomaszk.grv.domain.Location;
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.repository.LocationRepository;
 import com.jtomaszk.grv.service.LocationService;
+import com.jtomaszk.grv.repository.search.LocationSearchRepository;
 import com.jtomaszk.grv.service.dto.LocationDTO;
 import com.jtomaszk.grv.service.mapper.LocationMapper;
 import com.jtomaszk.grv.web.rest.errors.ExceptionTranslator;
@@ -63,6 +64,9 @@ public class LocationResourceIntTest {
     private LocationService locationService;
 
     @Autowired
+    private LocationSearchRepository locationSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -110,6 +114,7 @@ public class LocationResourceIntTest {
 
     @Before
     public void initTest() {
+        locationSearchRepository.deleteAll();
         location = createEntity(em);
     }
 
@@ -132,6 +137,10 @@ public class LocationResourceIntTest {
         assertThat(testLocation.getExternalid()).isEqualTo(DEFAULT_EXTERNALID);
         assertThat(testLocation.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testLocation.getCoords()).isEqualTo(DEFAULT_COORDS);
+
+        // Validate the Location in Elasticsearch
+        Location locationEs = locationSearchRepository.findOne(testLocation.getId());
+        assertThat(locationEs).isEqualToIgnoringGivenFields(testLocation);
     }
 
     @Test
@@ -218,6 +227,7 @@ public class LocationResourceIntTest {
     public void updateLocation() throws Exception {
         // Initialize the database
         locationRepository.saveAndFlush(location);
+        locationSearchRepository.save(location);
         int databaseSizeBeforeUpdate = locationRepository.findAll().size();
 
         // Update the location
@@ -242,6 +252,10 @@ public class LocationResourceIntTest {
         assertThat(testLocation.getExternalid()).isEqualTo(UPDATED_EXTERNALID);
         assertThat(testLocation.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testLocation.getCoords()).isEqualTo(UPDATED_COORDS);
+
+        // Validate the Location in Elasticsearch
+        Location locationEs = locationSearchRepository.findOne(testLocation.getId());
+        assertThat(locationEs).isEqualToIgnoringGivenFields(testLocation);
     }
 
     @Test
@@ -268,6 +282,7 @@ public class LocationResourceIntTest {
     public void deleteLocation() throws Exception {
         // Initialize the database
         locationRepository.saveAndFlush(location);
+        locationSearchRepository.save(location);
         int databaseSizeBeforeDelete = locationRepository.findAll().size();
 
         // Get the location
@@ -275,9 +290,30 @@ public class LocationResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean locationExistsInEs = locationSearchRepository.exists(location.getId());
+        assertThat(locationExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Location> locationList = locationRepository.findAll();
         assertThat(locationList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void searchLocation() throws Exception {
+        // Initialize the database
+        locationRepository.saveAndFlush(location);
+        locationSearchRepository.save(location);
+
+        // Search the location
+        restLocationMockMvc.perform(get("/api/_search/locations?query=id:" + location.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(location.getId().intValue())))
+            .andExpect(jsonPath("$.[*].externalid").value(hasItem(DEFAULT_EXTERNALID.toString())))
+            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].coords").value(hasItem(DEFAULT_COORDS.toString())));
     }
 
     @Test

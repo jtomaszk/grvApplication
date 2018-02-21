@@ -1,13 +1,13 @@
 package com.jtomaszk.grv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.jtomaszk.grv.service.ErrorQueryService;
 import com.jtomaszk.grv.service.ErrorService;
-import com.jtomaszk.grv.service.dto.ErrorCriteria;
-import com.jtomaszk.grv.service.dto.ErrorDTO;
 import com.jtomaszk.grv.web.rest.errors.BadRequestAlertException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
+import com.jtomaszk.grv.service.dto.ErrorDTO;
+import com.jtomaszk.grv.service.dto.ErrorCriteria;
+import com.jtomaszk.grv.service.ErrorQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Error.
@@ -129,4 +133,22 @@ public class ErrorResource {
         errorService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/errors?query=:query : search for the error corresponding
+     * to the query.
+     *
+     * @param query the query of the error search
+     * @param pageable the pagination information
+     * @return the result of the search
+     */
+    @GetMapping("/_search/errors")
+    @Timed
+    public ResponseEntity<List<ErrorDTO>> searchErrors(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Errors for query {}", query);
+        Page<ErrorDTO> page = errorService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/errors");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 }

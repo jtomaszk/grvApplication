@@ -2,6 +2,7 @@ package com.jtomaszk.grv.service;
 
 import com.jtomaszk.grv.domain.SourceArchive;
 import com.jtomaszk.grv.repository.SourceArchiveRepository;
+import com.jtomaszk.grv.repository.search.SourceArchiveSearchRepository;
 import com.jtomaszk.grv.service.dto.SourceArchiveDTO;
 import com.jtomaszk.grv.service.mapper.SourceArchiveMapper;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing SourceArchive.
@@ -25,9 +28,12 @@ public class SourceArchiveService {
 
     private final SourceArchiveMapper sourceArchiveMapper;
 
-    public SourceArchiveService(SourceArchiveRepository sourceArchiveRepository, SourceArchiveMapper sourceArchiveMapper) {
+    private final SourceArchiveSearchRepository sourceArchiveSearchRepository;
+
+    public SourceArchiveService(SourceArchiveRepository sourceArchiveRepository, SourceArchiveMapper sourceArchiveMapper, SourceArchiveSearchRepository sourceArchiveSearchRepository) {
         this.sourceArchiveRepository = sourceArchiveRepository;
         this.sourceArchiveMapper = sourceArchiveMapper;
+        this.sourceArchiveSearchRepository = sourceArchiveSearchRepository;
     }
 
     /**
@@ -40,7 +46,9 @@ public class SourceArchiveService {
         log.debug("Request to save SourceArchive : {}", sourceArchiveDTO);
         SourceArchive sourceArchive = sourceArchiveMapper.toEntity(sourceArchiveDTO);
         sourceArchive = sourceArchiveRepository.save(sourceArchive);
-        return sourceArchiveMapper.toDto(sourceArchive);
+        SourceArchiveDTO result = sourceArchiveMapper.toDto(sourceArchive);
+        sourceArchiveSearchRepository.save(sourceArchive);
+        return result;
     }
 
     /**
@@ -77,5 +85,20 @@ public class SourceArchiveService {
     public void delete(Long id) {
         log.debug("Request to delete SourceArchive : {}", id);
         sourceArchiveRepository.delete(id);
+        sourceArchiveSearchRepository.delete(id);
+    }
+
+    /**
+     * Search for the sourceArchive corresponding to the query.
+     *
+     * @param query the query of the search
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<SourceArchiveDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of SourceArchives for query {}", query);
+        Page<SourceArchive> result = sourceArchiveSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(sourceArchiveMapper::toDto);
     }
 }
