@@ -1,13 +1,13 @@
 package com.jtomaszk.grv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.jtomaszk.grv.service.AreaQueryService;
 import com.jtomaszk.grv.service.AreaService;
+import com.jtomaszk.grv.service.dto.AreaCriteria;
+import com.jtomaszk.grv.service.dto.AreaDTO;
 import com.jtomaszk.grv.web.rest.errors.BadRequestAlertException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
-import com.jtomaszk.grv.service.dto.AreaDTO;
-import com.jtomaszk.grv.service.dto.AreaCriteria;
-import com.jtomaszk.grv.service.AreaQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 

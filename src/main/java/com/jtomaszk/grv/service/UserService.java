@@ -1,16 +1,14 @@
 package com.jtomaszk.grv.service;
 
-import com.jtomaszk.grv.config.CacheConfiguration;
+import com.jtomaszk.grv.config.Constants;
 import com.jtomaszk.grv.domain.Authority;
 import com.jtomaszk.grv.domain.User;
 import com.jtomaszk.grv.repository.AuthorityRepository;
-import com.jtomaszk.grv.config.Constants;
 import com.jtomaszk.grv.repository.UserRepository;
 import com.jtomaszk.grv.security.AuthoritiesConstants;
 import com.jtomaszk.grv.security.SecurityUtils;
-import com.jtomaszk.grv.service.util.RandomUtil;
 import com.jtomaszk.grv.service.dto.UserDTO;
-
+import com.jtomaszk.grv.service.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -23,7 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

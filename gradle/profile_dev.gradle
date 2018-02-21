@@ -21,6 +21,10 @@ task webpackBuildDev(type: YarnTask) {
     args = ["run", "webpack:build"]
 }
 
+task yarnStart(type: YarnTask) {
+    args = ["start"]
+}
+
 war {
     webAppDirName = 'build/www/'
 }

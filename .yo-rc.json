@@ -14,7 +14,7 @@
     "databaseType": "sql",
     "devDatabaseType": "h2Disk",
     "prodDatabaseType": "mysql",
-    "searchEngine": false,
+    "searchEngine": "elasticsearch",
     "enableSwaggerCodegen": "true",
     "messageBroker": false,
     "buildTool": "gradle",

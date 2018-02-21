@@ -1,19 +1,17 @@
 package com.jtomaszk.grv.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jtomaszk.grv.domain.enumeration.SourceStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
-
-import com.jtomaszk.grv.domain.enumeration.SourceStatus;
+import java.util.Set;
 
 /**
  * A Source.
