@@ -30,12 +30,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="firstName"><span>First Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="lastName"><span>Last Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="anotherLastName"><span>Another Last Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="startDateString"><span>Start Date String</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="startDate"><span>Start Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="endDateString"><span>End Date String</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="endDate"><span>End Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="validToDateString"><span>Valid To Date String</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="validToDate"><span>Valid To Date</span> <span class="fa fa-sort"></span></th>
@@ -45,18 +40,14 @@
             <th jhiSortBy="createdDate"><span>Created Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="sourceId"><span>Source</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="locationId"><span>Location</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sourceArchiveId"><span>Source Archive</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let grvItem of grvItems ;trackBy: trackId">
                 <td><a [routerLink]="['../grv-item-grv', grvItem.id ]">{{grvItem.id}}</a></td>
-                <td>{{grvItem.firstName}}</td>
-                <td>{{grvItem.lastName}}</td>
-                <td>{{grvItem.anotherLastName}}</td>
-                <td>{{grvItem.startDateString}}</td>
                 <td>{{grvItem.startDate | date:'medium'}}</td>
-                <td>{{grvItem.endDateString}}</td>
                 <td>{{grvItem.endDate | date:'medium'}}</td>
                 <td>{{grvItem.validToDateString}}</td>
                 <td>{{grvItem.validToDate | date:'medium'}}</td>
@@ -72,6 +63,11 @@
                 <td>
                     <div *ngIf="grvItem.locationId">
                         <a [routerLink]="['../location-grv', grvItem.locationId  ]" >{{grvItem.locationId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="grvItem.sourceArchiveId">
+                        <a [routerLink]="['../source-archive-grv', grvItem.sourceArchiveId  ]" >{{grvItem.sourceArchiveId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

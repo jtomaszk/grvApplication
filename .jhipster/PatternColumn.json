@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "pattern",
+            "otherEntityName": "pattern",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "column",
+            "fieldType": "Column",
+            "fieldValues": "FIRST_NAME,LAST_NAME,ANOTHER_LAST_NAME,START_DATE,END_DATE,VALID_TO,EXTERNAL_ID,BOX_EXTERNAL_ID,INFO,DOC_NR",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "value",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "[\\w ${}]+"
+        }
+    ],
+    "changelogDate": "20180222074216",
+    "entityTableName": "pattern_column",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "angularJSSuffix": "grv"
+}

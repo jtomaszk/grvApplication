@@ -2,6 +2,7 @@ package com.jtomaszk.grv.service;
 
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.repository.SourceRepository;
+import com.jtomaszk.grv.repository.search.SourceSearchRepository;
 import com.jtomaszk.grv.service.dto.SourceDTO;
 import com.jtomaszk.grv.service.mapper.SourceMapper;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Source.
@@ -25,9 +28,12 @@ public class SourceService {
 
     private final SourceMapper sourceMapper;
 
-    public SourceService(SourceRepository sourceRepository, SourceMapper sourceMapper) {
+    private final SourceSearchRepository sourceSearchRepository;
+
+    public SourceService(SourceRepository sourceRepository, SourceMapper sourceMapper, SourceSearchRepository sourceSearchRepository) {
         this.sourceRepository = sourceRepository;
         this.sourceMapper = sourceMapper;
+        this.sourceSearchRepository = sourceSearchRepository;
     }
 
     /**
@@ -40,7 +46,9 @@ public class SourceService {
         log.debug("Request to save Source : {}", sourceDTO);
         Source source = sourceMapper.toEntity(sourceDTO);
         source = sourceRepository.save(source);
-        return sourceMapper.toDto(source);
+        SourceDTO result = sourceMapper.toDto(source);
+        sourceSearchRepository.save(source);
+        return result;
     }
 
     /**
@@ -77,5 +85,20 @@ public class SourceService {
     public void delete(Long id) {
         log.debug("Request to delete Source : {}", id);
         sourceRepository.delete(id);
+        sourceSearchRepository.delete(id);
+    }
+
+    /**
+     * Search for the source corresponding to the query.
+     *
+     * @param query the query of the search
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<SourceDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Sources for query {}", query);
+        Page<Source> result = sourceSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(sourceMapper::toDto);
     }
 }

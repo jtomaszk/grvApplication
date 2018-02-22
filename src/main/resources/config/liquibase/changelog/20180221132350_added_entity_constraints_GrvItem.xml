@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="location"/>
 
+        <addForeignKeyConstraint baseColumnNames="source_archive_id"
+                                 baseTableName="grv_item"
+                                 constraintName="fk_grv_item_source_archive_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="source_archive"/>
+
     </changeSet>
 </databaseChangeLog>

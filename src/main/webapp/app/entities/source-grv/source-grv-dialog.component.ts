@@ -10,6 +10,7 @@ import { SourceGrv } from './source-grv.model';
 import { SourceGrvPopupService } from './source-grv-popup.service';
 import { SourceGrvService } from './source-grv.service';
 import { AreaGrv, AreaGrvService } from '../area-grv';
+import { PatternGrv, PatternGrvService } from '../pattern-grv';
 
 @Component({
     selector: 'jhi-source-grv-dialog',
@@ -22,11 +23,14 @@ export class SourceGrvDialogComponent implements OnInit {
 
     areas: AreaGrv[];
 
+    patterns: PatternGrv[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private sourceService: SourceGrvService,
         private areaService: AreaGrvService,
+        private patternService: PatternGrvService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -35,6 +39,8 @@ export class SourceGrvDialogComponent implements OnInit {
         this.isSaving = false;
         this.areaService.query()
             .subscribe((res: HttpResponse<AreaGrv[]>) => { this.areas = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.patternService.query()
+            .subscribe((res: HttpResponse<PatternGrv[]>) => { this.patterns = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -72,6 +78,10 @@ export class SourceGrvDialogComponent implements OnInit {
     }
 
     trackAreaById(index: number, item: AreaGrv) {
+        return item.id;
+    }
+
+    trackPatternById(index: number, item: PatternGrv) {
         return item.id;
     }
 }

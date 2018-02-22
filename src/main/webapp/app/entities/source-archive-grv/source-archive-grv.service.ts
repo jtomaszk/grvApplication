@@ -14,6 +14,7 @@ export type EntityResponseType = HttpResponse<SourceArchiveGrv>;
 export class SourceArchiveGrvService {
 
     private resourceUrl =  SERVER_API_URL + 'api/source-archives';
+    private resourceSearchUrl = SERVER_API_URL + 'api/_search/source-archives';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
@@ -42,6 +43,12 @@ export class SourceArchiveGrvService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
+    }
+
+    search(req?: any): Observable<HttpResponse<SourceArchiveGrv[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<SourceArchiveGrv[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<SourceArchiveGrv[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {

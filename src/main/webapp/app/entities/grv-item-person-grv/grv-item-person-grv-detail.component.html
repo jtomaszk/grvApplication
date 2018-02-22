@@ -1,0 +1,48 @@
+
+<div *ngIf="grvItemPerson">
+    <h2><span>Grv Item Person</span> {{grvItemPerson.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>First Name</span></dt>
+        <dd>
+            <span>{{grvItemPerson.firstName}}</span>
+        </dd>
+        <dt><span>Last Name</span></dt>
+        <dd>
+            <span>{{grvItemPerson.lastName}}</span>
+        </dd>
+        <dt><span>Another Last Name</span></dt>
+        <dd>
+            <span>{{grvItemPerson.anotherLastName}}</span>
+        </dd>
+        <dt><span>Start Date String</span></dt>
+        <dd>
+            <span>{{grvItemPerson.startDateString}}</span>
+        </dd>
+        <dt><span>End Date String</span></dt>
+        <dd>
+            <span>{{grvItemPerson.endDateString}}</span>
+        </dd>
+        <dt><span>Item</span></dt>
+        <dd>
+            <div *ngIf="grvItemPerson.itemId">
+                <a [routerLink]="['/grv-item-grv', grvItemPerson.itemId]">{{grvItemPerson.itemId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'grv-item-person-grv/'+ grvItemPerson.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

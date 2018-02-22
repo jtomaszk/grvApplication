@@ -4,29 +4,9 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span>First Name</span></dt>
-        <dd>
-            <span>{{grvItem.firstName}}</span>
-        </dd>
-        <dt><span>Last Name</span></dt>
-        <dd>
-            <span>{{grvItem.lastName}}</span>
-        </dd>
-        <dt><span>Another Last Name</span></dt>
-        <dd>
-            <span>{{grvItem.anotherLastName}}</span>
-        </dd>
-        <dt><span>Start Date String</span></dt>
-        <dd>
-            <span>{{grvItem.startDateString}}</span>
-        </dd>
         <dt><span>Start Date</span></dt>
         <dd>
             <span>{{grvItem.startDate | date:'medium'}}</span>
-        </dd>
-        <dt><span>End Date String</span></dt>
-        <dd>
-            <span>{{grvItem.endDateString}}</span>
         </dd>
         <dt><span>End Date</span></dt>
         <dd>
@@ -66,6 +46,12 @@
         <dd>
             <div *ngIf="grvItem.locationId">
                 <a [routerLink]="['/location-grv', grvItem.locationId]">{{grvItem.locationId}}</a>
+            </div>
+        </dd>
+        <dt><span>Source Archive</span></dt>
+        <dd>
+            <div *ngIf="grvItem.sourceArchiveId">
+                <a [routerLink]="['/source-archive-grv', grvItem.sourceArchiveId]">{{grvItem.sourceArchiveId}}</a>
             </div>
         </dd>
     </dl>

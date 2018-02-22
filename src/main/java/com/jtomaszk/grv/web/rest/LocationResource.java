@@ -2,9 +2,9 @@ package com.jtomaszk.grv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.jtomaszk.grv.service.LocationService;
-import com.jtomaszk.grv.service.dto.LocationDTO;
 import com.jtomaszk.grv.web.rest.errors.BadRequestAlertException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
+import com.jtomaszk.grv.service.dto.LocationDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Location.
@@ -115,4 +119,19 @@ public class LocationResource {
         locationService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/locations?query=:query : search for the location corresponding
+     * to the query.
+     *
+     * @param query the query of the location search
+     * @return the result of the search
+     */
+    @GetMapping("/_search/locations")
+    @Timed
+    public List<LocationDTO> searchLocations(@RequestParam String query) {
+        log.debug("REST request to search Locations for query {}", query);
+        return locationService.search(query);
+    }
+
 }

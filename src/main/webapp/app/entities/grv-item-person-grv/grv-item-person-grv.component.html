@@ -1,0 +1,85 @@
+<div>
+    <h2>
+        <span>Grv Item People</span>
+        <button class="btn btn-primary float-right jh-create-entity create-grv-item-person-grv" [routerLink]="['/', { outlets: { popup: ['grv-item-person-grv-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" >
+            Create new Grv Item Person
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="grvItemPeople">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="firstName"><span>First Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastName"><span>Last Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="anotherLastName"><span>Another Last Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="startDateString"><span>Start Date String</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endDateString"><span>End Date String</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="itemId"><span>Item</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let grvItemPerson of grvItemPeople ;trackBy: trackId">
+                <td><a [routerLink]="['../grv-item-person-grv', grvItemPerson.id ]">{{grvItemPerson.id}}</a></td>
+                <td>{{grvItemPerson.firstName}}</td>
+                <td>{{grvItemPerson.lastName}}</td>
+                <td>{{grvItemPerson.anotherLastName}}</td>
+                <td>{{grvItemPerson.startDateString}}</td>
+                <td>{{grvItemPerson.endDateString}}</td>
+                <td>
+                    <div *ngIf="grvItemPerson.itemId">
+                        <a [routerLink]="['../grv-item-grv', grvItemPerson.itemId  ]" >{{grvItemPerson.itemId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../grv-item-person-grv', grvItemPerson.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'grv-item-person-grv/'+ grvItemPerson.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'grv-item-person-grv/'+ grvItemPerson.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
