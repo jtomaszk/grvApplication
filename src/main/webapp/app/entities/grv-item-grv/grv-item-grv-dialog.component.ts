@@ -11,6 +11,8 @@ import { GrvItemGrvPopupService } from './grv-item-grv-popup.service';
 import { GrvItemGrvService } from './grv-item-grv.service';
 import { SourceGrv, SourceGrvService } from '../source-grv';
 import { LocationGrv, LocationGrvService } from '../location-grv';
+import { SourceArchiveGrv, SourceArchiveGrvService } from '../source-archive-grv';
+import { GrvItemPersonGrv, GrvItemPersonGrvService } from '../grv-item-person-grv';
 
 @Component({
     selector: 'jhi-grv-item-grv-dialog',
@@ -25,12 +27,18 @@ export class GrvItemGrvDialogComponent implements OnInit {
 
     locations: LocationGrv[];
 
+    sourcearchives: SourceArchiveGrv[];
+
+    grvitempeople: GrvItemPersonGrv[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private grvItemService: GrvItemGrvService,
         private sourceService: SourceGrvService,
         private locationService: LocationGrvService,
+        private sourceArchiveService: SourceArchiveGrvService,
+        private grvItemPersonService: GrvItemPersonGrvService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -41,6 +49,10 @@ export class GrvItemGrvDialogComponent implements OnInit {
             .subscribe((res: HttpResponse<SourceGrv[]>) => { this.sources = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.locationService.query()
             .subscribe((res: HttpResponse<LocationGrv[]>) => { this.locations = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.sourceArchiveService.query()
+            .subscribe((res: HttpResponse<SourceArchiveGrv[]>) => { this.sourcearchives = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.grvItemPersonService.query()
+            .subscribe((res: HttpResponse<GrvItemPersonGrv[]>) => { this.grvitempeople = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -82,6 +94,14 @@ export class GrvItemGrvDialogComponent implements OnInit {
     }
 
     trackLocationById(index: number, item: LocationGrv) {
+        return item.id;
+    }
+
+    trackSourceArchiveById(index: number, item: SourceArchiveGrv) {
+        return item.id;
+    }
+
+    trackGrvItemPersonById(index: number, item: GrvItemPersonGrv) {
         return item.id;
     }
 }

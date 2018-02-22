@@ -43,6 +43,7 @@ describe('Source e2e test', () => {
         sourceDialogPage.setInfoInput('info');
         expect(sourceDialogPage.getInfoInput()).toMatch('info');
         sourceDialogPage.areaSelectLastOption();
+        sourceDialogPage.patternSelectLastOption();
         sourceDialogPage.save();
         expect(sourceDialogPage.getSaveButton().isPresent()).toBeFalsy();
     });*/
@@ -75,6 +76,7 @@ export class SourceDialogPage {
     lastRunDateInput = element(by.css('input#field_lastRunDate'));
     infoInput = element(by.css('input#field_info'));
     areaSelect = element(by.css('select#field_area'));
+    patternSelect = element(by.css('select#field_pattern'));
 
     getModalTitle() {
         return this.modalTitle.getText();
@@ -137,6 +139,22 @@ export class SourceDialogPage {
 
     getAreaSelectedOption = function() {
         return this.areaSelect.element(by.css('option:checked')).getText();
+    };
+
+    patternSelectLastOption = function() {
+        this.patternSelect.all(by.tagName('option')).last().click();
+    };
+
+    patternSelectOption = function(option) {
+        this.patternSelect.sendKeys(option);
+    };
+
+    getPatternSelect = function() {
+        return this.patternSelect;
+    };
+
+    getPatternSelectedOption = function() {
+        return this.patternSelect.element(by.css('option:checked')).getText();
     };
 
     save() {

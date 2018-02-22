@@ -2,6 +2,7 @@ package com.jtomaszk.grv.service;
 
 import com.jtomaszk.grv.domain.Area;
 import com.jtomaszk.grv.repository.AreaRepository;
+import com.jtomaszk.grv.repository.search.AreaSearchRepository;
 import com.jtomaszk.grv.service.dto.AreaDTO;
 import com.jtomaszk.grv.service.mapper.AreaMapper;
 import org.slf4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Area.
@@ -25,9 +28,12 @@ public class AreaService {
 
     private final AreaMapper areaMapper;
 
-    public AreaService(AreaRepository areaRepository, AreaMapper areaMapper) {
+    private final AreaSearchRepository areaSearchRepository;
+
+    public AreaService(AreaRepository areaRepository, AreaMapper areaMapper, AreaSearchRepository areaSearchRepository) {
         this.areaRepository = areaRepository;
         this.areaMapper = areaMapper;
+        this.areaSearchRepository = areaSearchRepository;
     }
 
     /**
@@ -40,7 +46,9 @@ public class AreaService {
         log.debug("Request to save Area : {}", areaDTO);
         Area area = areaMapper.toEntity(areaDTO);
         area = areaRepository.save(area);
-        return areaMapper.toDto(area);
+        AreaDTO result = areaMapper.toDto(area);
+        areaSearchRepository.save(area);
+        return result;
     }
 
     /**
@@ -77,5 +85,20 @@ public class AreaService {
     public void delete(Long id) {
         log.debug("Request to delete Area : {}", id);
         areaRepository.delete(id);
+        areaSearchRepository.delete(id);
+    }
+
+    /**
+     * Search for the area corresponding to the query.
+     *
+     * @param query the query of the search
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public Page<AreaDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of Areas for query {}", query);
+        Page<Area> result = areaSearchRepository.search(queryStringQuery(query), pageable);
+        return result.map(areaMapper::toDto);
     }
 }

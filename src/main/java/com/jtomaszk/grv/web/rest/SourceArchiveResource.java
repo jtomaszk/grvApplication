@@ -1,13 +1,13 @@
 package com.jtomaszk.grv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.jtomaszk.grv.service.SourceArchiveQueryService;
 import com.jtomaszk.grv.service.SourceArchiveService;
-import com.jtomaszk.grv.service.dto.SourceArchiveCriteria;
-import com.jtomaszk.grv.service.dto.SourceArchiveDTO;
 import com.jtomaszk.grv.web.rest.errors.BadRequestAlertException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
+import com.jtomaszk.grv.service.dto.SourceArchiveDTO;
+import com.jtomaszk.grv.service.dto.SourceArchiveCriteria;
+import com.jtomaszk.grv.service.SourceArchiveQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing SourceArchive.
@@ -129,4 +133,22 @@ public class SourceArchiveResource {
         sourceArchiveService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/source-archives?query=:query : search for the sourceArchive corresponding
+     * to the query.
+     *
+     * @param query the query of the sourceArchive search
+     * @param pageable the pagination information
+     * @return the result of the search
+     */
+    @GetMapping("/_search/source-archives")
+    @Timed
+    public ResponseEntity<List<SourceArchiveDTO>> searchSourceArchives(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of SourceArchives for query {}", query);
+        Page<SourceArchiveDTO> page = sourceArchiveService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/source-archives");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 }

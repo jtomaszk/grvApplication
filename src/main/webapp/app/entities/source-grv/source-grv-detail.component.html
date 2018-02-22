@@ -30,6 +30,12 @@
                 <a [routerLink]="['/area-grv', source.areaId]">{{source.areaId}}</a>
             </div>
         </dd>
+        <dt><span>Pattern</span></dt>
+        <dd>
+            <div *ngIf="source.patternId">
+                <a [routerLink]="['/pattern-grv', source.patternId]">{{source.patternId}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"
