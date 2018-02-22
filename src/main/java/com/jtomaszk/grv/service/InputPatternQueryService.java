@@ -1,8 +1,16 @@
 package com.jtomaszk.grv.service;
 
 
-import java.util.List;
-
+import com.jtomaszk.grv.domain.InputPattern;
+import com.jtomaszk.grv.domain.InputPattern_;
+import com.jtomaszk.grv.domain.PatternColumn_;
+import com.jtomaszk.grv.domain.Source_;
+import com.jtomaszk.grv.repository.InputPatternRepository;
+import com.jtomaszk.grv.repository.search.InputPatternSearchRepository;
+import com.jtomaszk.grv.service.dto.InputPatternCriteria;
+import com.jtomaszk.grv.service.dto.InputPatternDTO;
+import com.jtomaszk.grv.service.mapper.InputPatternMapper;
+import io.github.jhipster.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,16 +19,7 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.github.jhipster.service.QueryService;
-
-import com.jtomaszk.grv.domain.InputPattern;
-import com.jtomaszk.grv.domain.*; // for static metamodels
-import com.jtomaszk.grv.repository.InputPatternRepository;
-import com.jtomaszk.grv.repository.search.InputPatternSearchRepository;
-import com.jtomaszk.grv.service.dto.InputPatternCriteria;
-
-import com.jtomaszk.grv.service.dto.InputPatternDTO;
-import com.jtomaszk.grv.service.mapper.InputPatternMapper;
+import java.util.List;
 
 /**
  * Service for executing complex queries for InputPattern entities in the database.
