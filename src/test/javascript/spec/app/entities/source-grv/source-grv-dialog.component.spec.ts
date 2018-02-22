@@ -10,6 +10,7 @@ import { SourceGrvDialogComponent } from '../../../../../../main/webapp/app/enti
 import { SourceGrvService } from '../../../../../../main/webapp/app/entities/source-grv/source-grv.service';
 import { SourceGrv } from '../../../../../../main/webapp/app/entities/source-grv/source-grv.model';
 import { AreaGrvService } from '../../../../../../main/webapp/app/entities/area-grv';
+import { InputPatternGrvService } from '../../../../../../main/webapp/app/entities/input-pattern-grv';
 
 describe('Component Tests', () => {
 
@@ -26,6 +27,7 @@ describe('Component Tests', () => {
                 declarations: [SourceGrvDialogComponent],
                 providers: [
                     AreaGrvService,
+                    InputPatternGrvService,
                     SourceGrvService
                 ]
             })

@@ -11,6 +11,8 @@ import { GrvItemGrvService } from '../../../../../../main/webapp/app/entities/gr
 import { GrvItemGrv } from '../../../../../../main/webapp/app/entities/grv-item-grv/grv-item-grv.model';
 import { SourceGrvService } from '../../../../../../main/webapp/app/entities/source-grv';
 import { LocationGrvService } from '../../../../../../main/webapp/app/entities/location-grv';
+import { SourceArchiveGrvService } from '../../../../../../main/webapp/app/entities/source-archive-grv';
+import { GrvItemPersonGrvService } from '../../../../../../main/webapp/app/entities/grv-item-person-grv';
 
 describe('Component Tests', () => {
 
@@ -28,6 +30,8 @@ describe('Component Tests', () => {
                 providers: [
                     SourceGrvService,
                     LocationGrvService,
+                    SourceArchiveGrvService,
+                    GrvItemPersonGrvService,
                     GrvItemGrvService
                 ]
             })

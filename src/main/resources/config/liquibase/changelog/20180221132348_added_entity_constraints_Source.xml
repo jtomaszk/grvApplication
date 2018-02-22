@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="area"/>
 
+        <addForeignKeyConstraint baseColumnNames="pattern_id"
+                                 baseTableName="source"
+                                 constraintName="fk_source_pattern_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="input_pattern"/>
+
     </changeSet>
 </databaseChangeLog>

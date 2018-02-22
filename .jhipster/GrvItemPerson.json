@@ -1,0 +1,43 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "item",
+            "otherEntityName": "grvItem",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "person"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "anotherLastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "startDateString",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "endDateString",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180222112200",
+    "entityTableName": "grv_item_person",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "searchEngine": "elasticsearch",
+    "angularJSSuffix": "grv"
+}
