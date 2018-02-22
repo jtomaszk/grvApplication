@@ -7,6 +7,7 @@ import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.domain.GrvItem;
 import com.jtomaszk.grv.repository.ErrorRepository;
 import com.jtomaszk.grv.service.ErrorService;
+import com.jtomaszk.grv.repository.search.ErrorSearchRepository;
 import com.jtomaszk.grv.service.dto.ErrorDTO;
 import com.jtomaszk.grv.service.mapper.ErrorMapper;
 import com.jtomaszk.grv.web.rest.errors.ExceptionTranslator;
@@ -67,6 +68,9 @@ public class ErrorResourceIntTest {
     private ErrorService errorService;
 
     @Autowired
+    private ErrorSearchRepository errorSearchRepository;
+
+    @Autowired
     private ErrorQueryService errorQueryService;
 
     @Autowired
@@ -112,6 +116,7 @@ public class ErrorResourceIntTest {
 
     @Before
     public void initTest() {
+        errorSearchRepository.deleteAll();
         error = createEntity(em);
     }
 
@@ -134,6 +139,10 @@ public class ErrorResourceIntTest {
         assertThat(testError.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testError.getMsg()).isEqualTo(DEFAULT_MSG);
         assertThat(testError.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
+
+        // Validate the Error in Elasticsearch
+        Error errorEs = errorSearchRepository.findOne(testError.getId());
+        assertThat(errorEs).isEqualToIgnoringGivenFields(testError);
     }
 
     @Test
@@ -379,6 +388,7 @@ public class ErrorResourceIntTest {
     public void updateError() throws Exception {
         // Initialize the database
         errorRepository.saveAndFlush(error);
+        errorSearchRepository.save(error);
         int databaseSizeBeforeUpdate = errorRepository.findAll().size();
 
         // Update the error
@@ -403,6 +413,10 @@ public class ErrorResourceIntTest {
         assertThat(testError.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testError.getMsg()).isEqualTo(UPDATED_MSG);
         assertThat(testError.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
+
+        // Validate the Error in Elasticsearch
+        Error errorEs = errorSearchRepository.findOne(testError.getId());
+        assertThat(errorEs).isEqualToIgnoringGivenFields(testError);
     }
 
     @Test
@@ -429,6 +443,7 @@ public class ErrorResourceIntTest {
     public void deleteError() throws Exception {
         // Initialize the database
         errorRepository.saveAndFlush(error);
+        errorSearchRepository.save(error);
         int databaseSizeBeforeDelete = errorRepository.findAll().size();
 
         // Get the error
@@ -436,9 +451,30 @@ public class ErrorResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean errorExistsInEs = errorSearchRepository.exists(error.getId());
+        assertThat(errorExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Error> errorList = errorRepository.findAll();
         assertThat(errorList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void searchError() throws Exception {
+        // Initialize the database
+        errorRepository.saveAndFlush(error);
+        errorSearchRepository.save(error);
+
+        // Search the error
+        restErrorMockMvc.perform(get("/api/_search/errors?query=id:" + error.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(error.getId().intValue())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
+            .andExpect(jsonPath("$.[*].msg").value(hasItem(DEFAULT_MSG.toString())))
+            .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())));
     }
 
     @Test

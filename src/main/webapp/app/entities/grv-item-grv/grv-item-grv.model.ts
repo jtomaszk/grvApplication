@@ -3,12 +3,7 @@ import { BaseEntity } from './../../shared';
 export class GrvItemGrv implements BaseEntity {
     constructor(
         public id?: number,
-        public firstName?: string,
-        public lastName?: string,
-        public anotherLastName?: string,
-        public startDateString?: string,
         public startDate?: any,
-        public endDateString?: string,
         public endDate?: any,
         public validToDateString?: string,
         public validToDate?: any,
@@ -18,6 +13,9 @@ export class GrvItemGrv implements BaseEntity {
         public createdDate?: any,
         public sourceId?: number,
         public locationId?: number,
+        public sourceArchiveId?: number,
+        public personId?: number,
+        public errors?: BaseEntity[],
     ) {
     }
 }

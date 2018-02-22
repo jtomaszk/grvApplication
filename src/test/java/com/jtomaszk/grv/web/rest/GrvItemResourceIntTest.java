@@ -5,6 +5,9 @@ import com.jtomaszk.grv.GrvApplicationApp;
 import com.jtomaszk.grv.domain.GrvItem;
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.domain.Location;
+import com.jtomaszk.grv.domain.SourceArchive;
+import com.jtomaszk.grv.domain.GrvItemPerson;
+import com.jtomaszk.grv.domain.Error;
 import com.jtomaszk.grv.repository.GrvItemRepository;
 import com.jtomaszk.grv.service.GrvItemService;
 import com.jtomaszk.grv.repository.search.GrvItemSearchRepository;
@@ -48,23 +51,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = GrvApplicationApp.class)
 public class GrvItemResourceIntTest {
 
-    private static final String DEFAULT_FIRST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_FIRST_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_LAST_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_ANOTHER_LAST_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_ANOTHER_LAST_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_START_DATE_STRING = "AAAAAAAAAA";
-    private static final String UPDATED_START_DATE_STRING = "BBBBBBBBBB";
-
     private static final Instant DEFAULT_START_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_START_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final String DEFAULT_END_DATE_STRING = "AAAAAAAAAA";
-    private static final String UPDATED_END_DATE_STRING = "BBBBBBBBBB";
 
     private static final Instant DEFAULT_END_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_END_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -137,12 +125,7 @@ public class GrvItemResourceIntTest {
      */
     public static GrvItem createEntity(EntityManager em) {
         GrvItem grvItem = new GrvItem()
-            .firstName(DEFAULT_FIRST_NAME)
-            .lastName(DEFAULT_LAST_NAME)
-            .anotherLastName(DEFAULT_ANOTHER_LAST_NAME)
-            .startDateString(DEFAULT_START_DATE_STRING)
             .startDate(DEFAULT_START_DATE)
-            .endDateString(DEFAULT_END_DATE_STRING)
             .endDate(DEFAULT_END_DATE)
             .validToDateString(DEFAULT_VALID_TO_DATE_STRING)
             .validToDate(DEFAULT_VALID_TO_DATE)
@@ -185,12 +168,7 @@ public class GrvItemResourceIntTest {
         List<GrvItem> grvItemList = grvItemRepository.findAll();
         assertThat(grvItemList).hasSize(databaseSizeBeforeCreate + 1);
         GrvItem testGrvItem = grvItemList.get(grvItemList.size() - 1);
-        assertThat(testGrvItem.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
-        assertThat(testGrvItem.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
-        assertThat(testGrvItem.getAnotherLastName()).isEqualTo(DEFAULT_ANOTHER_LAST_NAME);
-        assertThat(testGrvItem.getStartDateString()).isEqualTo(DEFAULT_START_DATE_STRING);
         assertThat(testGrvItem.getStartDate()).isEqualTo(DEFAULT_START_DATE);
-        assertThat(testGrvItem.getEndDateString()).isEqualTo(DEFAULT_END_DATE_STRING);
         assertThat(testGrvItem.getEndDate()).isEqualTo(DEFAULT_END_DATE);
         assertThat(testGrvItem.getValidToDateString()).isEqualTo(DEFAULT_VALID_TO_DATE_STRING);
         assertThat(testGrvItem.getValidToDate()).isEqualTo(DEFAULT_VALID_TO_DATE);
@@ -254,12 +232,7 @@ public class GrvItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(grvItem.getId().intValue())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].anotherLastName").value(hasItem(DEFAULT_ANOTHER_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].startDateString").value(hasItem(DEFAULT_START_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
-            .andExpect(jsonPath("$.[*].endDateString").value(hasItem(DEFAULT_END_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
             .andExpect(jsonPath("$.[*].validToDateString").value(hasItem(DEFAULT_VALID_TO_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].validToDate").value(hasItem(DEFAULT_VALID_TO_DATE.toString())))
@@ -280,12 +253,7 @@ public class GrvItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(grvItem.getId().intValue()))
-            .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME.toString()))
-            .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.anotherLastName").value(DEFAULT_ANOTHER_LAST_NAME.toString()))
-            .andExpect(jsonPath("$.startDateString").value(DEFAULT_START_DATE_STRING.toString()))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
-            .andExpect(jsonPath("$.endDateString").value(DEFAULT_END_DATE_STRING.toString()))
             .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
             .andExpect(jsonPath("$.validToDateString").value(DEFAULT_VALID_TO_DATE_STRING.toString()))
             .andExpect(jsonPath("$.validToDate").value(DEFAULT_VALID_TO_DATE.toString()))
@@ -293,162 +261,6 @@ public class GrvItemResourceIntTest {
             .andExpect(jsonPath("$.info").value(DEFAULT_INFO.toString()))
             .andExpect(jsonPath("$.docnr").value(DEFAULT_DOCNR.toString()))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()));
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByFirstNameIsEqualToSomething() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where firstName equals to DEFAULT_FIRST_NAME
-        defaultGrvItemShouldBeFound("firstName.equals=" + DEFAULT_FIRST_NAME);
-
-        // Get all the grvItemList where firstName equals to UPDATED_FIRST_NAME
-        defaultGrvItemShouldNotBeFound("firstName.equals=" + UPDATED_FIRST_NAME);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByFirstNameIsInShouldWork() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where firstName in DEFAULT_FIRST_NAME or UPDATED_FIRST_NAME
-        defaultGrvItemShouldBeFound("firstName.in=" + DEFAULT_FIRST_NAME + "," + UPDATED_FIRST_NAME);
-
-        // Get all the grvItemList where firstName equals to UPDATED_FIRST_NAME
-        defaultGrvItemShouldNotBeFound("firstName.in=" + UPDATED_FIRST_NAME);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByFirstNameIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where firstName is not null
-        defaultGrvItemShouldBeFound("firstName.specified=true");
-
-        // Get all the grvItemList where firstName is null
-        defaultGrvItemShouldNotBeFound("firstName.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByLastNameIsEqualToSomething() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where lastName equals to DEFAULT_LAST_NAME
-        defaultGrvItemShouldBeFound("lastName.equals=" + DEFAULT_LAST_NAME);
-
-        // Get all the grvItemList where lastName equals to UPDATED_LAST_NAME
-        defaultGrvItemShouldNotBeFound("lastName.equals=" + UPDATED_LAST_NAME);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByLastNameIsInShouldWork() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where lastName in DEFAULT_LAST_NAME or UPDATED_LAST_NAME
-        defaultGrvItemShouldBeFound("lastName.in=" + DEFAULT_LAST_NAME + "," + UPDATED_LAST_NAME);
-
-        // Get all the grvItemList where lastName equals to UPDATED_LAST_NAME
-        defaultGrvItemShouldNotBeFound("lastName.in=" + UPDATED_LAST_NAME);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByLastNameIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where lastName is not null
-        defaultGrvItemShouldBeFound("lastName.specified=true");
-
-        // Get all the grvItemList where lastName is null
-        defaultGrvItemShouldNotBeFound("lastName.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByAnotherLastNameIsEqualToSomething() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where anotherLastName equals to DEFAULT_ANOTHER_LAST_NAME
-        defaultGrvItemShouldBeFound("anotherLastName.equals=" + DEFAULT_ANOTHER_LAST_NAME);
-
-        // Get all the grvItemList where anotherLastName equals to UPDATED_ANOTHER_LAST_NAME
-        defaultGrvItemShouldNotBeFound("anotherLastName.equals=" + UPDATED_ANOTHER_LAST_NAME);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByAnotherLastNameIsInShouldWork() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where anotherLastName in DEFAULT_ANOTHER_LAST_NAME or UPDATED_ANOTHER_LAST_NAME
-        defaultGrvItemShouldBeFound("anotherLastName.in=" + DEFAULT_ANOTHER_LAST_NAME + "," + UPDATED_ANOTHER_LAST_NAME);
-
-        // Get all the grvItemList where anotherLastName equals to UPDATED_ANOTHER_LAST_NAME
-        defaultGrvItemShouldNotBeFound("anotherLastName.in=" + UPDATED_ANOTHER_LAST_NAME);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByAnotherLastNameIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where anotherLastName is not null
-        defaultGrvItemShouldBeFound("anotherLastName.specified=true");
-
-        // Get all the grvItemList where anotherLastName is null
-        defaultGrvItemShouldNotBeFound("anotherLastName.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByStartDateStringIsEqualToSomething() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where startDateString equals to DEFAULT_START_DATE_STRING
-        defaultGrvItemShouldBeFound("startDateString.equals=" + DEFAULT_START_DATE_STRING);
-
-        // Get all the grvItemList where startDateString equals to UPDATED_START_DATE_STRING
-        defaultGrvItemShouldNotBeFound("startDateString.equals=" + UPDATED_START_DATE_STRING);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByStartDateStringIsInShouldWork() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where startDateString in DEFAULT_START_DATE_STRING or UPDATED_START_DATE_STRING
-        defaultGrvItemShouldBeFound("startDateString.in=" + DEFAULT_START_DATE_STRING + "," + UPDATED_START_DATE_STRING);
-
-        // Get all the grvItemList where startDateString equals to UPDATED_START_DATE_STRING
-        defaultGrvItemShouldNotBeFound("startDateString.in=" + UPDATED_START_DATE_STRING);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByStartDateStringIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where startDateString is not null
-        defaultGrvItemShouldBeFound("startDateString.specified=true");
-
-        // Get all the grvItemList where startDateString is null
-        defaultGrvItemShouldNotBeFound("startDateString.specified=false");
     }
 
     @Test
@@ -488,45 +300,6 @@ public class GrvItemResourceIntTest {
 
         // Get all the grvItemList where startDate is null
         defaultGrvItemShouldNotBeFound("startDate.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByEndDateStringIsEqualToSomething() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where endDateString equals to DEFAULT_END_DATE_STRING
-        defaultGrvItemShouldBeFound("endDateString.equals=" + DEFAULT_END_DATE_STRING);
-
-        // Get all the grvItemList where endDateString equals to UPDATED_END_DATE_STRING
-        defaultGrvItemShouldNotBeFound("endDateString.equals=" + UPDATED_END_DATE_STRING);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByEndDateStringIsInShouldWork() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where endDateString in DEFAULT_END_DATE_STRING or UPDATED_END_DATE_STRING
-        defaultGrvItemShouldBeFound("endDateString.in=" + DEFAULT_END_DATE_STRING + "," + UPDATED_END_DATE_STRING);
-
-        // Get all the grvItemList where endDateString equals to UPDATED_END_DATE_STRING
-        defaultGrvItemShouldNotBeFound("endDateString.in=" + UPDATED_END_DATE_STRING);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByEndDateStringIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where endDateString is not null
-        defaultGrvItemShouldBeFound("endDateString.specified=true");
-
-        // Get all the grvItemList where endDateString is null
-        defaultGrvItemShouldNotBeFound("endDateString.specified=false");
     }
 
     @Test
@@ -839,6 +612,64 @@ public class GrvItemResourceIntTest {
         defaultGrvItemShouldNotBeFound("locationId.equals=" + (locationId + 1));
     }
 
+
+    @Test
+    @Transactional
+    public void getAllGrvItemsBySourceArchiveIsEqualToSomething() throws Exception {
+        // Initialize the database
+        SourceArchive sourceArchive = SourceArchiveResourceIntTest.createEntity(em);
+        em.persist(sourceArchive);
+        em.flush();
+        grvItem.setSourceArchive(sourceArchive);
+        grvItemRepository.saveAndFlush(grvItem);
+        Long sourceArchiveId = sourceArchive.getId();
+
+        // Get all the grvItemList where sourceArchive equals to sourceArchiveId
+        defaultGrvItemShouldBeFound("sourceArchiveId.equals=" + sourceArchiveId);
+
+        // Get all the grvItemList where sourceArchive equals to sourceArchiveId + 1
+        defaultGrvItemShouldNotBeFound("sourceArchiveId.equals=" + (sourceArchiveId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllGrvItemsByPersonIsEqualToSomething() throws Exception {
+        // Initialize the database
+        GrvItemPerson person = GrvItemPersonResourceIntTest.createEntity(em);
+        em.persist(person);
+        em.flush();
+        grvItem.setPerson(person);
+        person.setItem(grvItem);
+        grvItemRepository.saveAndFlush(grvItem);
+        Long personId = person.getId();
+
+        // Get all the grvItemList where person equals to personId
+        defaultGrvItemShouldBeFound("personId.equals=" + personId);
+
+        // Get all the grvItemList where person equals to personId + 1
+        defaultGrvItemShouldNotBeFound("personId.equals=" + (personId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllGrvItemsByErrorsIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Error errors = ErrorResourceIntTest.createEntity(em);
+        em.persist(errors);
+        em.flush();
+        grvItem.addErrors(errors);
+        grvItemRepository.saveAndFlush(grvItem);
+        Long errorsId = errors.getId();
+
+        // Get all the grvItemList where errors equals to errorsId
+        defaultGrvItemShouldBeFound("errorsId.equals=" + errorsId);
+
+        // Get all the grvItemList where errors equals to errorsId + 1
+        defaultGrvItemShouldNotBeFound("errorsId.equals=" + (errorsId + 1));
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */
@@ -847,12 +678,7 @@ public class GrvItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(grvItem.getId().intValue())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].anotherLastName").value(hasItem(DEFAULT_ANOTHER_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].startDateString").value(hasItem(DEFAULT_START_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
-            .andExpect(jsonPath("$.[*].endDateString").value(hasItem(DEFAULT_END_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
             .andExpect(jsonPath("$.[*].validToDateString").value(hasItem(DEFAULT_VALID_TO_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].validToDate").value(hasItem(DEFAULT_VALID_TO_DATE.toString())))
@@ -895,12 +721,7 @@ public class GrvItemResourceIntTest {
         // Disconnect from session so that the updates on updatedGrvItem are not directly saved in db
         em.detach(updatedGrvItem);
         updatedGrvItem
-            .firstName(UPDATED_FIRST_NAME)
-            .lastName(UPDATED_LAST_NAME)
-            .anotherLastName(UPDATED_ANOTHER_LAST_NAME)
-            .startDateString(UPDATED_START_DATE_STRING)
             .startDate(UPDATED_START_DATE)
-            .endDateString(UPDATED_END_DATE_STRING)
             .endDate(UPDATED_END_DATE)
             .validToDateString(UPDATED_VALID_TO_DATE_STRING)
             .validToDate(UPDATED_VALID_TO_DATE)
@@ -919,12 +740,7 @@ public class GrvItemResourceIntTest {
         List<GrvItem> grvItemList = grvItemRepository.findAll();
         assertThat(grvItemList).hasSize(databaseSizeBeforeUpdate);
         GrvItem testGrvItem = grvItemList.get(grvItemList.size() - 1);
-        assertThat(testGrvItem.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
-        assertThat(testGrvItem.getLastName()).isEqualTo(UPDATED_LAST_NAME);
-        assertThat(testGrvItem.getAnotherLastName()).isEqualTo(UPDATED_ANOTHER_LAST_NAME);
-        assertThat(testGrvItem.getStartDateString()).isEqualTo(UPDATED_START_DATE_STRING);
         assertThat(testGrvItem.getStartDate()).isEqualTo(UPDATED_START_DATE);
-        assertThat(testGrvItem.getEndDateString()).isEqualTo(UPDATED_END_DATE_STRING);
         assertThat(testGrvItem.getEndDate()).isEqualTo(UPDATED_END_DATE);
         assertThat(testGrvItem.getValidToDateString()).isEqualTo(UPDATED_VALID_TO_DATE_STRING);
         assertThat(testGrvItem.getValidToDate()).isEqualTo(UPDATED_VALID_TO_DATE);
@@ -991,12 +807,7 @@ public class GrvItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(grvItem.getId().intValue())))
-            .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].anotherLastName").value(hasItem(DEFAULT_ANOTHER_LAST_NAME.toString())))
-            .andExpect(jsonPath("$.[*].startDateString").value(hasItem(DEFAULT_START_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
-            .andExpect(jsonPath("$.[*].endDateString").value(hasItem(DEFAULT_END_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
             .andExpect(jsonPath("$.[*].validToDateString").value(hasItem(DEFAULT_VALID_TO_DATE_STRING.toString())))
             .andExpect(jsonPath("$.[*].validToDate").value(hasItem(DEFAULT_VALID_TO_DATE.toString())))

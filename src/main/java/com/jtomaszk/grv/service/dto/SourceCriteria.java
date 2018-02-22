@@ -1,12 +1,16 @@
 package com.jtomaszk.grv.service.dto;
 
-import com.jtomaszk.grv.domain.enumeration.SourceStatus;
+import java.io.Serializable;
+import com.jtomaszk.grv.domain.enumeration.SourceStatusEnum;
+import io.github.jhipster.service.filter.BooleanFilter;
+import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.InstantFilter;
+import io.github.jhipster.service.filter.FloatFilter;
+import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-import java.io.Serializable;
+import io.github.jhipster.service.filter.InstantFilter;
 
 
 
@@ -21,9 +25,9 @@ import java.io.Serializable;
  */
 public class SourceCriteria implements Serializable {
     /**
-     * Class for filtering SourceStatus
+     * Class for filtering SourceStatusEnum
      */
-    public static class SourceStatusFilter extends Filter<SourceStatus> {
+    public static class SourceStatusEnumFilter extends Filter<SourceStatusEnum> {
     }
 
     private static final long serialVersionUID = 1L;
@@ -35,13 +39,17 @@ public class SourceCriteria implements Serializable {
 
     private StringFilter url;
 
-    private SourceStatusFilter status;
+    private SourceStatusEnumFilter status;
 
     private InstantFilter lastRunDate;
 
     private StringFilter info;
 
     private LongFilter areaId;
+
+    private LongFilter patternId;
+
+    private LongFilter errorsId;
 
     private LongFilter archivesId;
 
@@ -74,11 +82,11 @@ public class SourceCriteria implements Serializable {
         this.url = url;
     }
 
-    public SourceStatusFilter getStatus() {
+    public SourceStatusEnumFilter getStatus() {
         return status;
     }
 
-    public void setStatus(SourceStatusFilter status) {
+    public void setStatus(SourceStatusEnumFilter status) {
         this.status = status;
     }
 
@@ -104,6 +112,22 @@ public class SourceCriteria implements Serializable {
 
     public void setAreaId(LongFilter areaId) {
         this.areaId = areaId;
+    }
+
+    public LongFilter getPatternId() {
+        return patternId;
+    }
+
+    public void setPatternId(LongFilter patternId) {
+        this.patternId = patternId;
+    }
+
+    public LongFilter getErrorsId() {
+        return errorsId;
+    }
+
+    public void setErrorsId(LongFilter errorsId) {
+        this.errorsId = errorsId;
     }
 
     public LongFilter getArchivesId() {
@@ -132,6 +156,8 @@ public class SourceCriteria implements Serializable {
                 (lastRunDate != null ? "lastRunDate=" + lastRunDate + ", " : "") +
                 (info != null ? "info=" + info + ", " : "") +
                 (areaId != null ? "areaId=" + areaId + ", " : "") +
+                (patternId != null ? "patternId=" + patternId + ", " : "") +
+                (errorsId != null ? "errorsId=" + errorsId + ", " : "") +
                 (archivesId != null ? "archivesId=" + archivesId + ", " : "") +
                 (locationsId != null ? "locationsId=" + locationsId + ", " : "") +
             "}";

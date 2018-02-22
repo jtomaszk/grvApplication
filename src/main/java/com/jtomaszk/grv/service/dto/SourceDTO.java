@@ -1,12 +1,13 @@
 package com.jtomaszk.grv.service.dto;
 
 
-import com.jtomaszk.grv.domain.enumeration.SourceStatus;
-
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
+import com.jtomaszk.grv.domain.enumeration.SourceStatusEnum;
 
 /**
  * A DTO for the Source entity.
@@ -21,13 +22,15 @@ public class SourceDTO implements Serializable {
     @NotNull
     private String url;
 
-    private SourceStatus status;
+    private SourceStatusEnum status;
 
     private Instant lastRunDate;
 
     private String info;
 
     private Long areaId;
+
+    private Long patternId;
 
     public Long getId() {
         return id;
@@ -53,11 +56,11 @@ public class SourceDTO implements Serializable {
         this.url = url;
     }
 
-    public SourceStatus getStatus() {
+    public SourceStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(SourceStatus status) {
+    public void setStatus(SourceStatusEnum status) {
         this.status = status;
     }
 
@@ -83,6 +86,14 @@ public class SourceDTO implements Serializable {
 
     public void setAreaId(Long areaId) {
         this.areaId = areaId;
+    }
+
+    public Long getPatternId() {
+        return patternId;
+    }
+
+    public void setPatternId(Long inputPatternId) {
+        this.patternId = inputPatternId;
     }
 
     @Override

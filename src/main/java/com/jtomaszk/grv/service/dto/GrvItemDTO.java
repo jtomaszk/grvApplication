@@ -1,9 +1,11 @@
 package com.jtomaszk.grv.service.dto;
 
 
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -13,17 +15,7 @@ public class GrvItemDTO implements Serializable {
 
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String anotherLastName;
-
-    private String startDateString;
-
     private Instant startDate;
-
-    private String endDateString;
 
     private Instant endDate;
 
@@ -44,6 +36,8 @@ public class GrvItemDTO implements Serializable {
 
     private Long locationId;
 
+    private Long sourceArchiveId;
+
     public Long getId() {
         return id;
     }
@@ -52,52 +46,12 @@ public class GrvItemDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAnotherLastName() {
-        return anotherLastName;
-    }
-
-    public void setAnotherLastName(String anotherLastName) {
-        this.anotherLastName = anotherLastName;
-    }
-
-    public String getStartDateString() {
-        return startDateString;
-    }
-
-    public void setStartDateString(String startDateString) {
-        this.startDateString = startDateString;
-    }
-
     public Instant getStartDate() {
         return startDate;
     }
 
     public void setStartDate(Instant startDate) {
         this.startDate = startDate;
-    }
-
-    public String getEndDateString() {
-        return endDateString;
-    }
-
-    public void setEndDateString(String endDateString) {
-        this.endDateString = endDateString;
     }
 
     public Instant getEndDate() {
@@ -172,6 +126,14 @@ public class GrvItemDTO implements Serializable {
         this.locationId = locationId;
     }
 
+    public Long getSourceArchiveId() {
+        return sourceArchiveId;
+    }
+
+    public void setSourceArchiveId(Long sourceArchiveId) {
+        this.sourceArchiveId = sourceArchiveId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -197,12 +159,7 @@ public class GrvItemDTO implements Serializable {
     public String toString() {
         return "GrvItemDTO{" +
             "id=" + getId() +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", anotherLastName='" + getAnotherLastName() + "'" +
-            ", startDateString='" + getStartDateString() + "'" +
             ", startDate='" + getStartDate() + "'" +
-            ", endDateString='" + getEndDateString() + "'" +
             ", endDate='" + getEndDate() + "'" +
             ", validToDateString='" + getValidToDateString() + "'" +
             ", validToDate='" + getValidToDate() + "'" +

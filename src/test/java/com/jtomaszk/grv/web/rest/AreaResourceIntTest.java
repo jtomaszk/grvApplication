@@ -6,6 +6,7 @@ import com.jtomaszk.grv.domain.Area;
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.repository.AreaRepository;
 import com.jtomaszk.grv.service.AreaService;
+import com.jtomaszk.grv.repository.search.AreaSearchRepository;
 import com.jtomaszk.grv.service.dto.AreaDTO;
 import com.jtomaszk.grv.service.mapper.AreaMapper;
 import com.jtomaszk.grv.web.rest.errors.ExceptionTranslator;
@@ -57,6 +58,9 @@ public class AreaResourceIntTest {
     private AreaService areaService;
 
     @Autowired
+    private AreaSearchRepository areaSearchRepository;
+
+    @Autowired
     private AreaQueryService areaQueryService;
 
     @Autowired
@@ -100,6 +104,7 @@ public class AreaResourceIntTest {
 
     @Before
     public void initTest() {
+        areaSearchRepository.deleteAll();
         area = createEntity(em);
     }
 
@@ -120,6 +125,10 @@ public class AreaResourceIntTest {
         assertThat(areaList).hasSize(databaseSizeBeforeCreate + 1);
         Area testArea = areaList.get(areaList.size() - 1);
         assertThat(testArea.getAreaName()).isEqualTo(DEFAULT_AREA_NAME);
+
+        // Validate the Area in Elasticsearch
+        Area areaEs = areaSearchRepository.findOne(testArea.getId());
+        assertThat(areaEs).isEqualToIgnoringGivenFields(testArea);
     }
 
     @Test
@@ -282,6 +291,7 @@ public class AreaResourceIntTest {
     public void updateArea() throws Exception {
         // Initialize the database
         areaRepository.saveAndFlush(area);
+        areaSearchRepository.save(area);
         int databaseSizeBeforeUpdate = areaRepository.findAll().size();
 
         // Update the area
@@ -302,6 +312,10 @@ public class AreaResourceIntTest {
         assertThat(areaList).hasSize(databaseSizeBeforeUpdate);
         Area testArea = areaList.get(areaList.size() - 1);
         assertThat(testArea.getAreaName()).isEqualTo(UPDATED_AREA_NAME);
+
+        // Validate the Area in Elasticsearch
+        Area areaEs = areaSearchRepository.findOne(testArea.getId());
+        assertThat(areaEs).isEqualToIgnoringGivenFields(testArea);
     }
 
     @Test
@@ -328,6 +342,7 @@ public class AreaResourceIntTest {
     public void deleteArea() throws Exception {
         // Initialize the database
         areaRepository.saveAndFlush(area);
+        areaSearchRepository.save(area);
         int databaseSizeBeforeDelete = areaRepository.findAll().size();
 
         // Get the area
@@ -335,9 +350,28 @@ public class AreaResourceIntTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean areaExistsInEs = areaSearchRepository.exists(area.getId());
+        assertThat(areaExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Area> areaList = areaRepository.findAll();
         assertThat(areaList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void searchArea() throws Exception {
+        // Initialize the database
+        areaRepository.saveAndFlush(area);
+        areaSearchRepository.save(area);
+
+        // Search the area
+        restAreaMockMvc.perform(get("/api/_search/areas?query=id:" + area.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(area.getId().intValue())))
+            .andExpect(jsonPath("$.[*].areaName").value(hasItem(DEFAULT_AREA_NAME.toString())));
     }
 
     @Test

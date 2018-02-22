@@ -10,6 +10,7 @@ import { SourceGrv } from './source-grv.model';
 import { SourceGrvPopupService } from './source-grv-popup.service';
 import { SourceGrvService } from './source-grv.service';
 import { AreaGrv, AreaGrvService } from '../area-grv';
+import { InputPatternGrv, InputPatternGrvService } from '../input-pattern-grv';
 
 @Component({
     selector: 'jhi-source-grv-dialog',
@@ -22,11 +23,14 @@ export class SourceGrvDialogComponent implements OnInit {
 
     areas: AreaGrv[];
 
+    inputpatterns: InputPatternGrv[];
+
     constructor(
         public activeModal: NgbActiveModal,
         private jhiAlertService: JhiAlertService,
         private sourceService: SourceGrvService,
         private areaService: AreaGrvService,
+        private inputPatternService: InputPatternGrvService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -35,6 +39,8 @@ export class SourceGrvDialogComponent implements OnInit {
         this.isSaving = false;
         this.areaService.query()
             .subscribe((res: HttpResponse<AreaGrv[]>) => { this.areas = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+        this.inputPatternService.query()
+            .subscribe((res: HttpResponse<InputPatternGrv[]>) => { this.inputpatterns = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -72,6 +78,10 @@ export class SourceGrvDialogComponent implements OnInit {
     }
 
     trackAreaById(index: number, item: AreaGrv) {
+        return item.id;
+    }
+
+    trackInputPatternById(index: number, item: InputPatternGrv) {
         return item.id;
     }
 }

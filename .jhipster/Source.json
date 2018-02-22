@@ -9,6 +9,19 @@
             "otherEntityField": "id"
         },
         {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "pattern",
+            "otherEntityName": "inputPattern",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "errors",
+            "otherEntityName": "error",
+            "otherEntityRelationshipName": "source"
+        },
+        {
             "relationshipType": "one-to-many",
             "relationshipName": "archives",
             "otherEntityName": "sourceArchive",
@@ -38,7 +51,7 @@
         },
         {
             "fieldName": "status",
-            "fieldType": "SourceStatus",
+            "fieldType": "SourceStatusEnum",
             "fieldValues": "OK,ERROR,NEW"
         },
         {

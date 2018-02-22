@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "sources",
+            "otherEntityName": "source",
+            "otherEntityRelationshipName": "pattern"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "columns",
+            "otherEntityName": "patternColumn",
+            "otherEntityRelationshipName": "pattern"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20180222112156",
+    "entityTableName": "input_pattern",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "angularJSSuffix": "grv"
+}

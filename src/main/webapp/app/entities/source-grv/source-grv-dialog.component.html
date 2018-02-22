@@ -68,6 +68,19 @@
                 This field is required.
             </small>
         </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_pattern">Pattern</label>
+            <select class="form-control" id="field_pattern" name="pattern" [(ngModel)]="source.patternId"  required>
+                <option *ngIf="!editForm.value.pattern" [ngValue]="null" selected></option>
+                <option [ngValue]="inputPatternOption.id" *ngFor="let inputPatternOption of inputpatterns; trackBy: trackInputPatternById">{{inputPatternOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.pattern?.dirty && editForm.controls.pattern?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.pattern?.errors?.required">
+                This field is required.
+            </small>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

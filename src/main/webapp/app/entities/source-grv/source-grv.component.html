@@ -3,13 +3,26 @@
         <span>Sources</span>
         <button class="btn btn-primary float-right jh-create-entity create-source-grv" [routerLink]="['/', { outlets: { popup: ['source-grv-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span >
+            <span class="hidden-sm-down" >
             Create new Source
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Query">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
     <br/>
     <div class="table-responsive" *ngIf="sources">
@@ -23,6 +36,7 @@
             <th jhiSortBy="lastRunDate"><span>Last Run Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="info"><span>Info</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="areaId"><span>Area</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="patternId"><span>Pattern</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -37,6 +51,11 @@
                 <td>
                     <div *ngIf="source.areaId">
                         <a [routerLink]="['../area-grv', source.areaId  ]" >{{source.areaId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="source.patternId">
+                        <a [routerLink]="['../input-pattern-grv', source.patternId  ]" >{{source.patternId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
