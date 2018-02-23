@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import { GrvItemPersonGrv } from './grv-item-person-grv.model';
-import { GrvItemPersonGrvPopupService } from './grv-item-person-grv-popup.service';
-import { GrvItemPersonGrvService } from './grv-item-person-grv.service';
+import {GrvItemPersonGrv} from './grv-item-person-grv.model';
+import {GrvItemPersonGrvPopupService} from './grv-item-person-grv-popup.service';
+import {GrvItemPersonGrvService} from './grv-item-person-grv.service';
 
 @Component({
     selector: 'jhi-grv-item-person-grv-delete-dialog',

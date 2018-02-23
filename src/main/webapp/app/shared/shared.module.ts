@@ -1,19 +1,19 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {DatePipe} from '@angular/common';
 
 import {
-    GrvApplicationSharedLibsModule,
-    GrvApplicationSharedCommonModule,
-    CSRFService,
-    AuthServerProvider,
     AccountService,
-    UserService,
-    StateStorageService,
-    LoginService,
-    LoginModalService,
-    JhiLoginModalComponent,
-    Principal,
+    AuthServerProvider,
+    CSRFService,
+    GrvApplicationSharedCommonModule,
+    GrvApplicationSharedLibsModule,
     HasAnyAuthorityDirective,
+    JhiLoginModalComponent,
+    LoginModalService,
+    LoginService,
+    Principal,
+    StateStorageService,
+    UserService,
 } from './';
 
 @NgModule({

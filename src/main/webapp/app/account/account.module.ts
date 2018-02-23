@@ -1,22 +1,22 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { GrvApplicationSharedModule } from '../shared';
+import {GrvApplicationSharedModule} from '../shared';
 
 import {
-    Register,
-    ActivateService,
-    PasswordService,
-    PasswordResetInitService,
-    PasswordResetFinishService,
-    PasswordStrengthBarComponent,
-    RegisterComponent,
+    accountState,
     ActivateComponent,
+    ActivateService,
     PasswordComponent,
-    PasswordResetInitComponent,
     PasswordResetFinishComponent,
-    SettingsComponent,
-    accountState
+    PasswordResetFinishService,
+    PasswordResetInitComponent,
+    PasswordResetInitService,
+    PasswordService,
+    PasswordStrengthBarComponent,
+    Register,
+    RegisterComponent,
+    SettingsComponent
 } from './';
 
 @NgModule({

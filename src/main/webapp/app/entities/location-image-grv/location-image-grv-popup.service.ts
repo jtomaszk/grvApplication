@@ -1,10 +1,10 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpResponse } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { LocationImageGrv } from './location-image-grv.model';
-import { LocationImageGrvService } from './location-image-grv.service';
+import {Component, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {HttpResponse} from '@angular/common/http';
+import {DatePipe} from '@angular/common';
+import {LocationImageGrv} from './location-image-grv.model';
+import {LocationImageGrvService} from './location-image-grv.service';
 
 @Injectable()
 export class LocationImageGrvPopupService {

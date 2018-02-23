@@ -1,6 +1,6 @@
-import { JhiEventManager } from 'ng-jhipster';
-import { HttpInterceptor, HttpRequest, HttpErrorResponse, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import {JhiEventManager} from 'ng-jhipster';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 
 export class ErrorHandlerInterceptor implements HttpInterceptor {

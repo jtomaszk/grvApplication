@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil } from 'ng-jhipster';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {JhiPaginationUtil} from 'ng-jhipster';
 
-import { UserRouteAccessService } from '../../shared';
-import { InputPatternGrvComponent } from './input-pattern-grv.component';
-import { InputPatternGrvDetailComponent } from './input-pattern-grv-detail.component';
-import { InputPatternGrvPopupComponent } from './input-pattern-grv-dialog.component';
-import { InputPatternGrvDeletePopupComponent } from './input-pattern-grv-delete-dialog.component';
+import {UserRouteAccessService} from '../../shared';
+import {InputPatternGrvComponent} from './input-pattern-grv.component';
+import {InputPatternGrvDetailComponent} from './input-pattern-grv-detail.component';
+import {InputPatternGrvPopupComponent} from './input-pattern-grv-dialog.component';
+import {InputPatternGrvDeletePopupComponent} from './input-pattern-grv-delete-dialog.component';
 
 @Injectable()
 export class InputPatternGrvResolvePagingParams implements Resolve<any> {

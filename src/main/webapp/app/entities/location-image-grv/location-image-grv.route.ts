@@ -1,10 +1,10 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
-import { LocationImageGrvComponent } from './location-image-grv.component';
-import { LocationImageGrvDetailComponent } from './location-image-grv-detail.component';
-import { LocationImageGrvPopupComponent } from './location-image-grv-dialog.component';
-import { LocationImageGrvDeletePopupComponent } from './location-image-grv-delete-dialog.component';
+import {UserRouteAccessService} from '../../shared';
+import {LocationImageGrvComponent} from './location-image-grv.component';
+import {LocationImageGrvDetailComponent} from './location-image-grv-detail.component';
+import {LocationImageGrvPopupComponent} from './location-image-grv-dialog.component';
+import {LocationImageGrvDeletePopupComponent} from './location-image-grv-delete-dialog.component';
 
 export const locationImageRoute: Routes = [
     {

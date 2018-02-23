@@ -1,9 +1,9 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpResponse } from '@angular/common/http';
-import { AreaGrv } from './area-grv.model';
-import { AreaGrvService } from './area-grv.service';
+import {Component, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {HttpResponse} from '@angular/common/http';
+import {AreaGrv} from './area-grv.model';
+import {AreaGrvService} from './area-grv.service';
 
 @Injectable()
 export class AreaGrvPopupService {

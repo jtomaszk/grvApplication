@@ -1,20 +1,27 @@
 package com.jtomaszk.grv.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jtomaszk.grv.domain.enumeration.SourceStatusEnum;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import org.springframework.data.elasticsearch.annotations.Document;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
-
-import com.jtomaszk.grv.domain.enumeration.SourceStatusEnum;
+import java.util.Set;
 
 /**
  * A Source.

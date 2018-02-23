@@ -1,18 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import {Observable} from 'rxjs/Observable';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiDataUtils, JhiEventManager} from 'ng-jhipster';
 
-import { GrvItemGrv } from './grv-item-grv.model';
-import { GrvItemGrvPopupService } from './grv-item-grv-popup.service';
-import { GrvItemGrvService } from './grv-item-grv.service';
-import { SourceGrv, SourceGrvService } from '../source-grv';
-import { LocationGrv, LocationGrvService } from '../location-grv';
-import { SourceArchiveGrv, SourceArchiveGrvService } from '../source-archive-grv';
-import { GrvItemPersonGrv, GrvItemPersonGrvService } from '../grv-item-person-grv';
+import {GrvItemGrv} from './grv-item-grv.model';
+import {GrvItemGrvPopupService} from './grv-item-grv-popup.service';
+import {GrvItemGrvService} from './grv-item-grv.service';
+import {SourceGrv, SourceGrvService} from '../source-grv';
+import {LocationGrv, LocationGrvService} from '../location-grv';
+import {SourceArchiveGrv, SourceArchiveGrvService} from '../source-archive-grv';
+import {GrvItemPersonGrv, GrvItemPersonGrvService} from '../grv-item-person-grv';
 
 @Component({
     selector: 'jhi-grv-item-grv-dialog',
