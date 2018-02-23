@@ -1,5 +1,6 @@
 package com.jtomaszk.grv.service.mapper;
 
+import com.jtomaszk.grv.domain.Error;
 import com.jtomaszk.grv.service.dto.ErrorDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
