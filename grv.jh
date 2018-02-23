@@ -1,3 +1,6 @@
+DATE_MAX_LENGTH = 15
+EXTERNAL_ID_MAX_LENGTH = 31
+
 entity Area {
 	areaName String required
 }
@@ -14,7 +17,7 @@ entity InputPattern {
 
 entity PatternColumn {
 	column ColumnEnum required,
-    value String required pattern(/[\w ${}]+/)
+    value String required pattern(/[\w-|#@!+=-:;<>., ${}]+/)
 }
 
 enum ColumnEnum {
@@ -27,7 +30,8 @@ enum ColumnEnum {
     EXTERNAL_ID,
     BOX_EXTERNAL_ID,
     INFO,
-    DOC_NR
+    DOC_NR,
+    COORDINATES
 }
 
 entity Source {
@@ -47,25 +51,30 @@ entity GrvItemPerson {
 	firstName String,
 	lastName String,
     anotherLastName String,
-    startDateString String,
-    endDateString String,
+    startDateString String maxlength(DATE_MAX_LENGTH),
+    endDateString String maxlength(DATE_MAX_LENGTH),
 }
 
 entity GrvItem {	
     startDate Instant,
     endDate Instant,
-    validToDateString String,
+    validToDateString String maxlength(DATE_MAX_LENGTH),
     validToDate Instant,
-    external_id String,
-	info String,
+    external_id String maxlength(EXTERNAL_ID_MAX_LENGTH),
+	info TextBlob,
 	doc_nr String,
     createdDate Instant required
 }
 
 entity Location {
-    external_id String,
+    external_id String maxlength(EXTERNAL_ID_MAX_LENGTH),
     createdDate Instant required
-    coords String,
+    coords String maxlength(100),
+}
+
+entity LocationImage {
+	createdDate Instant required,
+	image ImageBlob
 }
 
 entity Error {
@@ -76,7 +85,7 @@ entity Error {
 
 relationship ManyToOne {	
 	GrvItem{source required} to Source,
-    GrvItem{location required} to Location,
+    GrvItem{location required} to Location{items},
     GrvItem{sourceArchive} to SourceArchive,
     Error{source} to Source{errors},
     Error{item} to GrvItem{errors},
@@ -84,6 +93,7 @@ relationship ManyToOne {
     Source{pattern required} to InputPattern{sources},
     SourceArchive{source required} to Source{archives},
     Location{source required} to Source{locations},
+    LocationImage{location required} to Location{images},
     PatternColumn{pattern required} to InputPattern{columns}
 }
 
