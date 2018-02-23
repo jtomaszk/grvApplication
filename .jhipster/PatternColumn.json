@@ -25,7 +25,7 @@
                 "required",
                 "pattern"
             ],
-            "fieldValidateRulesPattern": "[\\w-|#@!+=-:;<>., ${}]+"
+            "fieldValidateRulesPattern": "[\\w-|#@!+=\\-:;<>., ${}]+"
         }
     ],
     "changelogDate": "20180222112157",
