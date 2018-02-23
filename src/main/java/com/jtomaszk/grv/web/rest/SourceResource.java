@@ -124,6 +124,14 @@ public class SourceResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(sourceDTO));
     }
 
+    @PutMapping("/sources/{id}/run")
+    @Timed
+    public ResponseEntity<SourceDTO> run(@PathVariable Long id) throws Exception {
+        log.debug("REST request to run Source : {}", id);
+        SourceDTO sourceDTO = sourceService.run(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(sourceDTO));
+    }
+
     /**
      * DELETE  /sources/:id : delete the "id" source.
      *
