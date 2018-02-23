@@ -2,16 +2,11 @@ package com.jtomaszk.grv.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -39,10 +34,12 @@ public class GrvItemPerson implements Serializable {
     @Column(name = "another_last_name")
     private String anotherLastName;
 
-    @Column(name = "start_date_string")
+    @Size(max = 15)
+    @Column(name = "start_date_string", length = 15)
     private String startDateString;
 
-    @Column(name = "end_date_string")
+    @Size(max = 15)
+    @Column(name = "end_date_string", length = 15)
     private String endDateString;
 
     @OneToOne

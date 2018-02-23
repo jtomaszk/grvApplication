@@ -1,13 +1,13 @@
 package com.jtomaszk.grv.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.jtomaszk.grv.service.GrvItemPersonQueryService;
 import com.jtomaszk.grv.service.GrvItemPersonService;
-import com.jtomaszk.grv.service.dto.GrvItemPersonCriteria;
-import com.jtomaszk.grv.service.dto.GrvItemPersonDTO;
 import com.jtomaszk.grv.web.rest.errors.BadRequestAlertException;
 import com.jtomaszk.grv.web.rest.util.HeaderUtil;
 import com.jtomaszk.grv.web.rest.util.PaginationUtil;
+import com.jtomaszk.grv.service.dto.GrvItemPersonDTO;
+import com.jtomaszk.grv.service.dto.GrvItemPersonCriteria;
+import com.jtomaszk.grv.service.GrvItemPersonQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,20 +16,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing GrvItemPerson.
@@ -60,7 +57,7 @@ public class GrvItemPersonResource {
      */
     @PostMapping("/grv-item-people")
     @Timed
-    public ResponseEntity<GrvItemPersonDTO> createGrvItemPerson(@RequestBody GrvItemPersonDTO grvItemPersonDTO) throws URISyntaxException {
+    public ResponseEntity<GrvItemPersonDTO> createGrvItemPerson(@Valid @RequestBody GrvItemPersonDTO grvItemPersonDTO) throws URISyntaxException {
         log.debug("REST request to save GrvItemPerson : {}", grvItemPersonDTO);
         if (grvItemPersonDTO.getId() != null) {
             throw new BadRequestAlertException("A new grvItemPerson cannot already have an ID", ENTITY_NAME, "idexists");
@@ -82,7 +79,7 @@ public class GrvItemPersonResource {
      */
     @PutMapping("/grv-item-people")
     @Timed
-    public ResponseEntity<GrvItemPersonDTO> updateGrvItemPerson(@RequestBody GrvItemPersonDTO grvItemPersonDTO) throws URISyntaxException {
+    public ResponseEntity<GrvItemPersonDTO> updateGrvItemPerson(@Valid @RequestBody GrvItemPersonDTO grvItemPersonDTO) throws URISyntaxException {
         log.debug("REST request to update GrvItemPerson : {}", grvItemPersonDTO);
         if (grvItemPersonDTO.getId() == null) {
             return createGrvItemPerson(grvItemPersonDTO);

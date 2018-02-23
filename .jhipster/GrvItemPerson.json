@@ -25,11 +25,19 @@
         },
         {
             "fieldName": "startDateString",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 15
         },
         {
             "fieldName": "endDateString",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 15
         }
     ],
     "changelogDate": "20180222112200",

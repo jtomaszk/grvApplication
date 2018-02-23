@@ -1,19 +1,8 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.Area_;
-import com.jtomaszk.grv.domain.Error_;
-import com.jtomaszk.grv.domain.InputPattern_;
-import com.jtomaszk.grv.domain.Location_;
-import com.jtomaszk.grv.domain.Source;
-import com.jtomaszk.grv.domain.SourceArchive_;
-import com.jtomaszk.grv.domain.Source_;
-import com.jtomaszk.grv.repository.SourceRepository;
-import com.jtomaszk.grv.repository.search.SourceSearchRepository;
-import com.jtomaszk.grv.service.dto.SourceCriteria;
-import com.jtomaszk.grv.service.dto.SourceDTO;
-import com.jtomaszk.grv.service.mapper.SourceMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,7 +11,17 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import com.jtomaszk.grv.domain.Source;
+import com.jtomaszk.grv.domain.*; // for static metamodels
+import com.jtomaszk.grv.repository.SourceRepository;
+import com.jtomaszk.grv.repository.search.SourceSearchRepository;
+import com.jtomaszk.grv.service.dto.SourceCriteria;
+
+import com.jtomaszk.grv.service.dto.SourceDTO;
+import com.jtomaszk.grv.service.mapper.SourceMapper;
+import com.jtomaszk.grv.domain.enumeration.SourceStatusEnum;
 
 /**
  * Service for executing complex queries for Source entities in the database.

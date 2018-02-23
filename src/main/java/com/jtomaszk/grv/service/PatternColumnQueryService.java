@@ -1,15 +1,8 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.InputPattern_;
-import com.jtomaszk.grv.domain.PatternColumn;
-import com.jtomaszk.grv.domain.PatternColumn_;
-import com.jtomaszk.grv.repository.PatternColumnRepository;
-import com.jtomaszk.grv.repository.search.PatternColumnSearchRepository;
-import com.jtomaszk.grv.service.dto.PatternColumnCriteria;
-import com.jtomaszk.grv.service.dto.PatternColumnDTO;
-import com.jtomaszk.grv.service.mapper.PatternColumnMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,7 +11,17 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import com.jtomaszk.grv.domain.PatternColumn;
+import com.jtomaszk.grv.domain.*; // for static metamodels
+import com.jtomaszk.grv.repository.PatternColumnRepository;
+import com.jtomaszk.grv.repository.search.PatternColumnSearchRepository;
+import com.jtomaszk.grv.service.dto.PatternColumnCriteria;
+
+import com.jtomaszk.grv.service.dto.PatternColumnDTO;
+import com.jtomaszk.grv.service.mapper.PatternColumnMapper;
+import com.jtomaszk.grv.domain.enumeration.ColumnEnum;
 
 /**
  * Service for executing complex queries for PatternColumn entities in the database.

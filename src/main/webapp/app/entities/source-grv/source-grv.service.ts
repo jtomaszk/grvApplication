@@ -84,9 +84,4 @@ export class SourceGrvService {
         copy.lastRunDate = this.dateUtils.toDate(source.lastRunDate);
         return copy;
     }
-
-    runLoad(source: SourceGrv) {
-        return this.http.put(`${this.resourceUrl}/${source.id}/run`, { observe: 'response'})
-            .map((res: EntityResponseType) => this.convertResponse(res));
-    }
 }

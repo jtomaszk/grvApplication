@@ -1,10 +1,13 @@
 package com.jtomaszk.grv.service.dto;
 
 
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the GrvItem entity.
@@ -17,12 +20,15 @@ public class GrvItemDTO implements Serializable {
 
     private Instant endDate;
 
+    @Size(max = 15)
     private String validToDateString;
 
     private Instant validToDate;
 
+    @Size(max = 31)
     private String externalid;
 
+    @Lob
     private String info;
 
     private String docnr;

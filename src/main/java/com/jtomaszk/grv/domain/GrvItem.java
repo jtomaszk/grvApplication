@@ -3,15 +3,16 @@ package com.jtomaszk.grv.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A GrvItem.
@@ -34,15 +35,18 @@ public class GrvItem implements Serializable {
     @Column(name = "end_date")
     private Instant endDate;
 
-    @Column(name = "valid_to_date_string")
+    @Size(max = 15)
+    @Column(name = "valid_to_date_string", length = 15)
     private String validToDateString;
 
     @Column(name = "valid_to_date")
     private Instant validToDate;
 
-    @Column(name = "externalid")
+    @Size(max = 31)
+    @Column(name = "externalid", length = 31)
     private String externalid;
 
+    @Lob
     @Column(name = "info")
     private String info;
 
@@ -64,7 +68,7 @@ public class GrvItem implements Serializable {
     @ManyToOne
     private SourceArchive sourceArchive;
 
-    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "item")
     @JsonIgnore
     private GrvItemPerson person;
 

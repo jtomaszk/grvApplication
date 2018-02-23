@@ -7,6 +7,8 @@ export class LocationGrv implements BaseEntity {
         public createdDate?: any,
         public coords?: string,
         public sourceId?: number,
+        public items?: BaseEntity[],
+        public images?: BaseEntity[],
     ) {
     }
 }

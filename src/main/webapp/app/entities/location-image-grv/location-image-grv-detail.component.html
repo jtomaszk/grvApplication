@@ -1,0 +1,41 @@
+
+<div *ngIf="locationImage">
+    <h2><span>Location Image</span> {{locationImage.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Created Date</span></dt>
+        <dd>
+            <span>{{locationImage.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+            <div *ngIf="locationImage.image">
+                <a (click)="openFile(locationImage.imageContentType, locationImage.image)">
+                    <img [src]="'data:' + locationImage.imageContentType + ';base64,' + locationImage.image" style="max-width: 100%;" alt="locationImage image"/>
+                </a>
+                {{locationImage.imageContentType}}, {{byteSize(locationImage.image)}}
+            </div>
+        </dd>
+        <dt><span>Location</span></dt>
+        <dd>
+            <div *ngIf="locationImage.locationId">
+                <a [routerLink]="['/location-grv', locationImage.locationId]">{{locationImage.locationId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'location-image-grv/'+ locationImage.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

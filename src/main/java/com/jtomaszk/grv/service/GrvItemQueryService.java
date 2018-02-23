@@ -1,19 +1,8 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.Error_;
-import com.jtomaszk.grv.domain.GrvItem;
-import com.jtomaszk.grv.domain.GrvItemPerson_;
-import com.jtomaszk.grv.domain.GrvItem_;
-import com.jtomaszk.grv.domain.Location_;
-import com.jtomaszk.grv.domain.SourceArchive_;
-import com.jtomaszk.grv.domain.Source_;
-import com.jtomaszk.grv.repository.GrvItemRepository;
-import com.jtomaszk.grv.repository.search.GrvItemSearchRepository;
-import com.jtomaszk.grv.service.dto.GrvItemCriteria;
-import com.jtomaszk.grv.service.dto.GrvItemDTO;
-import com.jtomaszk.grv.service.mapper.GrvItemMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,7 +11,16 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import com.jtomaszk.grv.domain.GrvItem;
+import com.jtomaszk.grv.domain.*; // for static metamodels
+import com.jtomaszk.grv.repository.GrvItemRepository;
+import com.jtomaszk.grv.repository.search.GrvItemSearchRepository;
+import com.jtomaszk.grv.service.dto.GrvItemCriteria;
+
+import com.jtomaszk.grv.service.dto.GrvItemDTO;
+import com.jtomaszk.grv.service.mapper.GrvItemMapper;
 
 /**
  * Service for executing complex queries for GrvItem entities in the database.
@@ -98,9 +96,6 @@ public class GrvItemQueryService extends QueryService<GrvItem> {
             }
             if (criteria.getExternalid() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getExternalid(), GrvItem_.externalid));
-            }
-            if (criteria.getInfo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getInfo(), GrvItem_.info));
             }
             if (criteria.getDocnr() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDocnr(), GrvItem_.docnr));

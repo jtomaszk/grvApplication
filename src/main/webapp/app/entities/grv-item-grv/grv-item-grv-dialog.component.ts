@@ -4,7 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { GrvItemGrv } from './grv-item-grv.model';
 import { GrvItemGrvPopupService } from './grv-item-grv-popup.service';
@@ -33,6 +33,7 @@ export class GrvItemGrvDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
+        private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private grvItemService: GrvItemGrvService,
         private sourceService: SourceGrvService,
@@ -53,6 +54,18 @@ export class GrvItemGrvDialogComponent implements OnInit {
             .subscribe((res: HttpResponse<SourceArchiveGrv[]>) => { this.sourcearchives = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.grvItemPersonService.query()
             .subscribe((res: HttpResponse<GrvItemPersonGrv[]>) => { this.grvitempeople = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
+    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    setFileData(event, entity, field, isImage) {
+        this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
     clear() {

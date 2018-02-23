@@ -83,7 +83,7 @@ export class GrvItemDialogPage {
     validToDateStringInput = element(by.css('input#field_validToDateString'));
     validToDateInput = element(by.css('input#field_validToDate'));
     externalidInput = element(by.css('input#field_externalid'));
-    infoInput = element(by.css('input#field_info'));
+    infoInput = element(by.css('textarea#field_info'));
     docnrInput = element(by.css('input#field_docnr'));
     createdDateInput = element(by.css('input#field_createdDate'));
     sourceSelect = element(by.css('select#field_source'));

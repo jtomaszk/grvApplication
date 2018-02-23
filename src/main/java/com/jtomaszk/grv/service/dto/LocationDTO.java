@@ -1,9 +1,11 @@
 package com.jtomaszk.grv.service.dto;
 
 
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.Instant;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -13,11 +15,13 @@ public class LocationDTO implements Serializable {
 
     private Long id;
 
+    @Size(max = 31)
     private String externalid;
 
     @NotNull
     private Instant createdDate;
 
+    @Size(max = 100)
     private String coords;
 
     private Long sourceId;
