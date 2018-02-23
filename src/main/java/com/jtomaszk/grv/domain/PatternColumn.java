@@ -40,7 +40,7 @@ public class PatternColumn implements Serializable {
     private ColumnEnum column;
 
     @NotNull
-    @Pattern(regexp = "[\\w-|#@!+=-:;<>., ${}]+")
+    @Pattern(regexp = "[\\w-|#@!+=\\-:;<>., ${}]+")
     @Column(name = "jhi_value", nullable = false)
     private String value;
 

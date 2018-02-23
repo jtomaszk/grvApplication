@@ -19,7 +19,7 @@ public class PatternColumnDTO implements Serializable {
     private ColumnEnum column;
 
     @NotNull
-    @Pattern(regexp = "[\\w-|#@!+=-:;<>., ${}]+")
+    @Pattern(regexp = "[\\w-|#@!+=\\-:;<>., ${}]+")
     private String value;
 
     private Long patternId;
