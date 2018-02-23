@@ -1,9 +1,9 @@
 package com.jtomaszk.grv.service.mapper;
 
-import com.jtomaszk.grv.domain.Location;
+import com.jtomaszk.grv.domain.*;
 import com.jtomaszk.grv.service.dto.LocationDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity Location and its DTO LocationDTO.
@@ -15,6 +15,8 @@ public interface LocationMapper extends EntityMapper<LocationDTO, Location> {
     LocationDTO toDto(Location location);
 
     @Mapping(source = "sourceId", target = "source")
+    @Mapping(target = "items", ignore = true)
+    @Mapping(target = "images", ignore = true)
     Location toEntity(LocationDTO locationDTO);
 
     default Location fromId(Long id) {

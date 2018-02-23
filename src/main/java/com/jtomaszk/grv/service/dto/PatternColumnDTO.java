@@ -1,12 +1,12 @@
 package com.jtomaszk.grv.service.dto;
 
 
-import com.jtomaszk.grv.domain.enumeration.ColumnEnum;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
+import com.jtomaszk.grv.domain.enumeration.ColumnEnum;
 
 /**
  * A DTO for the PatternColumn entity.
@@ -19,7 +19,7 @@ public class PatternColumnDTO implements Serializable {
     private ColumnEnum column;
 
     @NotNull
-    @Pattern(regexp = "[\\w ${}]+")
+    @Pattern(regexp = "[\\w-|#@!+=-:;<>., ${}]+")
     private String value;
 
     private Long patternId;

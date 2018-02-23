@@ -46,7 +46,11 @@
         },
         {
             "fieldName": "validToDateString",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 15
         },
         {
             "fieldName": "validToDate",
@@ -54,11 +58,16 @@
         },
         {
             "fieldName": "externalid",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 31
         },
         {
             "fieldName": "info",
-            "fieldType": "String"
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
         },
         {
             "fieldName": "docnr",

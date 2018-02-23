@@ -8,7 +8,7 @@ export class GrvItemGrv implements BaseEntity {
         public validToDateString?: string,
         public validToDate?: any,
         public externalid?: string,
-        public info?: string,
+        public info?: any,
         public docnr?: string,
         public createdDate?: any,
         public sourceId?: number,

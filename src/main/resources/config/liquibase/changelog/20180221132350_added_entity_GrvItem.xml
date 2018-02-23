@@ -30,7 +30,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="valid_to_date_string" type="varchar(255)">
+            <column name="valid_to_date_string" type="varchar(15)">
                 <constraints nullable="true" />
             </column>
 
@@ -38,11 +38,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="externalid" type="varchar(255)">
+            <column name="externalid" type="varchar(31)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="info" type="varchar(255)">
+            <column name="info" type="clob">
                 <constraints nullable="true" />
             </column>
 

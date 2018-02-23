@@ -34,11 +34,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="start_date_string" type="varchar(255)">
+            <column name="start_date_string" type="varchar(15)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="end_date_string" type="varchar(255)">
+            <column name="end_date_string" type="varchar(15)">
                 <constraints nullable="true" />
             </column>
             <column name="item_id" type="bigint">

@@ -7,12 +7,28 @@
             "relationshipName": "source",
             "otherEntityName": "source",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "items",
+            "otherEntityName": "grvItem",
+            "otherEntityRelationshipName": "location"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "images",
+            "otherEntityName": "locationImage",
+            "otherEntityRelationshipName": "location"
         }
     ],
     "fields": [
         {
             "fieldName": "externalid",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 31
         },
         {
             "fieldName": "createdDate",
@@ -23,7 +39,11 @@
         },
         {
             "fieldName": "coords",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
         }
     ],
     "changelogDate": "20180221132351",

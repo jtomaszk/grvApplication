@@ -1,11 +1,15 @@
 package com.jtomaszk.grv.service.dto;
 
+import java.io.Serializable;
+import io.github.jhipster.service.filter.BooleanFilter;
+import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.InstantFilter;
+import io.github.jhipster.service.filter.FloatFilter;
+import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
-import java.io.Serializable;
+import io.github.jhipster.service.filter.InstantFilter;
 
 
 
@@ -33,8 +37,6 @@ public class GrvItemCriteria implements Serializable {
     private InstantFilter validToDate;
 
     private StringFilter externalid;
-
-    private StringFilter info;
 
     private StringFilter docnr;
 
@@ -99,14 +101,6 @@ public class GrvItemCriteria implements Serializable {
 
     public void setExternalid(StringFilter externalid) {
         this.externalid = externalid;
-    }
-
-    public StringFilter getInfo() {
-        return info;
-    }
-
-    public void setInfo(StringFilter info) {
-        this.info = info;
     }
 
     public StringFilter getDocnr() {
@@ -174,7 +168,6 @@ public class GrvItemCriteria implements Serializable {
                 (validToDateString != null ? "validToDateString=" + validToDateString + ", " : "") +
                 (validToDate != null ? "validToDate=" + validToDate + ", " : "") +
                 (externalid != null ? "externalid=" + externalid + ", " : "") +
-                (info != null ? "info=" + info + ", " : "") +
                 (docnr != null ? "docnr=" + docnr + ", " : "") +
                 (createdDate != null ? "createdDate=" + createdDate + ", " : "") +
                 (sourceId != null ? "sourceId=" + sourceId + ", " : "") +

@@ -15,7 +15,13 @@
         <div class="form-group">
             <label class="form-control-label" for="field_externalid">Externalid</label>
             <input type="text" class="form-control" name="externalid" id="field_externalid"
-                [(ngModel)]="location.externalid" />
+                [(ngModel)]="location.externalid" maxlength="31"/>
+            <div [hidden]="!(editForm.controls.externalid?.dirty && editForm.controls.externalid?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.externalid?.errors?.maxlength">
+                   This field cannot be longer than 31 characters.
+                </small>
+            </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" for="field_createdDate">Created Date</label>
@@ -37,7 +43,13 @@
         <div class="form-group">
             <label class="form-control-label" for="field_coords">Coords</label>
             <input type="text" class="form-control" name="coords" id="field_coords"
-                [(ngModel)]="location.coords" />
+                [(ngModel)]="location.coords" maxlength="100"/>
+            <div [hidden]="!(editForm.controls.coords?.dirty && editForm.controls.coords?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.coords?.errors?.maxlength">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
         </div>
 
         <div class="form-group">

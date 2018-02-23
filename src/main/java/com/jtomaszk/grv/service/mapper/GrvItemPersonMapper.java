@@ -1,9 +1,9 @@
 package com.jtomaszk.grv.service.mapper;
 
-import com.jtomaszk.grv.domain.GrvItemPerson;
+import com.jtomaszk.grv.domain.*;
 import com.jtomaszk.grv.service.dto.GrvItemPersonDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity GrvItemPerson and its DTO GrvItemPersonDTO.

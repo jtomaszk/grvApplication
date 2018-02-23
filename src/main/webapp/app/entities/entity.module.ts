@@ -9,6 +9,7 @@ import { GrvApplicationErrorGrvModule } from './error-grv/error-grv.module';
 import { GrvApplicationInputPatternGrvModule } from './input-pattern-grv/input-pattern-grv.module';
 import { GrvApplicationPatternColumnGrvModule } from './pattern-column-grv/pattern-column-grv.module';
 import { GrvApplicationGrvItemPersonGrvModule } from './grv-item-person-grv/grv-item-person-grv.module';
+import { GrvApplicationLocationImageGrvModule } from './location-image-grv/location-image-grv.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -22,6 +23,7 @@ import { GrvApplicationGrvItemPersonGrvModule } from './grv-item-person-grv/grv-
         GrvApplicationInputPatternGrvModule,
         GrvApplicationPatternColumnGrvModule,
         GrvApplicationGrvItemPersonGrvModule,
+        GrvApplicationLocationImageGrvModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

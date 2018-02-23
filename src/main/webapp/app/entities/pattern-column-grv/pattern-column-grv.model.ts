@@ -10,7 +10,8 @@ export const enum ColumnEnum {
     'EXTERNAL_ID',
     'BOX_EXTERNAL_ID',
     'INFO',
-    'DOC_NR'
+    'DOC_NR',
+    'COORDINATES'
 }
 
 export class PatternColumnGrv implements BaseEntity {

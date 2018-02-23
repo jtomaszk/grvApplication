@@ -30,6 +30,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
@@ -456,45 +457,6 @@ public class GrvItemResourceIntTest {
 
         // Get all the grvItemList where externalid is null
         defaultGrvItemShouldNotBeFound("externalid.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByInfoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where info equals to DEFAULT_INFO
-        defaultGrvItemShouldBeFound("info.equals=" + DEFAULT_INFO);
-
-        // Get all the grvItemList where info equals to UPDATED_INFO
-        defaultGrvItemShouldNotBeFound("info.equals=" + UPDATED_INFO);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByInfoIsInShouldWork() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where info in DEFAULT_INFO or UPDATED_INFO
-        defaultGrvItemShouldBeFound("info.in=" + DEFAULT_INFO + "," + UPDATED_INFO);
-
-        // Get all the grvItemList where info equals to UPDATED_INFO
-        defaultGrvItemShouldNotBeFound("info.in=" + UPDATED_INFO);
-    }
-
-    @Test
-    @Transactional
-    public void getAllGrvItemsByInfoIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        grvItemRepository.saveAndFlush(grvItem);
-
-        // Get all the grvItemList where info is not null
-        defaultGrvItemShouldBeFound("info.specified=true");
-
-        // Get all the grvItemList where info is null
-        defaultGrvItemShouldNotBeFound("info.specified=false");
     }
 
     @Test

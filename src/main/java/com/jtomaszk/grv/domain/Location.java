@@ -1,19 +1,17 @@
 package com.jtomaszk.grv.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -31,19 +29,31 @@ public class Location implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "externalid")
+    @Size(max = 31)
+    @Column(name = "externalid", length = 31)
     private String externalid;
 
     @NotNull
     @Column(name = "created_date", nullable = false)
     private Instant createdDate;
 
-    @Column(name = "coords")
+    @Size(max = 100)
+    @Column(name = "coords", length = 100)
     private String coords;
 
     @ManyToOne(optional = false)
     @NotNull
     private Source source;
+
+    @OneToMany(mappedBy = "location")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<GrvItem> items = new HashSet<>();
+
+    @OneToMany(mappedBy = "location")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<LocationImage> images = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -104,6 +114,56 @@ public class Location implements Serializable {
 
     public void setSource(Source source) {
         this.source = source;
+    }
+
+    public Set<GrvItem> getItems() {
+        return items;
+    }
+
+    public Location items(Set<GrvItem> grvItems) {
+        this.items = grvItems;
+        return this;
+    }
+
+    public Location addItems(GrvItem grvItem) {
+        this.items.add(grvItem);
+        grvItem.setLocation(this);
+        return this;
+    }
+
+    public Location removeItems(GrvItem grvItem) {
+        this.items.remove(grvItem);
+        grvItem.setLocation(null);
+        return this;
+    }
+
+    public void setItems(Set<GrvItem> grvItems) {
+        this.items = grvItems;
+    }
+
+    public Set<LocationImage> getImages() {
+        return images;
+    }
+
+    public Location images(Set<LocationImage> locationImages) {
+        this.images = locationImages;
+        return this;
+    }
+
+    public Location addImages(LocationImage locationImage) {
+        this.images.add(locationImage);
+        locationImage.setLocation(this);
+        return this;
+    }
+
+    public Location removeImages(LocationImage locationImage) {
+        this.images.remove(locationImage);
+        locationImage.setLocation(null);
+        return this;
+    }
+
+    public void setImages(Set<LocationImage> locationImages) {
+        this.images = locationImages;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
