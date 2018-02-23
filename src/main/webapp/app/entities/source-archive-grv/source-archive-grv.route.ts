@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil } from 'ng-jhipster';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {JhiPaginationUtil} from 'ng-jhipster';
 
-import { UserRouteAccessService } from '../../shared';
-import { SourceArchiveGrvComponent } from './source-archive-grv.component';
-import { SourceArchiveGrvDetailComponent } from './source-archive-grv-detail.component';
-import { SourceArchiveGrvPopupComponent } from './source-archive-grv-dialog.component';
-import { SourceArchiveGrvDeletePopupComponent } from './source-archive-grv-delete-dialog.component';
+import {UserRouteAccessService} from '../../shared';
+import {SourceArchiveGrvComponent} from './source-archive-grv.component';
+import {SourceArchiveGrvDetailComponent} from './source-archive-grv-detail.component';
+import {SourceArchiveGrvPopupComponent} from './source-archive-grv-dialog.component';
+import {SourceArchiveGrvDeletePopupComponent} from './source-archive-grv-delete-dialog.component';
 
 @Injectable()
 export class SourceArchiveGrvResolvePagingParams implements Resolve<any> {

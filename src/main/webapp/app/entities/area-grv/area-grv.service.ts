@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '../../app.constants';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {SERVER_API_URL} from '../../app.constants';
 
-import { AreaGrv } from './area-grv.model';
-import { createRequestOption } from '../../shared';
+import {AreaGrv} from './area-grv.model';
+import {createRequestOption} from '../../shared';
 
 export type EntityResponseType = HttpResponse<AreaGrv>;
 

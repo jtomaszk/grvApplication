@@ -1,10 +1,10 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpResponse } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { GrvItemGrv } from './grv-item-grv.model';
-import { GrvItemGrvService } from './grv-item-grv.service';
+import {Component, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {HttpResponse} from '@angular/common/http';
+import {DatePipe} from '@angular/common';
+import {GrvItemGrv} from './grv-item-grv.model';
+import {GrvItemGrvService} from './grv-item-grv.service';
 
 @Injectable()
 export class GrvItemGrvPopupService {

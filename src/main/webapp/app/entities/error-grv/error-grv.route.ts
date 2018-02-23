@@ -1,10 +1,10 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
-import { ErrorGrvComponent } from './error-grv.component';
-import { ErrorGrvDetailComponent } from './error-grv-detail.component';
-import { ErrorGrvPopupComponent } from './error-grv-dialog.component';
-import { ErrorGrvDeletePopupComponent } from './error-grv-delete-dialog.component';
+import {UserRouteAccessService} from '../../shared';
+import {ErrorGrvComponent} from './error-grv.component';
+import {ErrorGrvDetailComponent} from './error-grv-detail.component';
+import {ErrorGrvPopupComponent} from './error-grv-dialog.component';
+import {ErrorGrvDeletePopupComponent} from './error-grv-delete-dialog.component';
 
 export const errorRoute: Routes = [
     {
