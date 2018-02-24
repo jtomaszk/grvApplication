@@ -25,6 +25,10 @@ task yarnStart(type: YarnTask) {
     args = ["start"]
 }
 
+task yarnTest(type: YarnTask) {
+    args = ["test"]
+}
+
 war {
     webAppDirName = 'build/www/'
 }

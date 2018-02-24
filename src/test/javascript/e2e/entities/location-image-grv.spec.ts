@@ -1,13 +1,11 @@
-import { browser, element, by } from 'protractor';
-import { NavBarPage } from './../page-objects/jhi-page-objects';
-import * as path from 'path';
+import {browser, by, element} from 'protractor';
+import {NavBarPage} from '../page-objects/jhi-page-objects';
+
 describe('LocationImage e2e test', () => {
 
     let navBarPage: NavBarPage;
     let locationImageDialogPage: LocationImageDialogPage;
     let locationImageComponentsPage: LocationImageComponentsPage;
-    const fileToUpload = '../../../../main/webapp/content/images/logo-jhipster.png';
-    const absolutePath = path.resolve(__dirname, fileToUpload);
 
     beforeAll(() => {
         browser.get('/');
