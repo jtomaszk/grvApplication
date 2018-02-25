@@ -1,9 +1,9 @@
 package com.jtomaszk.grv.service.mapper;
 
-import com.jtomaszk.grv.domain.*;
+import com.jtomaszk.grv.domain.ParseError;
 import com.jtomaszk.grv.service.dto.ParseErrorDTO;
-
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * Mapper for the entity ParseError and its DTO ParseErrorDTO.

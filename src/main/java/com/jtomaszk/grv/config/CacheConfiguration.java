@@ -50,7 +50,6 @@ public class CacheConfiguration {
             cm.createCache(com.jtomaszk.grv.domain.SourceArchive.class.getName(), jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.GrvItem.class.getName(), jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.Location.class.getName(), jcacheConfiguration);
-            cm.createCache(com.jtomaszk.grv.domain.Error.class.getName(), jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.Source.class.getName() + ".errors", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.GrvItem.class.getName() + ".errors", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.InputPattern.class.getName(), jcacheConfiguration);

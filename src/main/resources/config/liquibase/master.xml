@@ -10,7 +10,6 @@
     <include file="config/liquibase/changelog/20180221132349_added_entity_SourceArchive.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180221132350_added_entity_GrvItem.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180221132351_added_entity_Location.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180221132352_added_entity_Error.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180222112156_added_entity_InputPattern.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180222112157_added_entity_PatternColumn.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180222112200_added_entity_GrvItemPerson.xml" relativeToChangelogFile="false"/>
@@ -21,7 +20,6 @@
     <include file="config/liquibase/changelog/20180221132349_added_entity_constraints_SourceArchive.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180221132350_added_entity_constraints_GrvItem.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180221132351_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20180221132352_added_entity_constraints_Error.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180222112157_added_entity_constraints_PatternColumn.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180222112200_added_entity_constraints_GrvItemPerson.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180223193453_added_entity_constraints_LocationImage.xml" relativeToChangelogFile="false"/>
