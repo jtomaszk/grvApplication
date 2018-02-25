@@ -15,6 +15,7 @@
     <include file="config/liquibase/changelog/20180222112157_added_entity_PatternColumn.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180222112200_added_entity_GrvItemPerson.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180223193453_added_entity_LocationImage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180225130728_added_entity_ParseError.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180221132348_added_entity_constraints_Source.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180221132349_added_entity_constraints_SourceArchive.xml" relativeToChangelogFile="false"/>
@@ -24,5 +25,6 @@
     <include file="config/liquibase/changelog/20180222112157_added_entity_constraints_PatternColumn.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180222112200_added_entity_constraints_GrvItemPerson.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180223193453_added_entity_constraints_LocationImage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180225130728_added_entity_constraints_ParseError.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

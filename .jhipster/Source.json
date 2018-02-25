@@ -18,7 +18,7 @@
         {
             "relationshipType": "one-to-many",
             "relationshipName": "errors",
-            "otherEntityName": "error",
+            "otherEntityName": "parseError",
             "otherEntityRelationshipName": "source"
         },
         {

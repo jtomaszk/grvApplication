@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {JhiEventManager} from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {SourceArchiveGrv} from './source-archive-grv.model';
-import {SourceArchiveGrvPopupService} from './source-archive-grv-popup.service';
-import {SourceArchiveGrvService} from './source-archive-grv.service';
+import { SourceArchiveGrv } from './source-archive-grv.model';
+import { SourceArchiveGrvPopupService } from './source-archive-grv-popup.service';
+import { SourceArchiveGrvService } from './source-archive-grv.service';
 
 @Component({
     selector: 'jhi-source-archive-grv-delete-dialog',

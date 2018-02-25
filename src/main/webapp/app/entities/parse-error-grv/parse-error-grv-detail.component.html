@@ -1,0 +1,46 @@
+
+<div *ngIf="parseError">
+    <h2><span>Parse Error</span> {{parseError.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{parseError.title}}</span>
+        </dd>
+        <dt><span>Msg</span></dt>
+        <dd>
+            <span>{{parseError.msg}}</span>
+        </dd>
+        <dt><span>Created Date</span></dt>
+        <dd>
+            <span>{{parseError.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span>Source</span></dt>
+        <dd>
+            <div *ngIf="parseError.sourceId">
+                <a [routerLink]="['/source-grv', parseError.sourceId]">{{parseError.sourceId}}</a>
+            </div>
+        </dd>
+        <dt><span>Item</span></dt>
+        <dd>
+            <div *ngIf="parseError.itemId">
+                <a [routerLink]="['/grv-item-grv', parseError.itemId]">{{parseError.itemId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'parse-error-grv/'+ parseError.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

@@ -1,27 +1,20 @@
 package com.jtomaszk.grv.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jtomaszk.grv.domain.enumeration.SourceStatusEnum;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
+
+import com.jtomaszk.grv.domain.enumeration.SourceStatusEnum;
 
 /**
  * A Source.
@@ -67,7 +60,7 @@ public class Source implements Serializable {
     @OneToMany(mappedBy = "source")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Error> errors = new HashSet<>();
+    private Set<ParseError> errors = new HashSet<>();
 
     @OneToMany(mappedBy = "source")
     @JsonIgnore
@@ -179,29 +172,29 @@ public class Source implements Serializable {
         this.pattern = inputPattern;
     }
 
-    public Set<Error> getErrors() {
+    public Set<ParseError> getErrors() {
         return errors;
     }
 
-    public Source errors(Set<Error> errors) {
-        this.errors = errors;
+    public Source errors(Set<ParseError> parseErrors) {
+        this.errors = parseErrors;
         return this;
     }
 
-    public Source addErrors(Error error) {
-        this.errors.add(error);
-        error.setSource(this);
+    public Source addErrors(ParseError parseError) {
+        this.errors.add(parseError);
+        parseError.setSource(this);
         return this;
     }
 
-    public Source removeErrors(Error error) {
-        this.errors.remove(error);
-        error.setSource(null);
+    public Source removeErrors(ParseError parseError) {
+        this.errors.remove(parseError);
+        parseError.setSource(null);
         return this;
     }
 
-    public void setErrors(Set<Error> errors) {
-        this.errors = errors;
+    public void setErrors(Set<ParseError> parseErrors) {
+        this.errors = parseErrors;
     }
 
     public Set<SourceArchive> getArchives() {

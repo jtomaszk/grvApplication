@@ -3,26 +3,16 @@ package com.jtomaszk.grv.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.elasticsearch.annotations.Document;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A GrvItem.
@@ -78,14 +68,14 @@ public class GrvItem implements Serializable {
     @ManyToOne
     private SourceArchive sourceArchive;
 
-    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "item")
     @JsonIgnore
     private GrvItemPerson person;
 
     @OneToMany(mappedBy = "item")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Error> errors = new HashSet<>();
+    private Set<ParseError> errors = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -252,29 +242,29 @@ public class GrvItem implements Serializable {
         this.person = grvItemPerson;
     }
 
-    public Set<Error> getErrors() {
+    public Set<ParseError> getErrors() {
         return errors;
     }
 
-    public GrvItem errors(Set<Error> errors) {
-        this.errors = errors;
+    public GrvItem errors(Set<ParseError> parseErrors) {
+        this.errors = parseErrors;
         return this;
     }
 
-    public GrvItem addErrors(Error error) {
-        this.errors.add(error);
-        error.setItem(this);
+    public GrvItem addErrors(ParseError parseError) {
+        this.errors.add(parseError);
+        parseError.setItem(this);
         return this;
     }
 
-    public GrvItem removeErrors(Error error) {
-        this.errors.remove(error);
-        error.setItem(null);
+    public GrvItem removeErrors(ParseError parseError) {
+        this.errors.remove(parseError);
+        parseError.setItem(null);
         return this;
     }
 
-    public void setErrors(Set<Error> errors) {
-        this.errors = errors;
+    public void setErrors(Set<ParseError> parseErrors) {
+        this.errors = parseErrors;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

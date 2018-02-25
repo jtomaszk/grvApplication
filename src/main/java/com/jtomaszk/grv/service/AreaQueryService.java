@@ -1,15 +1,8 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.Area;
-import com.jtomaszk.grv.domain.Area_;
-import com.jtomaszk.grv.domain.Source_;
-import com.jtomaszk.grv.repository.AreaRepository;
-import com.jtomaszk.grv.repository.search.AreaSearchRepository;
-import com.jtomaszk.grv.service.dto.AreaCriteria;
-import com.jtomaszk.grv.service.dto.AreaDTO;
-import com.jtomaszk.grv.service.mapper.AreaMapper;
-import io.github.jhipster.service.QueryService;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,7 +11,16 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import io.github.jhipster.service.QueryService;
+
+import com.jtomaszk.grv.domain.Area;
+import com.jtomaszk.grv.domain.*; // for static metamodels
+import com.jtomaszk.grv.repository.AreaRepository;
+import com.jtomaszk.grv.repository.search.AreaSearchRepository;
+import com.jtomaszk.grv.service.dto.AreaCriteria;
+
+import com.jtomaszk.grv.service.dto.AreaDTO;
+import com.jtomaszk.grv.service.mapper.AreaMapper;
 
 /**
  * Service for executing complex queries for Area entities in the database.

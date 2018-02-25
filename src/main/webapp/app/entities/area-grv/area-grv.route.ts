@@ -1,10 +1,10 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
 
-import {UserRouteAccessService} from '../../shared';
-import {AreaGrvComponent} from './area-grv.component';
-import {AreaGrvDetailComponent} from './area-grv-detail.component';
-import {AreaGrvPopupComponent} from './area-grv-dialog.component';
-import {AreaGrvDeletePopupComponent} from './area-grv-delete-dialog.component';
+import { UserRouteAccessService } from '../../shared';
+import { AreaGrvComponent } from './area-grv.component';
+import { AreaGrvDetailComponent } from './area-grv-detail.component';
+import { AreaGrvPopupComponent } from './area-grv-dialog.component';
+import { AreaGrvDeletePopupComponent } from './area-grv-delete-dialog.component';
 
 export const areaRoute: Routes = [
     {

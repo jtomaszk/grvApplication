@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpResponse} from '@angular/common/http';
-import {Subscription} from 'rxjs/Subscription';
-import {JhiEventManager} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {GrvItemPersonGrv} from './grv-item-person-grv.model';
-import {GrvItemPersonGrvService} from './grv-item-person-grv.service';
+import { GrvItemPersonGrv } from './grv-item-person-grv.model';
+import { GrvItemPersonGrvService } from './grv-item-person-grv.service';
 
 @Component({
     selector: 'jhi-grv-item-person-grv-detail',

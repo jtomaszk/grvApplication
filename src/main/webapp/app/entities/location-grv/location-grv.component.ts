@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
-import {JhiAlertService, JhiEventManager} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import {LocationGrv} from './location-grv.model';
-import {LocationGrvService} from './location-grv.service';
-import {Principal} from '../../shared';
+import { LocationGrv } from './location-grv.model';
+import { LocationGrvService } from './location-grv.service';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-location-grv',

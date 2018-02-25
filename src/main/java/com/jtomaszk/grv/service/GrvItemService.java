@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing GrvItem.
@@ -73,7 +73,7 @@ public class GrvItemService {
      *  get all the grvItems where Person is null.
      *  @return the list of entities
      */
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) 
     public List<GrvItemDTO> findAllWherePersonIsNull() {
         log.debug("Request to get all grvItems where Person is null");
         return StreamSupport

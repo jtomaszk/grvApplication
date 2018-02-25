@@ -1,10 +1,10 @@
-import {Component, Injectable} from '@angular/core';
-import {Router} from '@angular/router';
-import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {HttpResponse} from '@angular/common/http';
-import {DatePipe} from '@angular/common';
-import {SourceArchiveGrv} from './source-archive-grv.model';
-import {SourceArchiveGrvService} from './source-archive-grv.service';
+import { Injectable, Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { SourceArchiveGrv } from './source-archive-grv.model';
+import { SourceArchiveGrvService } from './source-archive-grv.service';
 
 @Injectable()
 export class SourceArchiveGrvPopupService {

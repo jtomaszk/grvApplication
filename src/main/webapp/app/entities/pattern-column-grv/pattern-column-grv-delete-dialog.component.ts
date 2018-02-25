@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {JhiEventManager} from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {PatternColumnGrv} from './pattern-column-grv.model';
-import {PatternColumnGrvPopupService} from './pattern-column-grv-popup.service';
-import {PatternColumnGrvService} from './pattern-column-grv.service';
+import { PatternColumnGrv } from './pattern-column-grv.model';
+import { PatternColumnGrvPopupService } from './pattern-column-grv-popup.service';
+import { PatternColumnGrvService } from './pattern-column-grv.service';
 
 @Component({
     selector: 'jhi-pattern-column-grv-delete-dialog',

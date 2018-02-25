@@ -1,15 +1,15 @@
-import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import {Observable} from 'rxjs/Observable';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {JhiAlertService, JhiDataUtils, JhiEventManager} from 'ng-jhipster';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
-import {LocationImageGrv} from './location-image-grv.model';
-import {LocationImageGrvPopupService} from './location-image-grv-popup.service';
-import {LocationImageGrvService} from './location-image-grv.service';
-import {LocationGrv, LocationGrvService} from '../location-grv';
+import { LocationImageGrv } from './location-image-grv.model';
+import { LocationImageGrvPopupService } from './location-image-grv-popup.service';
+import { LocationImageGrvService } from './location-image-grv.service';
+import { LocationGrv, LocationGrvService } from '../location-grv';
 
 @Component({
     selector: 'jhi-location-image-grv-dialog',

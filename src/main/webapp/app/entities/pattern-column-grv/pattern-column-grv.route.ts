@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
-import {JhiPaginationUtil} from 'ng-jhipster';
+import { Injectable } from '@angular/core';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiPaginationUtil } from 'ng-jhipster';
 
-import {UserRouteAccessService} from '../../shared';
-import {PatternColumnGrvComponent} from './pattern-column-grv.component';
-import {PatternColumnGrvDetailComponent} from './pattern-column-grv-detail.component';
-import {PatternColumnGrvPopupComponent} from './pattern-column-grv-dialog.component';
-import {PatternColumnGrvDeletePopupComponent} from './pattern-column-grv-delete-dialog.component';
+import { UserRouteAccessService } from '../../shared';
+import { PatternColumnGrvComponent } from './pattern-column-grv.component';
+import { PatternColumnGrvDetailComponent } from './pattern-column-grv-detail.component';
+import { PatternColumnGrvPopupComponent } from './pattern-column-grv-dialog.component';
+import { PatternColumnGrvDeletePopupComponent } from './pattern-column-grv-delete-dialog.component';
 
 @Injectable()
 export class PatternColumnGrvResolvePagingParams implements Resolve<any> {

@@ -1,19 +1,19 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import {GrvApplicationSharedModule} from '../../shared';
+import { GrvApplicationSharedModule } from '../../shared';
 import {
+    PatternColumnGrvService,
+    PatternColumnGrvPopupService,
     PatternColumnGrvComponent,
-    PatternColumnGrvDeleteDialogComponent,
-    PatternColumnGrvDeletePopupComponent,
     PatternColumnGrvDetailComponent,
     PatternColumnGrvDialogComponent,
     PatternColumnGrvPopupComponent,
-    PatternColumnGrvPopupService,
-    PatternColumnGrvResolvePagingParams,
-    PatternColumnGrvService,
-    patternColumnPopupRoute,
+    PatternColumnGrvDeletePopupComponent,
+    PatternColumnGrvDeleteDialogComponent,
     patternColumnRoute,
+    patternColumnPopupRoute,
+    PatternColumnGrvResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [

@@ -61,6 +61,7 @@ public class CacheConfiguration {
             cm.createCache(com.jtomaszk.grv.domain.Location.class.getName() + ".items", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.Location.class.getName() + ".images", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.LocationImage.class.getName(), jcacheConfiguration);
+            cm.createCache(com.jtomaszk.grv.domain.ParseError.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

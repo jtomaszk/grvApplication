@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {HttpResponse} from '@angular/common/http';
-import {Subscription} from 'rxjs/Subscription';
-import {JhiEventManager} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager } from 'ng-jhipster';
 
-import {LocationGrv} from './location-grv.model';
-import {LocationGrvService} from './location-grv.service';
+import { LocationGrv } from './location-grv.model';
+import { LocationGrvService } from './location-grv.service';
 
 @Component({
     selector: 'jhi-location-grv-detail',

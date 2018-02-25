@@ -1,9 +1,9 @@
 package com.jtomaszk.grv.service.mapper;
 
-import com.jtomaszk.grv.domain.Area;
+import com.jtomaszk.grv.domain.*;
 import com.jtomaszk.grv.service.dto.AreaDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity Area and its DTO AreaDTO.
