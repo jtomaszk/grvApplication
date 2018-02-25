@@ -12,12 +12,12 @@ enum SourceStatusEnum {
 }
 
 entity InputPattern {
-	title String required,
+	title String required,	
 }
 
 entity PatternColumn {
 	column ColumnEnum required,
-    value String required pattern(/[\w-|#@!+=\\-:;<>., ${}]+/)
+    value String required pattern(/[\w-|#@!+=\-:;<>., ${}]+/)
 }
 
 enum ColumnEnum {
@@ -55,7 +55,7 @@ entity GrvItemPerson {
     endDateString String maxlength(DATE_MAX_LENGTH),
 }
 
-entity GrvItem {
+entity GrvItem {	
     startDate Instant,
     endDate Instant,
     validToDateString String maxlength(DATE_MAX_LENGTH),
@@ -77,18 +77,18 @@ entity LocationImage {
 	image ImageBlob
 }
 
-entity Error {
+entity ParseError {
 	title String required,
     msg TextBlob,
     createdDate Instant required
 }
 
-relationship ManyToOne {
+relationship ManyToOne {	
 	GrvItem{source required} to Source,
     GrvItem{location required} to Location{items},
     GrvItem{sourceArchive} to SourceArchive,
-    Error{source} to Source{errors},
-    Error{item} to GrvItem{errors},
+    ParseError{source} to Source{errors},
+    ParseError{item} to GrvItem{errors},
 	Source{area required} to Area{sources},
     Source{pattern required} to InputPattern{sources},
     SourceArchive{source required} to Source{archives},
@@ -109,7 +109,7 @@ dto * with mapstruct
 
 service all with serviceClass
 
-search GrvItemPerson with elasticsearch
+search GrvItemPerson with elasticsearch 
 filter InputPattern, GrvItemPerson, GrvItem, Error, Source, Area, SourceArchive, PatternColumn
 
 // Set an angular suffix
