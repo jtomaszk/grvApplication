@@ -144,4 +144,11 @@ export class SourceGrvComponent implements OnInit, OnDestroy {
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
+
+    runLoad(item: SourceGrv) {
+        this.sourceService.runLoad(item).subscribe(
+            () => {},
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
 }
