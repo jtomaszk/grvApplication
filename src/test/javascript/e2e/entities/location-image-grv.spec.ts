@@ -33,7 +33,7 @@ describe('LocationImage e2e test', () => {
         locationImageDialogPage.close();
     });
 
-   /* it('should create and save LocationImages', () => {
+    it('should create and save LocationImages', () => {
         locationImageComponentsPage.clickOnCreateButton();
         locationImageDialogPage.setCreatedDateInput(12310020012301);
         expect(locationImageDialogPage.getCreatedDateInput()).toMatch('2001-12-31T02:30');
@@ -41,7 +41,7 @@ describe('LocationImage e2e test', () => {
         locationImageDialogPage.locationSelectLastOption();
         locationImageDialogPage.save();
         expect(locationImageDialogPage.getSaveButton().isPresent()).toBeFalsy();
-    });*/
+    });
 
     afterAll(() => {
         navBarPage.autoSignOut();
