@@ -1,9 +1,9 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpResponse } from '@angular/common/http';
-import { GrvItemPersonGrv } from './grv-item-person-grv.model';
-import { GrvItemPersonGrvService } from './grv-item-person-grv.service';
+import {Component, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {HttpResponse} from '@angular/common/http';
+import {GrvItemPersonGrv} from './grv-item-person-grv.model';
+import {GrvItemPersonGrvService} from './grv-item-person-grv.service';
 
 @Injectable()
 export class GrvItemPersonGrvPopupService {

@@ -1,10 +1,10 @@
-import { Injectable, Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpResponse } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { ParseErrorGrv } from './parse-error-grv.model';
-import { ParseErrorGrvService } from './parse-error-grv.service';
+import {Component, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {HttpResponse} from '@angular/common/http';
+import {DatePipe} from '@angular/common';
+import {ParseErrorGrv} from './parse-error-grv.model';
+import {ParseErrorGrvService} from './parse-error-grv.service';
 
 @Injectable()
 export class ParseErrorGrvPopupService {

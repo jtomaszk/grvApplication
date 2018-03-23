@@ -1,10 +1,10 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
-import { LocationGrvComponent } from './location-grv.component';
-import { LocationGrvDetailComponent } from './location-grv-detail.component';
-import { LocationGrvPopupComponent } from './location-grv-dialog.component';
-import { LocationGrvDeletePopupComponent } from './location-grv-delete-dialog.component';
+import {UserRouteAccessService} from '../../shared';
+import {LocationGrvComponent} from './location-grv.component';
+import {LocationGrvDetailComponent} from './location-grv-detail.component';
+import {LocationGrvPopupComponent} from './location-grv-dialog.component';
+import {LocationGrvDeletePopupComponent} from './location-grv-delete-dialog.component';
 
 export const locationRoute: Routes = [
     {

@@ -1,18 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { GrvApplicationSharedModule } from '../../shared';
+import {GrvApplicationSharedModule} from '../../shared';
 import {
-    AreaGrvService,
-    AreaGrvPopupService,
     AreaGrvComponent,
+    AreaGrvDeleteDialogComponent,
+    AreaGrvDeletePopupComponent,
     AreaGrvDetailComponent,
     AreaGrvDialogComponent,
     AreaGrvPopupComponent,
-    AreaGrvDeletePopupComponent,
-    AreaGrvDeleteDialogComponent,
-    areaRoute,
+    AreaGrvPopupService,
+    AreaGrvService,
     areaPopupRoute,
+    areaRoute,
 } from './';
 
 const ENTITY_STATES = [

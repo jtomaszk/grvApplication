@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpResponse} from '@angular/common/http';
+import {Subscription} from 'rxjs/Subscription';
+import {JhiDataUtils, JhiEventManager} from 'ng-jhipster';
 
-import { SourceArchiveGrv } from './source-archive-grv.model';
-import { SourceArchiveGrvService } from './source-archive-grv.service';
+import {SourceArchiveGrv} from './source-archive-grv.model';
+import {SourceArchiveGrvService} from './source-archive-grv.service';
 
 @Component({
     selector: 'jhi-source-archive-grv-detail',

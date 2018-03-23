@@ -1,10 +1,10 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
-import { ParseErrorGrvComponent } from './parse-error-grv.component';
-import { ParseErrorGrvDetailComponent } from './parse-error-grv-detail.component';
-import { ParseErrorGrvPopupComponent } from './parse-error-grv-dialog.component';
-import { ParseErrorGrvDeletePopupComponent } from './parse-error-grv-delete-dialog.component';
+import {UserRouteAccessService} from '../../shared';
+import {ParseErrorGrvComponent} from './parse-error-grv.component';
+import {ParseErrorGrvDetailComponent} from './parse-error-grv-detail.component';
+import {ParseErrorGrvPopupComponent} from './parse-error-grv-dialog.component';
+import {ParseErrorGrvDeletePopupComponent} from './parse-error-grv-delete-dialog.component';
 
 export const parseErrorRoute: Routes = [
     {

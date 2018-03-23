@@ -1,10 +1,10 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-import { UserRouteAccessService } from '../../shared';
-import { SourceGrvComponent } from './source-grv.component';
-import { SourceGrvDetailComponent } from './source-grv-detail.component';
-import { SourceGrvPopupComponent } from './source-grv-dialog.component';
-import { SourceGrvDeletePopupComponent } from './source-grv-delete-dialog.component';
+import {UserRouteAccessService} from '../../shared';
+import {SourceGrvComponent} from './source-grv.component';
+import {SourceGrvDetailComponent} from './source-grv-detail.component';
+import {SourceGrvPopupComponent} from './source-grv-dialog.component';
+import {SourceGrvDeletePopupComponent} from './source-grv-delete-dialog.component';
 
 export const sourceRoute: Routes = [
     {

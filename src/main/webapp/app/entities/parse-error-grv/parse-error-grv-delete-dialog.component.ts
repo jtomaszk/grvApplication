@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import { ParseErrorGrv } from './parse-error-grv.model';
-import { ParseErrorGrvPopupService } from './parse-error-grv-popup.service';
-import { ParseErrorGrvService } from './parse-error-grv.service';
+import {ParseErrorGrv} from './parse-error-grv.model';
+import {ParseErrorGrvPopupService} from './parse-error-grv-popup.service';
+import {ParseErrorGrvService} from './parse-error-grv.service';
 
 @Component({
     selector: 'jhi-parse-error-grv-delete-dialog',

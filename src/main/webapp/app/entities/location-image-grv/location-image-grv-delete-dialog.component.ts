@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {JhiEventManager} from 'ng-jhipster';
 
-import { LocationImageGrv } from './location-image-grv.model';
-import { LocationImageGrvPopupService } from './location-image-grv-popup.service';
-import { LocationImageGrvService } from './location-image-grv.service';
+import {LocationImageGrv} from './location-image-grv.model';
+import {LocationImageGrvPopupService} from './location-image-grv-popup.service';
+import {LocationImageGrvService} from './location-image-grv.service';
 
 @Component({
     selector: 'jhi-location-image-grv-delete-dialog',

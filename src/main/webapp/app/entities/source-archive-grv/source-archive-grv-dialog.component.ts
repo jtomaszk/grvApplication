@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import {Observable} from 'rxjs/Observable';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {JhiAlertService, JhiDataUtils, JhiEventManager} from 'ng-jhipster';
 
-import { SourceArchiveGrv } from './source-archive-grv.model';
-import { SourceArchiveGrvPopupService } from './source-archive-grv-popup.service';
-import { SourceArchiveGrvService } from './source-archive-grv.service';
-import { SourceGrv, SourceGrvService } from '../source-grv';
+import {SourceArchiveGrv} from './source-archive-grv.model';
+import {SourceArchiveGrvPopupService} from './source-archive-grv-popup.service';
+import {SourceArchiveGrvService} from './source-archive-grv.service';
+import {SourceGrv, SourceGrvService} from '../source-grv';
 
 @Component({
     selector: 'jhi-source-archive-grv-dialog',

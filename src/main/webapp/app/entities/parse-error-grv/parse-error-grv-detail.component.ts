@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs/Subscription';
-import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpResponse} from '@angular/common/http';
+import {Subscription} from 'rxjs/Subscription';
+import {JhiDataUtils, JhiEventManager} from 'ng-jhipster';
 
-import { ParseErrorGrv } from './parse-error-grv.model';
-import { ParseErrorGrvService } from './parse-error-grv.service';
+import {ParseErrorGrv} from './parse-error-grv.model';
+import {ParseErrorGrvService} from './parse-error-grv.service';
 
 @Component({
     selector: 'jhi-parse-error-grv-detail',
