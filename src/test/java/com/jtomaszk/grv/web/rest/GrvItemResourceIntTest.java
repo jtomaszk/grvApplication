@@ -7,7 +7,7 @@ import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.domain.Location;
 import com.jtomaszk.grv.domain.SourceArchive;
 import com.jtomaszk.grv.domain.GrvItemPerson;
-import com.jtomaszk.grv.domain.Error;
+import com.jtomaszk.grv.domain.ParseError;
 import com.jtomaszk.grv.repository.GrvItemRepository;
 import com.jtomaszk.grv.service.GrvItemService;
 import com.jtomaszk.grv.repository.search.GrvItemSearchRepository;
@@ -618,7 +618,7 @@ public class GrvItemResourceIntTest {
     @Transactional
     public void getAllGrvItemsByErrorsIsEqualToSomething() throws Exception {
         // Initialize the database
-        Error errors = ErrorResourceIntTest.createEntity(em);
+        ParseError errors = ParseErrorResourceIntTest.createEntity(em);
         em.persist(errors);
         em.flush();
         grvItem.addErrors(errors);

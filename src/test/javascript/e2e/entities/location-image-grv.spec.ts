@@ -1,11 +1,13 @@
-import {browser, by, element} from 'protractor';
-import {NavBarPage} from '../page-objects/jhi-page-objects';
-
+import { browser, element, by } from 'protractor';
+import { NavBarPage } from './../page-objects/jhi-page-objects';
+import * as path from 'path';
 describe('LocationImage e2e test', () => {
 
     let navBarPage: NavBarPage;
     let locationImageDialogPage: LocationImageDialogPage;
     let locationImageComponentsPage: LocationImageComponentsPage;
+    const fileToUpload = '../../../../main/webapp/content/images/logo-jhipster.png';
+    const absolutePath = path.resolve(__dirname, fileToUpload);
 
     beforeAll(() => {
         browser.get('/');
@@ -31,7 +33,7 @@ describe('LocationImage e2e test', () => {
         locationImageDialogPage.close();
     });
 
-   /* it('should create and save LocationImages', () => {
+    it('should create and save LocationImages', () => {
         locationImageComponentsPage.clickOnCreateButton();
         locationImageDialogPage.setCreatedDateInput(12310020012301);
         expect(locationImageDialogPage.getCreatedDateInput()).toMatch('2001-12-31T02:30');
@@ -39,7 +41,7 @@ describe('LocationImage e2e test', () => {
         locationImageDialogPage.locationSelectLastOption();
         locationImageDialogPage.save();
         expect(locationImageDialogPage.getSaveButton().isPresent()).toBeFalsy();
-    });*/
+    });
 
     afterAll(() => {
         navBarPage.autoSignOut();

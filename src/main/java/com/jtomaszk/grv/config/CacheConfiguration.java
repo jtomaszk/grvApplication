@@ -50,7 +50,6 @@ public class CacheConfiguration {
             cm.createCache(com.jtomaszk.grv.domain.SourceArchive.class.getName(), jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.GrvItem.class.getName(), jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.Location.class.getName(), jcacheConfiguration);
-            cm.createCache(com.jtomaszk.grv.domain.Error.class.getName(), jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.Source.class.getName() + ".errors", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.GrvItem.class.getName() + ".errors", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.InputPattern.class.getName(), jcacheConfiguration);
@@ -61,6 +60,7 @@ public class CacheConfiguration {
             cm.createCache(com.jtomaszk.grv.domain.Location.class.getName() + ".items", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.Location.class.getName() + ".images", jcacheConfiguration);
             cm.createCache(com.jtomaszk.grv.domain.LocationImage.class.getName(), jcacheConfiguration);
+            cm.createCache(com.jtomaszk.grv.domain.ParseError.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -2,9 +2,9 @@ package com.jtomaszk.grv.service;
 
 
 import com.jtomaszk.grv.domain.Area_;
-import com.jtomaszk.grv.domain.Error_;
 import com.jtomaszk.grv.domain.InputPattern_;
 import com.jtomaszk.grv.domain.Location_;
+import com.jtomaszk.grv.domain.ParseError_;
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.domain.SourceArchive_;
 import com.jtomaszk.grv.domain.Source_;
@@ -106,7 +106,7 @@ public class SourceQueryService extends QueryService<Source> {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPatternId(), Source_.pattern, InputPattern_.id));
             }
             if (criteria.getErrorsId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getErrorsId(), Source_.errors, Error_.id));
+                specification = specification.and(buildReferringEntitySpecification(criteria.getErrorsId(), Source_.errors, ParseError_.id));
             }
             if (criteria.getArchivesId() != null) {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getArchivesId(), Source_.archives, SourceArchive_.id));

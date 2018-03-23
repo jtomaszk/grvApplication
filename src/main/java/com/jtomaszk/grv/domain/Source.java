@@ -67,7 +67,7 @@ public class Source implements Serializable {
     @OneToMany(mappedBy = "source")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Error> errors = new HashSet<>();
+    private Set<ParseError> errors = new HashSet<>();
 
     @OneToMany(mappedBy = "source")
     @JsonIgnore
@@ -179,29 +179,29 @@ public class Source implements Serializable {
         this.pattern = inputPattern;
     }
 
-    public Set<Error> getErrors() {
+    public Set<ParseError> getErrors() {
         return errors;
     }
 
-    public Source errors(Set<Error> errors) {
-        this.errors = errors;
+    public Source errors(Set<ParseError> parseErrors) {
+        this.errors = parseErrors;
         return this;
     }
 
-    public Source addErrors(Error error) {
-        this.errors.add(error);
-        error.setSource(this);
+    public Source addErrors(ParseError parseError) {
+        this.errors.add(parseError);
+        parseError.setSource(this);
         return this;
     }
 
-    public Source removeErrors(Error error) {
-        this.errors.remove(error);
-        error.setSource(null);
+    public Source removeErrors(ParseError parseError) {
+        this.errors.remove(parseError);
+        parseError.setSource(null);
         return this;
     }
 
-    public void setErrors(Set<Error> errors) {
-        this.errors = errors;
+    public void setErrors(Set<ParseError> parseErrors) {
+        this.errors = parseErrors;
     }
 
     public Set<SourceArchive> getArchives() {

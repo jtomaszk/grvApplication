@@ -1,11 +1,11 @@
 package com.jtomaszk.grv.service;
 
 
-import com.jtomaszk.grv.domain.Error_;
 import com.jtomaszk.grv.domain.GrvItem;
 import com.jtomaszk.grv.domain.GrvItemPerson_;
 import com.jtomaszk.grv.domain.GrvItem_;
 import com.jtomaszk.grv.domain.Location_;
+import com.jtomaszk.grv.domain.ParseError_;
 import com.jtomaszk.grv.domain.SourceArchive_;
 import com.jtomaszk.grv.domain.Source_;
 import com.jtomaszk.grv.repository.GrvItemRepository;
@@ -118,7 +118,7 @@ public class GrvItemQueryService extends QueryService<GrvItem> {
                 specification = specification.and(buildReferringEntitySpecification(criteria.getPersonId(), GrvItem_.person, GrvItemPerson_.id));
             }
             if (criteria.getErrorsId() != null) {
-                specification = specification.and(buildReferringEntitySpecification(criteria.getErrorsId(), GrvItem_.errors, Error_.id));
+                specification = specification.and(buildReferringEntitySpecification(criteria.getErrorsId(), GrvItem_.errors, ParseError_.id));
             }
         }
         return specification;

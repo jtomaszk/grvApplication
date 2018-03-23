@@ -15,27 +15,36 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity PatternColumn.
+        Added the entity ParseError.
     -->
-    <changeSet id="20180222112157-1" author="jhipster">
-        <createTable tableName="pattern_column">
+    <changeSet id="20180225130728-1" author="jhipster">
+        <createTable tableName="parse_error">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="jhi_column" type="varchar(255)">
+            <column name="title" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="jhi_value" type="varchar(255)">
+            <column name="msg" type="clob">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_date" type="timestamp">
                 <constraints nullable="false" />
             </column>
 
-            <column name="pattern_id" type="bigint">
-                <constraints nullable="false" />
+            <column name="source_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="item_id" type="bigint">
+                <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="parse_error" columnName="created_date" columnDataType="datetime"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

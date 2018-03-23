@@ -5,7 +5,7 @@ import com.jtomaszk.grv.GrvApplicationApp;
 import com.jtomaszk.grv.domain.Source;
 import com.jtomaszk.grv.domain.Area;
 import com.jtomaszk.grv.domain.InputPattern;
-import com.jtomaszk.grv.domain.Error;
+import com.jtomaszk.grv.domain.ParseError;
 import com.jtomaszk.grv.domain.SourceArchive;
 import com.jtomaszk.grv.domain.Location;
 import com.jtomaszk.grv.repository.SourceRepository;
@@ -499,7 +499,7 @@ public class SourceResourceIntTest {
     @Transactional
     public void getAllSourcesByErrorsIsEqualToSomething() throws Exception {
         // Initialize the database
-        Error errors = ErrorResourceIntTest.createEntity(em);
+        ParseError errors = ParseErrorResourceIntTest.createEntity(em);
         em.persist(errors);
         em.flush();
         source.addErrors(errors);
