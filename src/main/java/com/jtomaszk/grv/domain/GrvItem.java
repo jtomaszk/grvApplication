@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -77,7 +78,7 @@ public class GrvItem implements Serializable {
     @ManyToOne
     private SourceArchive sourceArchive;
 
-    @OneToOne(mappedBy = "item")
+    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)
     @JsonIgnore
     private GrvItemPerson person;
 
