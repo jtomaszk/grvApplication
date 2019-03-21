@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/jtomaszk/grvApplication.svg?branch=master)](https://travis-ci.org/jtomaszk/grvApplication)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjtomaszk%2FgrvApplication.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjtomaszk%2FgrvApplication?ref=badge_shield)
 
 # grvApplication
 This application was generated using JHipster 4.14.0, you can find documentation and help at [http://www.jhipster.tech/documentation-archive/v4.14.0](http://www.jhipster.tech/documentation-archive/v4.14.0).
@@ -182,3 +183,7 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [Swagger-Codegen]: https://github.com/swagger-api/swagger-codegen
 [Swagger-Editor]: http://editor.swagger.io
 [Doing API-First development]: http://www.jhipster.tech/documentation-archive/v4.14.0/doing-api-first-development/
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjtomaszk%2FgrvApplication.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjtomaszk%2FgrvApplication?ref=badge_large)
